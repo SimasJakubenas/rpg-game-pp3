@@ -24,3 +24,24 @@
 * [Content](#content)
 * [Media](#media)
 * [Acknowledgments](#acknowledgments)
+
+## UX Design
+
+### The Strategy Plane
+
+With this project I'll be attempting to create a simple yet functional RPG type game that is run in terminal. The game is themed based on a classic game (Diablo II) and will have standart RPG mechanics like exploring the map, battling enemies and upgrading your character.
+
+#### Target Audience
+
+Main target audience for this project is millennials who grew up playing classic games like Diablo II. This game will spark a sense of nostalgia in players mind and captivate them throughout the gameplay. Having said that anyone that loves RPG games or gaming in general will have a fun time playing 'Tal Rasha'.
+
+#### Problem Statement
+
+Spending time playing games is almost never an option when you become an adult :(. Especially RPG genre games that requires a player to put in hours uppon hours of gameplay. 
+
+#### Competitor Annalisys
+
+While this project is nowhere near Diablo II or it's moderated versions (some of which are still going strong to this day) it still offers few advantages:
+
+- You can complete it quite quickly
+- No downloads or registration required
