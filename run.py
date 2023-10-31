@@ -47,6 +47,26 @@ def game_menu_display():
     print('                       ░        5. End game         ░')
     print('                       ░                            ░')
     print('                       <++xxxwwWWWWWWWwwwwwwwwwxxx++>')
-    input()
+    
+    game_menu_select()
+
+def game_menu_select():
+    """
+    Selects menu option baed of user input
+    """
+    while True:
+        menu_item = input()
+        if menu_item == '1':
+            pass
+        elif menu_item == '2':
+            pass
+        elif menu_item == '3':
+            pass
+        elif menu_item == '4':
+            pass
+        elif menu_item == '5':
+            pass
+        else:
+            print('Select Menu Option by entering a number 1-5')
 
 title_and_greeting()
