@@ -73,6 +73,34 @@ While this project is nowhere near Diablo II or it's moderated versions (some of
 
 ##### Future Development:
 
-- FTU_06 As a first-time user, I want to be able to hear sounds of the game, I that I could be engaged more.
-- FTU_07 As a first-time user, I want to be able to select a different character of the game, so that I'm more inclined to repeat the game.
-- RU_03 As a returning user, I want to be able to change game difficulty, so that I could face a greater challenge.
+- FTU_07 As a first-time user, I want to be able to hear sounds of the game, I that I could be engaged more.
+- FTU_08 As a first-time user, I want to be able to select a different character of the game, so that I'm more inclined to repeat the game.
+- RU_04 As a returning user, I want to be able to change game difficulty, so that I could face a greater challenge.
+
+#### Content Requirements and Feature Sets
+
+In the table bellow i tried to extract requirements for the site from user and developer stories and match those requirements with a set of features. Moreover I tried to follow agile approach where project features were split into sprints allowing for an early deployment of the project with basic controls of the game running. This permits the user the ability to test the game while I work on the second sprint.
+
+| Requirement | Feature | sprint |
+| -- | -- | -- |
+| A functioning and fun RPG type game (FTU_03, FTU_04, FTU_05, FTU_06, RU_03, SD_01) | A starting town | 1 |
+| | A shop for items/potions | 2 |
+| | A stash to store items | 3 |
+| | A map progression through the game | 1/2 |
+| | A change to encounter enemies while navigating the map | 1 |
+| | Battle sequence | 1 |
+| | Chance to aquire items after the fight | 2 |
+| | Boss fight at the end to win the game | 2 |
+| An intuitive game menu (FTU_02, RU_01) | Option to start the game| 1 |
+| | Option to end the game | 1 |
+| | Game rules | 2 |
+| | Option to save/load the game | 3 |
+| Game title window (FTU_01) | ASCII art for game title | 2 |
+| | Greeting message | 1 |
+| Character selection (RU_02, FTU_08) | Introduce different playable characters | 3 |
+| Game difficulty level (RU_02, RU_04) | Introduce game difficulty selection | 3 |
+| Utilising google sheets (SD_02) | Storing game content on google spreadsheets | 1 |
+| Deployment on Heroku (SD_03) | Deployed on Heroku | 1 |
+| Adding game sounds/ASCII art (FTU_07) | Add game music | 3 |
+| | Add game sounds | 3 |
+| | Add ASCII art to improve the visuals of the game | 3 |
