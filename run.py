@@ -57,7 +57,8 @@ def game_menu_select():
     while True:
         menu_item = input()
         if menu_item == '1':
-            pass
+            town_zone()
+            return False
         elif menu_item == '2':
             pass
         elif menu_item == '3':
@@ -68,5 +69,27 @@ def game_menu_select():
             pass
         else:
             print('Select Menu Option by entering a number 1-5')
+
+def town_zone():
+    """
+    Starting game zone with that prompts the player to navigate the game
+    """
+
+    sewers_zone = SHEET.worksheet('sewers').get_all_values()
+
+    print('Welcome to the town of Lut Gholein! What would you like to do?')
+    print('1. Go to Sewers')
+    navigate_town = input()
+    while True:
+        if navigate_town == '1':
+            print(f'You have entered {sewers_zone[2][2]}')
+        elif navigate_town == '2':
+            pass
+        elif navigate_town == '3':
+            pass
+        elif navigate_town == '4':
+            pass
+        else:
+            print('Enter a number 1-4 to select your destination')
 
 title_and_greeting()
