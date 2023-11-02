@@ -75,14 +75,12 @@ def town_zone():
     Starting game zone with that prompts the player to navigate the game
     """
 
-    sewers_zone = SHEET.worksheet('sewers').get_all_values()
-
     print('Welcome to the town of Lut Gholein! What would you like to do?')
     print('1. Go to Sewers')
     navigate_town = input()
     while True:
         if navigate_town == '1':
-            print(f'You have entered {sewers_zone[2][2]}')
+            sewers_zone_navigation()
         elif navigate_town == '2':
             pass
         elif navigate_town == '3':
@@ -91,5 +89,37 @@ def town_zone():
             pass
         else:
             print('Enter a number 1-4 to select your destination')
+
+def sewers_zone_navigation():
+    """
+    Pulls sewers map from the spreadsheet and defines movement
+    """
+    sewers_zone = SHEET.worksheet('sewers').get_all_values()
+
+    x = 2
+    y = 2
+    while True:
+        print(f'You have entered {sewers_zone[x][y]}')
+
+        # If statements hide the movement options if you've reached corresponding edge of map
+        if x > 0:
+            print(f'1. Go North to {sewers_zone[x-1][y]}')
+        if y < len(sewers_zone[x]) - 1:
+            print(f'2. Go East to {sewers_zone[x][y+1]}')
+        if x < len(sewers_zone) - 1:
+            print(f'3. Go South to {sewers_zone[x+1][y]}')
+        if y > 0:
+            print(f'4. Go West to {sewers_zone[x][y-1]}')
+
+        sewers_controls = input()
+        # 'And' operators prevents game from crashing if player tries to move out of map
+        if sewers_controls == '1' and x > 0:
+            x -= 1
+        if sewers_controls == '2' and y < len(sewers_zone[x]) - 1:
+            y += 1
+        if sewers_controls == '3' and x < len(sewers_zone) -1 :
+            x += 1
+        if sewers_controls == '4' and y > 0:
+            y -= 1
 
 title_and_greeting()
