@@ -12,6 +12,16 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
+def main():
+    """
+    Main game function
+    """
+    
+    fight = False
+    menu = False
+
+    title_and_greeting()
+
 def title_and_greeting():
     """
     Adds title art and greeting to the players letting them know what kind of game this is
@@ -122,4 +132,4 @@ def sewers_zone_navigation():
         if sewers_controls == '4' and y > 0:
             y -= 1
 
-title_and_greeting()
+main()
