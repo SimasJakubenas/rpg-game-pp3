@@ -45,7 +45,7 @@ def title_and_greeting():
     print('                 ░  ░    ░  ░      ░           ░  ░      ░   ░  ░  ░      ░  ░')
     print('                                                                              ')
     print('                    Welcome to a Diablo II themed RPG game                    ')
-    input('                             Press ENTER to play ')
+    input('                             Press ENTER to play\n')
     game_menu_display()
 
 def game_menu_display():
@@ -71,7 +71,7 @@ def game_menu_select():
     Selects menu option baed of user input
     """
     while True:
-        menu_item = input()
+        menu_item = input('\n')
         if menu_item == '1':
             town_zone()
             return False
@@ -107,7 +107,7 @@ def town_zone():
     while True:
         print('1. Go to Sewers')
         print('2. Go to Dessert')
-        navigate_town = input()
+        navigate_town = input('\n')
         if navigate_town == '1':
             sewers = True
             enemy_zone_navigation(char_list, hero_stats)
@@ -175,7 +175,7 @@ def enemy_zone_navigation(char_list, hero_stats):
         if off_west_wall:
             print(f'4. Go West to {enemy_zone[x][y-1]}')
 
-        zone_controls = input()
+        zone_controls = input('\n')
         # 'And' operators prevents game from crashing if player tries to move out of map
         if zone_controls == '1' and off_north_wall:
             x -= 1
@@ -224,7 +224,7 @@ def battle(current_loc, char_list, hero_stats):
             if current_health <= 0:
                 print('GAME OVER')
                 alive = False
-                input()
+                input('\n')
                 main()
             print('Your Life')
             print(f'{current_health}/{int(hero_stats.health)}')
@@ -242,7 +242,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     global current_enemy_health, current_health, health_potion, key
 
     while True:
-        battle_option = input()
+        battle_option = input('\n')
         # Option to attack
         if battle_option == '1':
             current_enemy_health -= hero_dmg
@@ -272,7 +272,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
 def return_to_town():
     print('Would you like to return to town?')
     while True:
-        town_portal = input('Y/N: ')
+        town_portal = input('Y/N:\n')
         if town_portal.lower() == 'y':
             town_zone()
             
