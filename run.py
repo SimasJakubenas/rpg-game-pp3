@@ -17,11 +17,12 @@ def main():
     Main game function
     """
     
-    global fight, menu, alive
+    global fight, menu, alive, key
 
     fight = False
     menu = False
     alive = True
+    key = False
 
     title_and_greeting()
 
@@ -161,12 +162,15 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
             fight = True
 
 def battle(current_loc, char_list, hero_stats, health_potion):
-    global current_health, alive, fight
-    enemy_list = slice(2, 5)
+    global current_health, alive, fight, key
+    enemy_list = slice(2, 6)
     while fight:
         enemy = tuple(random.choice(char_list[enemy_list]))
 
         if enemy[4] == current_loc:
+            if enemy[0] == 'radement' and key == True:
+                enemy_list = slice(2, 6)
+                enemy = tuple(random.choice(char_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
             print(f'You have been attacked by {enemy[0]}')
             mob_dmg = int(enemy_stats.attack)
@@ -197,6 +201,9 @@ def battle(current_loc, char_list, hero_stats, health_potion):
                 print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
                 if current_enemy_health <= 0:
                     print(f'{enemy_stats.name} has fallen')
+                    if enemy[0] == 'radement':
+                        key = True
+                        
                     return current_health
             elif battle_option == '2':
                 if health_potion > 0:
