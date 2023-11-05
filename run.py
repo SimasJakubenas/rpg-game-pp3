@@ -182,7 +182,6 @@ def battle(current_loc, char_list, hero_stats, health_potion):
             if current_health <= 0:
                 print('GAME OVER')
                 alive = False
-                gen = True
                 input()
                 main()
             print('Your Life')
@@ -198,7 +197,6 @@ def battle(current_loc, char_list, hero_stats, health_potion):
                 print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
                 if current_enemy_health <= 0:
                     print(f'{enemy_stats.name} has fallen')
-                    gen = True
                     return current_health
             elif battle_option == '2':
                 if health_potion > 0:
