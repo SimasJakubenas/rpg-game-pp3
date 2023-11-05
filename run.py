@@ -84,13 +84,18 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
+    char_list = SHEET.worksheet('chars').get_all_values()
+    hero = tuple(char_list[1])
+    hero_stats = Hero(*hero)
+    current_health = int(hero_stats.health)
+    health_potion = int(hero_stats.health_pot)
 
     print('Welcome to the town of Lut Gholein! What would you like to do?')
     print('1. Go to Sewers')
     navigate_town = input()
     while True:
         if navigate_town == '1':
-            sewers_zone_navigation()
+            sewers_zone_navigation(char_list, hero_stats, health_potion)
         elif navigate_town == '2':
             pass
         elif navigate_town == '3':
@@ -100,7 +105,7 @@ def town_zone():
         else:
             print('Enter a number 1-4 to select your destination')
 
-def sewers_zone_navigation():
+def sewers_zone_navigation(char_list, hero_stats, health_potion):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
