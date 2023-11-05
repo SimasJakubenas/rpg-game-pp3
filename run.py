@@ -17,13 +17,14 @@ def main():
     Main game function
     """
     
-    global fight, menu, alive, key, store_health_pots
+    global fight, menu, alive, key, store_health_pots, treasure_chest
 
     fight = False
     menu = False
     alive = True
     key = False
     store_health_pots = False
+    treasure_chest = True
 
     title_and_greeting()
 
@@ -120,7 +121,7 @@ def sewers_zone_navigation(char_list, hero_stats):
     """
     sewers_zone = SHEET.worksheet('sewers').get_all_values()
     # Variables that check if player is trying to go outside of the map
-    global health_potion, fight
+    global health_potion, fight, treasure_chest
 
     x = 2
     y = 2
@@ -135,6 +136,13 @@ def sewers_zone_navigation(char_list, hero_stats):
         print(f'You have entered {current_loc}')
         print(f'You have {health_potion} hp pots')
         if current_loc != 'Dungeon Gate':
+            if current_loc == 'Sewers Hideout':
+                if treasure_chest == True:
+                    print('You found 200 gold!')
+                    treasure_chest = False
+                    fight = False
+                else:
+                    battle(current_loc, char_list, hero_stats)
             if fight:
                 battle(current_loc, char_list, hero_stats)
                 health_potion += 1
@@ -170,12 +178,14 @@ def sewers_zone_navigation(char_list, hero_stats):
 
 def battle(current_loc, char_list, hero_stats):
     global current_health, current_enemy_health, health_potion, alive, fight, key
-    enemy_list = slice(2, 6)
+    enemy_list = slice(2, 7)
     while fight:
         enemy = tuple(random.choice(char_list[enemy_list]))
-
+        
+            
         if enemy[4] == current_loc:
-            if enemy[0] == 'Radement' and key == True:
+            if (enemy[0] == 'Radement' and key == True) \
+                or (current_loc == 'Sewers Hideout' and treasure_chest == False):
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(char_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
