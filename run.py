@@ -84,6 +84,8 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
+    global current_health
+
     char_list = SHEET.worksheet('chars').get_all_values()
     hero = tuple(char_list[1])
     hero_stats = Hero(*hero)
@@ -136,6 +138,47 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
             x += 1
         if sewers_controls == '4' and y > 0:
             y -= 1
+
+def battle(current_loc, char_list, hero_stats):
+    global current_health, alive, fight
+    enemy_list = slice(2, 5)
+    while fight:
+        enemy = tuple(random.choice(char_list[enemy_list]))
+
+        if enemy[4] == current_loc:
+            enemy_stats = Enemy(*enemy)
+            print(f'You have been attacked by {enemy[0]}')
+            mob_dmg = int(enemy_stats.attack)
+            hero_dmg = int(hero_stats.attack)
+            current_enemy_health = int(enemy_stats.health)
+            fight = False
+        
+    if alive:
+        while current_enemy_health > 0:
+            print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
+            current_health -= mob_dmg
+
+            if current_health <= 0:
+                print('GAME OVER')
+                alive = False
+                gen = True
+                input()
+                main()
+            print('Your Life')
+            print(f'{current_health}/{int(hero_stats.health)}')
+            print(f'{enemy_stats.name} Life')
+            print(f'{current_enemy_health}/{int(enemy_stats.health)}')
+            print('1. Attack')
+            print('2. Use Potion')
+            battle_option = input()
+
+            if battle_option == '1':
+                current_enemy_health -= hero_dmg
+                print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
+                if current_enemy_health <= 0:
+                    print(f'{enemy_stats.name} has fallen')
+                    gen = True
+                    return current_health
 
 # Classes
 class Character():
