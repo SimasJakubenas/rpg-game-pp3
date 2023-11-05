@@ -115,31 +115,38 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
     Pulls sewers map from the spreadsheet and defines movement
     """
     sewers_zone = SHEET.worksheet('sewers').get_all_values()
+    # Variables that check if player is trying to go outside of the map
+    off_north_wall = x > 0
+    off_east_wall = y < len(sewers_zone[x]) - 1
+    off_south_wall = x < len(sewers_zone) - 1
+    off_west_wall = y > 0
 
     x = 2
     y = 2
+    current_loc = sewers_zone[x][y]
+
     while True:
         print(f'You have entered {sewers_zone[x][y]}')
 
         # If statements hide the movement options if you've reached corresponding edge of map
-        if x > 0:
+        if off_north_wall:
             print(f'1. Go North to {sewers_zone[x-1][y]}')
-        if y < len(sewers_zone[x]) - 1:
+        if off_east_wall:
             print(f'2. Go East to {sewers_zone[x][y+1]}')
-        if x < len(sewers_zone) - 1:
+        if off_south_wall:
             print(f'3. Go South to {sewers_zone[x+1][y]}')
-        if y > 0:
+        if off_west_wall:
             print(f'4. Go West to {sewers_zone[x][y-1]}')
 
         sewers_controls = input()
         # 'And' operators prevents game from crashing if player tries to move out of map
-        if sewers_controls == '1' and x > 0:
+        if sewers_controls == '1' and off_north_wall:
             x -= 1
-        if sewers_controls == '2' and y < len(sewers_zone[x]) - 1:
+        if sewers_controls == '2' and off_east_wall:
             y += 1
-        if sewers_controls == '3' and x < len(sewers_zone) -1 :
+        if sewers_controls == '3' and off_south_wall :
             x += 1
-        if sewers_controls == '4' and y > 0:
+        if sewers_controls == '4' and off_west_wall:
             y -= 1
 
 def battle(current_loc, char_list, hero_stats):
