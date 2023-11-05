@@ -82,7 +82,7 @@ def game_menu_select():
         elif menu_item == '4':
             pass
         elif menu_item == '5':
-            pass
+            quit()
         else:
             print('Select Menu Option by entering a number 1-5')
 
@@ -245,7 +245,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
         battle_option = input()
         # Option to attack
         if battle_option == '1':
-            current_enemy_health -= 50
+            current_enemy_health -= hero_dmg
             print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
                 print(f'{enemy_stats.name} has fallen')
