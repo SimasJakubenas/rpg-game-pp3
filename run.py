@@ -116,18 +116,25 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
     """
     sewers_zone = SHEET.worksheet('sewers').get_all_values()
     # Variables that check if player is trying to go outside of the map
-    off_north_wall = x > 0
-    off_east_wall = y < len(sewers_zone[x]) - 1
-    off_south_wall = x < len(sewers_zone) - 1
-    off_west_wall = y > 0
+    global fight
 
     x = 2
     y = 2
-    current_loc = sewers_zone[x][y]
 
     while True:
-        print(f'You have entered {sewers_zone[x][y]}')
+        off_north_wall = x > 0
+        off_east_wall = y < len(sewers_zone[x]) - 1
+        off_south_wall = x < len(sewers_zone) - 1
+        off_west_wall = y > 0
+        current_loc = sewers_zone[x][y]
 
+        print(f'You have entered {current_loc}')
+        print(f'You have {health_potion} hp pots')
+        if current_loc != 'Dungeon Gate':
+            if fight:
+                battle(current_loc, char_list, hero_stats, health_potion)
+                health_potion += 1
+                fight = False
         # If statements hide the movement options if you've reached corresponding edge of map
         if off_north_wall:
             print(f'1. Go North to {sewers_zone[x-1][y]}')
@@ -140,16 +147,16 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
 
         sewers_controls = input()
         # 'And' operators prevents game from crashing if player tries to move out of map
-        if sewers_controls == '1' and off_north_wall:
+        if sewers_controls == '1' and x > 0:
             x -= 1
-        if sewers_controls == '2' and off_east_wall:
+        if sewers_controls == '2' and y < len(sewers_zone[x]) - 1:
             y += 1
-        if sewers_controls == '3' and off_south_wall :
+        if sewers_controls == '3' and x < len(sewers_zone) - 1:
             x += 1
-        if sewers_controls == '4' and off_west_wall:
+        if sewers_controls == '4' and y > 0:
             y -= 1
 
-def battle(current_loc, char_list, hero_stats):
+def battle(current_loc, char_list, hero_stats, health_potion):
     global current_health, alive, fight
     enemy_list = slice(2, 5)
     while fight:
