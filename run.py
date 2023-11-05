@@ -162,7 +162,7 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
             fight = True
 
 def battle(current_loc, char_list, hero_stats, health_potion):
-    global current_health, alive, fight, key
+    global current_health, current_enemy_health, alive, fight, key
     enemy_list = slice(2, 6)
     while fight:
         enemy = tuple(random.choice(char_list[enemy_list]))
@@ -194,33 +194,48 @@ def battle(current_loc, char_list, hero_stats, health_potion):
             print(f'{current_enemy_health}/{int(enemy_stats.health)}')
             print('1. Attack')
             print('2. Use Potion')
-            battle_option = input()
 
-            if battle_option == '1':
-                current_enemy_health -= hero_dmg
-                print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
-                if current_enemy_health <= 0:
-                    print(f'{enemy_stats.name} has fallen')
-                    if enemy[0] == 'Radement':
-                        key = True
-                        print('Would you like to return to town?')
-                        while True:
-                            town_portal = input('Y/N: ')
-                            if town_portal.lower() == 'y':
-                                town_zone()
-                            elif town_portal.lower() == 'n':
-                                return False
-                            else:
-                                print('Type in "y" to go back to town or "N" to stay')
-                    return current_health
-            elif battle_option == '2':
-                if health_potion > 0:
-                    current_health += 50
-                    if current_health > int(hero_stats.max_health):
-                        current_health = int(hero_stats.max_health)
-                    health_potion -= 1
-                else:
-                    print('You have no health pots')
+            battle_options(enemy, hero_dmg, hero_stats, enemy_stats, health_potion)
+
+def battle_options(enemy, hero_dmg, hero_stats, enemy_stats, health_potion):
+    """
+    Takes user input of a battle option and runs corresponding action
+    """
+    global current_enemy_health, current_health, key
+
+    while True:
+        battle_option = input()
+        # Option to attack
+        if battle_option == '1':
+            current_enemy_health -= 50
+            print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
+            if current_enemy_health <= 0:
+                print(f'{enemy_stats.name} has fallen')
+                if enemy[0] == 'Radement':
+                    key = True
+                    print('Would you like to return to town?')
+                    while True:
+                        town_portal = input('Y/N: ')
+                        if town_portal.lower() == 'y':
+                            town_zone()
+                        elif town_portal.lower() == 'n':
+                            return False
+                        else:
+                            print('Type in "y" to go back to town or "N" to stay')
+            return current_enemy_health
+        # Option to heal
+        elif battle_option == '2':
+            if health_potion > 0:
+                current_health += 50
+                if current_health > int(hero_stats.max_health):
+                    current_health = int(hero_stats.max_health)
+                health_potion -= 1
+                return current_health
+            else:
+                print('You have no health pots')
+            return False
+        else:
+            print('Type a number 1-n to select battle option')
 
 # Classes
 class Character():
