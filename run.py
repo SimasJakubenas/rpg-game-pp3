@@ -216,16 +216,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 print(f'{enemy_stats.name} has fallen')
                 if enemy[0] == 'Radement':
                     key = True
-                    print('Would you like to return to town?')
-                    while True:
-                        town_portal = input('Y/N: ')
-                        if town_portal.lower() == 'y':
-                            town_zone()
-                            
-                        elif town_portal.lower() == 'n':
-                            return False
-                        else:
-                            print('Type in "y" to go back to town or "N" to stay')
+                    
+                    return_to_town()
                 
             return current_enemy_health
         # Option to heal
@@ -241,6 +233,18 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             return False
         else:
             print('Type a number 1-n to select battle option')
+
+def return_to_town():
+    print('Would you like to return to town?')
+    while True:
+        town_portal = input('Y/N: ')
+        if town_portal.lower() == 'y':
+            town_zone()
+            
+        elif town_portal.lower() == 'n':
+            return False
+        else:
+            print('Type in "y" to go back to town or "N" to stay')
 
 # Classes
 class Character():
