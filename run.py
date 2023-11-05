@@ -149,7 +149,7 @@ def enemy_zone_navigation(char_list, hero_stats):
 
         print(f'You have entered {current_loc}')
         print(f'You have {health_potion} hp pots')
-        if current_loc != 'Dungeon Gate':
+        if current_loc != 'Dungeon Gate' or 'Town Gate':
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
                     print('You found 200 gold!')
@@ -191,11 +191,18 @@ def enemy_zone_navigation(char_list, hero_stats):
             fight = True
 
 def battle(current_loc, char_list, hero_stats):
+    """
+    Battle function determines an enemy encounter depending on map area
+    Loops through a fight until either player or enemy dies
+    Provide player with battle options
+    """
     global current_health, current_enemy_health, health_potion, alive, fight, key
-    enemy_list = slice(2, 7)
+    if sewers == True:
+        enemy_list = slice(2, 7)
+    if dessert == True:
+        enemy_list = slice(7, 19)
     while fight:
         enemy = tuple(random.choice(char_list[enemy_list]))
-        
             
         if enemy[4] == current_loc:
             if (enemy[0] == 'Radement' and key == True) \
