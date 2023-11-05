@@ -1,4 +1,4 @@
-import gspread
+import gspread, random
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -17,8 +17,11 @@ def main():
     Main game function
     """
     
+    global fight, menu, alive
+
     fight = False
     menu = False
+    alive = True
 
     title_and_greeting()
 
