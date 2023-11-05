@@ -147,14 +147,18 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
 
         sewers_controls = input()
         # 'And' operators prevents game from crashing if player tries to move out of map
-        if sewers_controls == '1' and x > 0:
+        if sewers_controls == '1' and off_north_wall:
             x -= 1
-        if sewers_controls == '2' and y < len(sewers_zone[x]) - 1:
+            fight = True
+        if sewers_controls == '2' and off_east_wall:
             y += 1
-        if sewers_controls == '3' and x < len(sewers_zone) - 1:
+            fight = True
+        if sewers_controls == '3' and off_south_wall:
             x += 1
-        if sewers_controls == '4' and y > 0:
+            fight = True
+        if sewers_controls == '4' and off_west_wall:
             y -= 1
+            fight = True
 
 def battle(current_loc, char_list, hero_stats, health_potion):
     global current_health, alive, fight
@@ -196,6 +200,14 @@ def battle(current_loc, char_list, hero_stats, health_potion):
                     print(f'{enemy_stats.name} has fallen')
                     gen = True
                     return current_health
+            elif battle_option == '2':
+                if health_potion > 0:
+                    current_health += 50
+                    if current_health > int(hero_stats.max_health):
+                        current_health = int(hero_stats.max_health)
+                    health_potion -= 1
+                else:
+                    print('You have no health pots')
 
 # Classes
 class Character():
