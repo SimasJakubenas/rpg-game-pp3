@@ -17,12 +17,13 @@ def main():
     Main game function
     """
     
-    global fight, menu, alive, key
+    global fight, menu, alive, key, store_health_pots
 
     fight = False
     menu = False
     alive = True
     key = False
+    store_health_pots = False
 
     title_and_greeting()
 
@@ -88,20 +89,22 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health
+    global current_health, health_potion, store_health_pots
 
     char_list = SHEET.worksheet('chars').get_all_values()
     hero = tuple(char_list[1])
     hero_stats = Hero(*hero)
     current_health = int(hero_stats.health)
-    health_potion = int(hero_stats.health_pot)
+    if store_health_pots == False:
+        health_potion = int(hero_stats.health_pot)
+        store_health_pots = True
 
     print('Welcome to the town of Lut Gholein! What would you like to do?')
     print('1. Go to Sewers')
     while True:
         navigate_town = input()
         if navigate_town == '1':
-            sewers_zone_navigation(char_list, hero_stats, health_potion)
+            sewers_zone_navigation(char_list, hero_stats)
         elif navigate_town == '2':
             pass
         elif navigate_town == '3':
@@ -111,13 +114,13 @@ def town_zone():
         else:
             print('Enter a number 1-4 to select your destination')
 
-def sewers_zone_navigation(char_list, hero_stats, health_potion):
+def sewers_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
     sewers_zone = SHEET.worksheet('sewers').get_all_values()
     # Variables that check if player is trying to go outside of the map
-    global fight
+    global health_potion, fight
 
     x = 2
     y = 2
@@ -133,7 +136,7 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
         print(f'You have {health_potion} hp pots')
         if current_loc != 'Dungeon Gate':
             if fight:
-                battle(current_loc, char_list, hero_stats, health_potion)
+                battle(current_loc, char_list, hero_stats)
                 health_potion += 1
                 fight = False
         # If statements hide the movement options if you've reached corresponding edge of map
@@ -161,8 +164,8 @@ def sewers_zone_navigation(char_list, hero_stats, health_potion):
             y -= 1
             fight = True
 
-def battle(current_loc, char_list, hero_stats, health_potion):
-    global current_health, current_enemy_health, alive, fight, key
+def battle(current_loc, char_list, hero_stats):
+    global current_health, current_enemy_health, health_potion, alive, fight, key
     enemy_list = slice(2, 6)
     while fight:
         enemy = tuple(random.choice(char_list[enemy_list]))
@@ -195,13 +198,13 @@ def battle(current_loc, char_list, hero_stats, health_potion):
             print('1. Attack')
             print('2. Use Potion')
 
-            battle_options(enemy, hero_dmg, hero_stats, enemy_stats, health_potion)
+            battle_options(enemy, hero_dmg, hero_stats, enemy_stats)
 
-def battle_options(enemy, hero_dmg, hero_stats, enemy_stats, health_potion):
+def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, key
+    global current_enemy_health, current_health, health_potion, key
 
     while True:
         battle_option = input()
@@ -218,10 +221,12 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats, health_potion):
                         town_portal = input('Y/N: ')
                         if town_portal.lower() == 'y':
                             town_zone()
+                            
                         elif town_portal.lower() == 'n':
                             return False
                         else:
                             print('Type in "y" to go back to town or "N" to stay')
+                
             return current_enemy_health
         # Option to heal
         elif battle_option == '2':
