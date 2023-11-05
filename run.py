@@ -168,8 +168,8 @@ def battle(current_loc, char_list, hero_stats, health_potion):
         enemy = tuple(random.choice(char_list[enemy_list]))
 
         if enemy[4] == current_loc:
-            if enemy[0] == 'radement' and key == True:
-                enemy_list = slice(2, 6)
+            if enemy[0] == 'Radement' and key == True:
+                enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(char_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
             print(f'You have been attacked by {enemy[0]}')
@@ -201,7 +201,7 @@ def battle(current_loc, char_list, hero_stats, health_potion):
                 print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
                 if current_enemy_health <= 0:
                     print(f'{enemy_stats.name} has fallen')
-                    if enemy[0] == 'radement':
+                    if enemy[0] == 'Radement':
                         key = True
                         print('Would you like to return to town?')
                         while True:
