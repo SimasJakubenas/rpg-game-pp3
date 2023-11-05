@@ -90,24 +90,33 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, store_health_pots
+    global current_health, health_potion, store_health_pots, sewers, dessert
 
     char_list = SHEET.worksheet('chars').get_all_values()
     hero = tuple(char_list[1])
     hero_stats = Hero(*hero)
     current_health = int(hero_stats.health)
+    sewers = False
+    dessert = False
     if store_health_pots == False:
         health_potion = int(hero_stats.health_pot)
         store_health_pots = True
 
     print('Welcome to the town of Lut Gholein! What would you like to do?')
-    print('1. Go to Sewers')
+    
     while True:
+        print('1. Go to Sewers')
+        print('2. Go to Dessert')
         navigate_town = input()
         if navigate_town == '1':
-            sewers_zone_navigation(char_list, hero_stats)
+            sewers = True
+            enemy_zone_navigation(char_list, hero_stats)
         elif navigate_town == '2':
-            pass
+            if key == True:
+                dessert = True
+                enemy_zone_navigation(char_list, hero_stats)
+            else:
+                print('Town Gate is locked!')
         elif navigate_town == '3':
             pass
         elif navigate_town == '4':
@@ -115,23 +124,28 @@ def town_zone():
         else:
             print('Enter a number 1-4 to select your destination')
 
-def sewers_zone_navigation(char_list, hero_stats):
+def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    sewers_zone = SHEET.worksheet('sewers').get_all_values()
-    # Variables that check if player is trying to go outside of the map
-    global health_potion, fight, treasure_chest
+    global health_potion, fight, treasure_chest, sewers, dessert
 
-    x = 2
-    y = 2
-
+    if sewers == True:
+        enemy_zone = SHEET.worksheet('sewers').get_all_values()
+        x = 2
+        y = 2
+    if dessert == True:
+        enemy_zone = SHEET.worksheet('dessert').get_all_values()
+        x = 1
+        y = 1
+    
     while True:
+        # Variables that check if player is trying to go outside of the map
         off_north_wall = x > 0
-        off_east_wall = y < len(sewers_zone[x]) - 1
-        off_south_wall = x < len(sewers_zone) - 1
+        off_east_wall = y < len(enemy_zone[x]) - 1
+        off_south_wall = x < len(enemy_zone) - 1
         off_west_wall = y > 0
-        current_loc = sewers_zone[x][y]
+        current_loc = enemy_zone[x][y]
 
         print(f'You have entered {current_loc}')
         print(f'You have {health_potion} hp pots')
@@ -153,26 +167,26 @@ def sewers_zone_navigation(char_list, hero_stats):
                 return_to_town()
         # If statements hide the movement options if you've reached corresponding edge of map
         if off_north_wall:
-            print(f'1. Go North to {sewers_zone[x-1][y]}')
+            print(f'1. Go North to {enemy_zone[x-1][y]}')
         if off_east_wall:
-            print(f'2. Go East to {sewers_zone[x][y+1]}')
+            print(f'2. Go East to {enemy_zone[x][y+1]}')
         if off_south_wall:
-            print(f'3. Go South to {sewers_zone[x+1][y]}')
+            print(f'3. Go South to {enemy_zone[x+1][y]}')
         if off_west_wall:
-            print(f'4. Go West to {sewers_zone[x][y-1]}')
+            print(f'4. Go West to {enemy_zone[x][y-1]}')
 
-        sewers_controls = input()
+        zone_controls = input()
         # 'And' operators prevents game from crashing if player tries to move out of map
-        if sewers_controls == '1' and off_north_wall:
+        if zone_controls == '1' and off_north_wall:
             x -= 1
             fight = True
-        if sewers_controls == '2' and off_east_wall:
+        if zone_controls == '2' and off_east_wall:
             y += 1
             fight = True
-        if sewers_controls == '3' and off_south_wall:
+        if zone_controls == '3' and off_south_wall:
             x += 1
             fight = True
-        if sewers_controls == '4' and off_west_wall:
+        if zone_controls == '4' and off_west_wall:
             y -= 1
             fight = True
 
