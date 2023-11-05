@@ -98,8 +98,8 @@ def town_zone():
 
     print('Welcome to the town of Lut Gholein! What would you like to do?')
     print('1. Go to Sewers')
-    navigate_town = input()
     while True:
+        navigate_town = input()
         if navigate_town == '1':
             sewers_zone_navigation(char_list, hero_stats, health_potion)
         elif navigate_town == '2':
@@ -203,7 +203,15 @@ def battle(current_loc, char_list, hero_stats, health_potion):
                     print(f'{enemy_stats.name} has fallen')
                     if enemy[0] == 'radement':
                         key = True
-                        
+                        print('Would you like to return to town?')
+                        while True:
+                            town_portal = input('Y/N: ')
+                            if town_portal.lower() == 'y':
+                                town_zone()
+                            elif town_portal.lower() == 'n':
+                                return False
+                            else:
+                                print('Type in "y" to go back to town or "N" to stay')
                     return current_health
             elif battle_option == '2':
                 if health_potion > 0:
