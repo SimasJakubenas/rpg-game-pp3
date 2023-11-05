@@ -139,6 +139,10 @@ def sewers_zone_navigation(char_list, hero_stats):
                 battle(current_loc, char_list, hero_stats)
                 health_potion += 1
                 fight = False
+        else:
+            if fight:
+                fight = False
+                return_to_town()
         # If statements hide the movement options if you've reached corresponding edge of map
         if off_north_wall:
             print(f'1. Go North to {sewers_zone[x-1][y]}')
@@ -216,7 +220,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 print(f'{enemy_stats.name} has fallen')
                 if enemy[0] == 'Radement':
                     key = True
-                    
+
                     return_to_town()
                 
             return current_enemy_health
