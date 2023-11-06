@@ -21,7 +21,7 @@ def main():
 
     fight = False
     hero_created = False
-    alive = True
+    alive = False
     key = False
     store_health_pots = False
     treasure_chest = True
@@ -78,19 +78,23 @@ def game_menu_display():
 
 def game_menu_select():
     """
-    Selects menu option baed of user input
+    Selects menu option based of user input
     """
-    global hero_created
+    global hero_created, alive
 
     while True:
         menu_item = input('\n')
         if menu_item == '1':
-            if hero_created == False:
-                hero_selection()
-                hero_created = True
-                town_zone()
+            if alive == False:
+                if hero_created == False:
+                    hero_selection()
+                    alive = True
+                    hero_created = True
+                    town_zone()
+                else:
+                    town_zone()
             else:
-                town_zone()
+                return False
         elif menu_item == '2':
             pass
         elif menu_item == '3':
@@ -131,6 +135,8 @@ def town_zone():
     while True:
         print('1. Go to Sewers')
         print('2. Go to Dessert')
+        print('\n')
+        print('Q. Open Menu')
         navigate_town = input('\n')
         if navigate_town == '1':
             sewers = True
@@ -143,8 +149,9 @@ def town_zone():
                 print('Town Gate is locked!')
         elif navigate_town == '3':
             pass
-        elif navigate_town == '4':
-            pass
+        elif navigate_town.lower() == 'q':
+            game_menu_display()
+            game_menu_select()
         else:
             print('Enter a number 1-4 to select your destination')
 
@@ -199,7 +206,8 @@ def enemy_zone_navigation(char_list, hero_stats):
             print(f'3. Go South to {enemy_zone[x+1][y]}')
         if off_west_wall:
             print(f'4. Go West to {enemy_zone[x][y-1]}')
-
+        print('\n')
+        print('Q. Open Menu')
         zone_controls = input('\n')
         # 'And' operators prevents game from crashing if player tries to move out of map
         if zone_controls == '1' and off_north_wall:
@@ -214,6 +222,9 @@ def enemy_zone_navigation(char_list, hero_stats):
         if zone_controls == '4' and off_west_wall:
             y -= 1
             fight = True
+        if zone_controls.lower() == 'q':
+            game_menu_display()
+            game_menu_select()
 
 def battle(current_loc, char_list, hero_stats):
     """
