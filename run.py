@@ -149,7 +149,7 @@ def enemy_zone_navigation(char_list, hero_stats):
 
         print(f'You have entered {current_loc}')
         print(f'You have {health_potion} hp pots')
-        if current_loc != 'Dungeon Gate' or 'Town Gate':
+        if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
                     print('You found 200 gold!')
