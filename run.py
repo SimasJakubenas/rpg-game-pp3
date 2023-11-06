@@ -17,10 +17,10 @@ def main():
     Main game function
     """
     
-    global fight, menu, alive, key, store_health_pots, treasure_chest
+    global fight, hero_created, alive, key, store_health_pots, treasure_chest
 
     fight = False
-    menu = False
+    hero_created = False
     alive = True
     key = False
     store_health_pots = False
