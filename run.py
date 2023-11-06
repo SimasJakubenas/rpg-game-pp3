@@ -47,6 +47,7 @@ def title_and_greeting():
     print('                    Welcome to a Diablo II themed RPG game                    ')
     input('                             Press ENTER to play\n')
     game_menu_display()
+    game_menu_select()
 
 def game_menu_display():
     """
@@ -64,8 +65,6 @@ def game_menu_display():
     print('                       ░        5. End game         ░')
     print('                       ░                            ░')
     print('                       <++xxxwwWWWWWWWwwwwwwwwwxxx++>')
-    
-    game_menu_select()
 
 def game_menu_select():
     """
