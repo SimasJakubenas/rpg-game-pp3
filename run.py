@@ -52,6 +52,13 @@ def game_menu_display():
     """
     Calls for game menu and requires user input to select menu item
     """
+    global hero_gold, hero_stats, char_list
+
+    char_list = SHEET.worksheet('chars').get_all_values()
+    hero = tuple(char_list[1])
+    hero_stats = Hero(*hero)
+    hero_gold = int(hero_stats.gold)
+
     print('\n')
     print('                       <++xxxwwwwwwwwwwWWWWWWwwxxx++>')
     print('                       ░                            ░')
@@ -90,11 +97,8 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, store_health_pots, sewers, dessert
+    global current_health, health_potion, store_health_pots, hero_stats, char_list, sewers, dessert
 
-    char_list = SHEET.worksheet('chars').get_all_values()
-    hero = tuple(char_list[1])
-    hero_stats = Hero(*hero)
     current_health = int(hero_stats.health)
     sewers = False
     dessert = False
@@ -128,7 +132,7 @@ def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, fight, treasure_chest, sewers, dessert
+    global health_potion, fight, treasure_chest, hero_gold, sewers, dessert
 
     if sewers == True:
         enemy_zone = SHEET.worksheet('sewers').get_all_values()
@@ -153,6 +157,7 @@ def enemy_zone_navigation(char_list, hero_stats):
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
                     print('You found 200 gold!')
+                    hero_gold += int(char_list[5][3])
                     treasure_chest = False
                     fight = False
                 else:
@@ -239,7 +244,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, health_potion, key
+    global current_enemy_health, current_health, health_potion, hero_gold ,key
 
     while True:
         battle_option = input('\n')
@@ -248,7 +253,9 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             current_enemy_health -= hero_dmg
             print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
-                print(f'{enemy_stats.name} has fallen')
+                print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
+                hero_gold += int(enemy[3])
+                print(hero_gold)
                 if enemy[0] == 'Radement':
                     key = True
 
