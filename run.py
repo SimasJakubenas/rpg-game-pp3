@@ -52,19 +52,29 @@ def title_and_greeting():
 def game_menu_display():
     """
     Calls for game menu and requires user input to select menu item
+    ASCII art was created with https://www.asciiart.eu/image-to-ascii
     """
 
     print('\n')
-    print('                       <++xxxwwwwwwwwwwWWWWWWwwxxx++>')
-    print('                       ░                            ░')
-    print('                       ░          GAME MENU         ░')
-    print('                       ░        1. New Game         ░')
-    print('                       ░        2. Save Game        ░')
-    print('                       ░        3. Load Game        ░')
-    print('                       ░        4. Rules            ░')
-    print('                       ░        5. End game         ░')
-    print('                       ░                            ░')
-    print('                       <++xxxwwWWWWWWWwwwwwwwwwxxx++>')
+    print('                               ...:*@@@@@@@@@*:..      ')
+    print('                             .*@@=..   =@. ..=@@*..    ')
+    print('                          ..#@+.      .@@%.    .+@%..  ')
+    print('                         .-@+.,-----------------,.+@=. ')
+    print('                        .-@:  |    GAME MENU    |  .@+.')
+    print('                        -@+@@@|                 |...:@-')
+    if hero_created == False:
+        print('                        #%..:@|   1. New Game   |@@@+%%')
+    else:
+        print('                        #%..:@|   1. Continue   |@@@+%%')
+    print('                        @*   .|   2. Save Game  |+.  +@')
+    print('                        @*    |   3. Load Game  |    +@')
+    print('                        *%    |   4. Rules      |   .%#')
+    print('                        :@:.  |   5. End game   |  .:@-')
+    print('                        .-@:  "-----------------" .:@=.')
+    print('                         .:@+..@@@+.     .:@@@*. .+@-. ')
+    print('                           .*@%=.           .*@.+@#..  ')
+    print('                             .+@@=....   ....=@@*.     ')
+    print('                               ..-*@@@@@@@@@*-..       ')
 
 def game_menu_select():
     """
