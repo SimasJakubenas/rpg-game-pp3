@@ -52,12 +52,6 @@ def game_menu_display():
     """
     Calls for game menu and requires user input to select menu item
     """
-    global hero_gold, hero_stats, char_list
-
-    char_list = SHEET.worksheet('chars').get_all_values()
-    hero = tuple(char_list[1])
-    hero_stats = Hero(*hero)
-    hero_gold = int(hero_stats.gold)
 
     print('\n')
     print('                       <++xxxwwwwwwwwwwWWWWWWwwxxx++>')
@@ -77,11 +71,17 @@ def game_menu_select():
     """
     Selects menu option baed of user input
     """
+    global hero_created
+
     while True:
         menu_item = input('\n')
         if menu_item == '1':
-            town_zone()
-            return False
+            if hero_created == False:
+                hero_selection()
+                hero_created = True
+                town_zone()
+            else:
+                town_zone()
         elif menu_item == '2':
             pass
         elif menu_item == '3':
@@ -92,6 +92,17 @@ def game_menu_select():
             quit()
         else:
             print('Select Menu Option by entering a number 1-5')
+
+def hero_selection():
+    """
+    Creates hero character by pulling values from a spreadsheet
+    """
+    global hero_gold, hero_stats, char_list
+
+    char_list = SHEET.worksheet('chars').get_all_values()
+    hero = tuple(char_list[1])
+    hero_stats = Hero(*hero)
+    hero_gold = int(hero_stats.gold)
 
 def town_zone():
     """
