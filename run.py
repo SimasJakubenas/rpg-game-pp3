@@ -97,6 +97,7 @@ def game_menu_select():
             else:
                 clear()
                 print('Welcome to the town of Lut Gholein! What would you like to do?')
+                print('dffhf')
                 return False
         # Game save
         elif menu_item == '2':
@@ -152,7 +153,7 @@ def menu_option(menu_item):
                 quit()
         elif want_to_quit.lower() == 'n':
             game_menu_display()
-            game_menu_select()
+            return False
         else:
             game_menu_display()
             print('')
