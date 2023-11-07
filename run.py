@@ -1,4 +1,4 @@
-import gspread, random
+import gspread, random, os
 from google.oauth2.service_account import Credentials
 
 SCOPE = [
@@ -46,6 +46,7 @@ def title_and_greeting():
     print('                                                                              ')
     print('                    Welcome to a Diablo II themed RPG game                    ')
     input('                             Press ENTER to play\n')
+    clear()
     game_menu_display()
     game_menu_select()
 
@@ -84,6 +85,7 @@ def game_menu_select():
 
     while True:
         menu_item = input('\n')
+        clear()
         game_menu_display()
         if menu_item == '1':
             if alive == False:
@@ -129,6 +131,7 @@ def menu_option(menu_item):
     print('')
     while True:
         want_to_quit = input(f"Do you want to {menu_item} the game?Y/N\n")
+        clear()
 
         if want_to_quit.lower() == 'y':
             if menu_item == 'start':
@@ -209,6 +212,7 @@ def town_zone():
         print('\n')
         print('Q. Open Menu')
         navigate_town = input('\n')
+        clear()
         if navigate_town == '1':
             sewers = True
             enemy_zone_navigation(char_list, hero_stats)
@@ -280,6 +284,7 @@ def enemy_zone_navigation(char_list, hero_stats):
         print('\n')
         print('Q. Open Menu')
         zone_controls = input('\n')
+        clear()
         # 'And' operators prevents game from crashing if player tries to move out of map
         if zone_controls == '1' and off_north_wall:
             x -= 1
@@ -331,6 +336,7 @@ def battle(current_loc, char_list, hero_stats):
             print('GAME OVER')
             alive = False
             input('\n')
+            clear()
             main()
         print('Your Life')
         print(f'{current_health}/{int(hero_stats.health)}')
@@ -349,6 +355,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
 
     while True:
         battle_option = input('\n')
+        clear()
         # Option to attack
         if battle_option == '1':
             current_enemy_health -= hero_dmg
@@ -381,6 +388,7 @@ def return_to_town():
     print('Would you like to return to town?')
     while True:
         town_portal = input('Y/N:\n')
+        clear()
         if town_portal.lower() == 'y':
             town_zone()
             
@@ -388,6 +396,13 @@ def return_to_town():
             return False
         else:
             print('Type in "y" to go back to town or "N" to stay')
+
+def clear():
+    """
+    Clears the screen on user input
+    Taken from https://stackoverflow.com/questions/2084508/clear-terminal-in-python answer by 'poke'
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 # Classes
 class Character():
