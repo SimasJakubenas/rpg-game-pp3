@@ -145,6 +145,7 @@ def menu_option(menu_item):
                 print('The game was saved...')
             if menu_item == 'load':
                 print('The game was loaded...')
+                hero_selection()
                 load_game()
                 town_zone()
             if menu_item == 'quit':
@@ -174,7 +175,7 @@ def load_game():
     """
     Loads the game by pulling character stats from save worksheet
     """
-    global hero_stats, hero_gold, health_potion
+    global hero_stats, hero_gold, health_potion, hero
 
     load_list = SHEET.worksheet('save').get_all_values()
     last_save = load_list[-1]
