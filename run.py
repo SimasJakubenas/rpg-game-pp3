@@ -101,15 +101,18 @@ def game_menu_select():
                 game_menu_display()
                 print('Start the game first')
             else:
-                want_to_save = input('Do you want to save the game?Y/N\n')
-                if want_to_save.lower() == 'y':
-                    save_game()
-                    game_menu_display()
-                    print('The game was saved...')
-                elif want_to_save.lower() == 'n':
-                    game_menu_display()
-                else:
-                    print('Type in "y" to save or "N" to go back to menu')
+                while True:
+                    want_to_save = input('Do you want to save the game?Y/N\n')
+                    if want_to_save.lower() == 'y':
+                        save_game()
+                        game_menu_display()
+                        print('The game was saved...')
+                    elif want_to_save.lower() == 'n':
+                        game_menu_display()
+                    else:
+                        game_menu_display()
+                        print('\n')
+                        print('Type in "y" to save or "N" to go back to menu')
         # Game load
         elif menu_item == '3':
             while True:
