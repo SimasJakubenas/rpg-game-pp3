@@ -88,13 +88,15 @@ def game_menu_select():
         clear()
         game_menu_display()
         if menu_item == '1':
+            menu_item = 'start'
             if alive == False:
                 if hero_created == False:
-                    menu_item = 'start'
                     menu_option(menu_item)
                 else:
                     town_zone()
             else:
+                clear()
+                print('Welcome to the town of Lut Gholein! What would you like to do?')
                 return False
         # Game save
         elif menu_item == '2':
