@@ -96,7 +96,19 @@ def game_menu_select():
             else:
                 return False
         elif menu_item == '2':
-            pass
+            if alive == False:
+                game_menu_display()
+                print('Start the game first')
+            else:
+                want_to_save = input('Do you want to save the game?Y/N\n')
+                if want_to_save.lower() == 'y':
+                    save_game()
+                    game_menu_display()
+                    print('The game was saved...')
+                elif want_to_save.lower() == 'n':
+                    game_menu_display()
+                else:
+                    print('Type in "y" to save or "N" to go back to menu')
         elif menu_item == '3':
             pass
         elif menu_item == '4':
@@ -106,11 +118,24 @@ def game_menu_select():
         else:
             print('Select Menu Option by entering a number 1-5')
 
+def save_game():
+    """
+    Saves the game by pushing hero stats to a google spreadsheet
+    """
+    global hero, hero_gold, health_potion
+
+    hero_stats_pull = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
+    hero_stats_dict = vars(hero_stats_pull)
+    hero_stats_list = list(hero_stats_dict.values())
+    save_file = SHEET.worksheet('save')
+    save_file.append_row(hero_stats_list)
+    print(hero_stats_list)
+
 def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_gold, hero_stats, char_list
+    global hero_gold, hero_stats, char_list, hero
 
     char_list = SHEET.worksheet('chars').get_all_values()
     hero = tuple(char_list[1])
