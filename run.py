@@ -88,10 +88,8 @@ def game_menu_select():
         if menu_item == '1':
             if alive == False:
                 if hero_created == False:
-                    hero_selection()
-                    alive = True
-                    hero_created = True
-                    town_zone()
+                    menu_item = 'start'
+                    menu_option(menu_item)
                 else:
                     town_zone()
             else:
