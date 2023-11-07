@@ -88,6 +88,8 @@ def game_menu_select():
         if menu_item == '1':
             if alive == False:
                 if hero_created == False:
+                    alive = True
+                    hero_created = True
                     menu_item = 'start'
                     menu_option(menu_item)
                 else:
@@ -97,6 +99,8 @@ def game_menu_select():
         # Game save
         elif menu_item == '2':
             if alive == False:
+                alive = True
+                hero_created = True
                 menu_item = 'start'
                 print('Start the game first')
                 menu_option(menu_item)
@@ -125,11 +129,10 @@ def menu_option(menu_item):
     print('')
     while True:
         want_to_quit = input(f"Do you want to {menu_item} the game?Y/N\n")
+
         if want_to_quit.lower() == 'y':
             if menu_item == 'start':
                 hero_selection()
-                alive = True
-                hero_created = True
                 town_zone()
             if menu_item == 'save':
                 save_game()
@@ -320,24 +323,23 @@ def battle(current_loc, char_list, hero_stats):
             current_enemy_health = int(enemy_stats.health)
             fight = False
         
-    if alive:
-        while current_enemy_health > 0:
-            print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
-            current_health -= mob_dmg
+    while current_enemy_health > 0:
+        print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
+        current_health -= mob_dmg
 
-            if current_health <= 0:
-                print('GAME OVER')
-                alive = False
-                input('\n')
-                main()
-            print('Your Life')
-            print(f'{current_health}/{int(hero_stats.health)}')
-            print(f'{enemy_stats.name} Life')
-            print(f'{current_enemy_health}/{int(enemy_stats.health)}')
-            print('1. Attack')
-            print('2. Use Potion')
+        if current_health <= 0:
+            print('GAME OVER')
+            alive = False
+            input('\n')
+            main()
+        print('Your Life')
+        print(f'{current_health}/{int(hero_stats.health)}')
+        print(f'{enemy_stats.name} Life')
+        print(f'{current_enemy_health}/{int(enemy_stats.health)}')
+        print('1. Attack')
+        print('2. Use Potion')
 
-            battle_options(enemy, hero_dmg, hero_stats, enemy_stats)
+        battle_options(enemy, hero_dmg, hero_stats, enemy_stats)
 
 def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
