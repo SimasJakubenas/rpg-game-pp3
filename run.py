@@ -95,6 +95,7 @@ def game_menu_select():
                     town_zone()
             else:
                 return False
+        # Game save
         elif menu_item == '2':
             if alive == False:
                 game_menu_display()
@@ -109,8 +110,18 @@ def game_menu_select():
                     game_menu_display()
                 else:
                     print('Type in "y" to save or "N" to go back to menu')
+        # Game load
         elif menu_item == '3':
-            pass
+            want_to_save = input('Do you want to load the game?Y/N\n')
+            if want_to_save.lower() == 'y':
+                print('The game was loaded...')
+                load_game()
+                town_zone()
+            elif want_to_save.lower() == 'n':
+                game_menu_display()
+            else:
+                print('Type in "y" to save or "N" to go back to menu')
+            
         elif menu_item == '4':
             pass
         elif menu_item == '5':
@@ -130,6 +141,18 @@ def save_game():
     save_file = SHEET.worksheet('save')
     save_file.append_row(hero_stats_list)
     print(hero_stats_list)
+
+def load_game():
+    """
+    Loads the game by pulling character stats from save worksheet
+    """
+    global hero_stats, hero_gold, health_potion
+
+    load_list = SHEET.worksheet('save').get_all_values()
+    last_save = load_list[-1]
+    hero_gold = int(last_save[4])
+    health_potion = int(last_save[5])
+    hero_stats = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
 
 def hero_selection():
     """
