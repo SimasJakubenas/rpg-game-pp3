@@ -84,6 +84,7 @@ def game_menu_select():
 
     while True:
         menu_item = input('\n')
+        game_menu_display()
         if menu_item == '1':
             if alive == False:
                 if hero_created == False:
@@ -97,9 +98,23 @@ def game_menu_select():
                 return False
         # Game save
         elif menu_item == '2':
+            print('')
             if alive == False:
-                game_menu_display()
                 print('Start the game first')
+                while True:
+                    want_to_start = input('Do you want to start the game?Y/N\n')
+                    if want_to_start.lower() == 'y':
+                            hero_selection()
+                            alive = True
+                            hero_created = True
+                            town_zone()
+                    elif want_to_start.lower() == 'n':
+                        game_menu_display()
+                        game_menu_select()
+                    else:
+                        game_menu_display()
+                        print('\n')
+                        print('Type in "y" to start game or "N" to go back to menu')
             else:
                 while True:
                     want_to_save = input('Do you want to save the game?Y/N\n')
@@ -109,12 +124,14 @@ def game_menu_select():
                         print('The game was saved...')
                     elif want_to_save.lower() == 'n':
                         game_menu_display()
+                        game_menu_select()
                     else:
                         game_menu_display()
                         print('\n')
                         print('Type in "y" to save or "N" to go back to menu')
         # Game load
         elif menu_item == '3':
+            print('')
             while True:
                 want_to_load = input('Do you want to load the game?Y/N\n')
                 if want_to_load.lower() == 'y':
@@ -123,6 +140,7 @@ def game_menu_select():
                     town_zone()
                 elif want_to_load.lower() == 'n':
                     game_menu_display()
+                    game_menu_select()
                 else:
                     game_menu_display()
                     print('\n')
@@ -130,9 +148,22 @@ def game_menu_select():
             
         elif menu_item == '4':
             pass
+        # Game quit
         elif menu_item == '5':
-            quit()
+            print('')
+            while True:
+                want_to_quit = input('Do you want to quit the game?Y/N\n')
+                if want_to_quit.lower() == 'y':
+                    quit()
+                elif want_to_quit.lower() == 'n':
+                    game_menu_display()
+                    game_menu_select()
+                else:
+                    game_menu_display()
+                    print('\n')
+                    print('Type in "y" to save or "N" to go back to menu')
         else:
+            print('')
             print('Select Menu Option by entering a number 1-5')
 
 def save_game():
