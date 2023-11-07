@@ -112,15 +112,18 @@ def game_menu_select():
                     print('Type in "y" to save or "N" to go back to menu')
         # Game load
         elif menu_item == '3':
-            want_to_save = input('Do you want to load the game?Y/N\n')
-            if want_to_save.lower() == 'y':
-                print('The game was loaded...')
-                load_game()
-                town_zone()
-            elif want_to_save.lower() == 'n':
-                game_menu_display()
-            else:
-                print('Type in "y" to save or "N" to go back to menu')
+            while True:
+                want_to_load = input('Do you want to load the game?Y/N\n')
+                if want_to_load.lower() == 'y':
+                    print('The game was loaded...')
+                    load_game()
+                    town_zone()
+                elif want_to_load.lower() == 'n':
+                    game_menu_display()
+                else:
+                    game_menu_display()
+                    print('\n')
+                    print('Type in "y" to save or "N" to go back to menu')
             
         elif menu_item == '4':
             pass
