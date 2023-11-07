@@ -90,8 +90,6 @@ def game_menu_select():
         if menu_item == '1':
             if alive == False:
                 if hero_created == False:
-                    alive = True
-                    hero_created = True
                     menu_item = 'start'
                     menu_option(menu_item)
                 else:
@@ -101,8 +99,6 @@ def game_menu_select():
         # Game save
         elif menu_item == '2':
             if alive == False:
-                alive = True
-                hero_created = True
                 menu_item = 'start'
                 print('Start the game first')
                 menu_option(menu_item)
@@ -128,6 +124,8 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
+    global alive, hero_created
+
     print('')
     while True:
         want_to_quit = input(f"Do you want to {menu_item} the game?Y/N\n")
@@ -135,6 +133,8 @@ def menu_option(menu_item):
 
         if want_to_quit.lower() == 'y':
             if menu_item == 'start':
+                alive = True
+                hero_created = True
                 hero_selection()
                 town_zone()
             if menu_item == 'save':
