@@ -96,8 +96,10 @@ def game_menu_select():
                     town_zone()
             else:
                 clear()
-                print('Welcome to the town of Lut Gholein! What would you like to do?')
-                print('dffhf')
+                location_art()
+                print('        Town of Lut Gholein')
+                location_art()
+                print('')
                 return False
         # Game save
         elif menu_item == '2':
@@ -208,9 +210,11 @@ def town_zone():
         health_potion = int(hero_stats.health_pot)
         store_health_pots = True
 
-    print('Welcome to the town of Lut Gholein! What would you like to do?')
-    
     while True:
+        location_art()
+        print('        Town of Lut Gholein')
+        location_art()
+        print('')
         print('1. Go to Sewers')
         print('2. Go to Dessert')
         print('\n')
@@ -238,7 +242,7 @@ def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, fight, treasure_chest, hero_gold, sewers, dessert
+    global health_potion, fight, treasure_chest, hero_gold, sewers, dessert, current_loc
 
     if sewers == True:
         enemy_zone = SHEET.worksheet('sewers').get_all_values()
@@ -256,9 +260,10 @@ def enemy_zone_navigation(char_list, hero_stats):
         off_south_wall = x < len(enemy_zone) - 1
         off_west_wall = y > 0
         current_loc = enemy_zone[x][y]
-
-        print(f'You have entered {current_loc}')
-        print(f'You have {health_potion} hp pots')
+        location_art()
+        print(f'      >>►► {current_loc} ◄◄<<     ')
+        location_art()
+        print('')
         if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
@@ -326,13 +331,17 @@ def battle(current_loc, char_list, hero_stats):
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(char_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
-            print(f'You have been attacked by {enemy[0]}')
             mob_dmg = int(enemy_stats.attack)
             hero_dmg = int(hero_stats.attack)
             current_enemy_health = int(enemy_stats.health)
             fight = False
         
     while current_enemy_health > 0:
+        location_art()
+        print(f'      >>►► {current_loc} ◄◄<<     ')
+        location_art()
+        print('')
+        print(f'You have been attacked by {enemy[0]}')
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
         current_health -= mob_dmg
 
@@ -407,6 +416,13 @@ def clear():
     Taken from https://stackoverflow.com/questions/2084508/clear-terminal-in-python answer by 'poke'
     """
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def location_art():
+    """
+    ASCII art to improve game looks
+    """
+    current_loc = 'Lut Gholein'
+    print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
 
 # Classes
 class Character():
