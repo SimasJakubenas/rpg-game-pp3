@@ -96,10 +96,6 @@ def game_menu_select():
                     town_zone()
             else:
                 clear()
-                location_art()
-                print('        Town of Lut Gholein')
-                location_art()
-                print('')
                 return False
         # Game save
         elif menu_item == '2':
@@ -201,20 +197,17 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, store_health_pots, hero_stats, char_list, sewers, dessert
+    global current_health, health_potion, store_health_pots, hero_stats, char_list, sewers, dessert, current_loc
 
+    current_loc = 'Lut Gholein'
     current_health = int(hero_stats.health)
     sewers = False
     dessert = False
     if store_health_pots == False:
         health_potion = int(hero_stats.health_pot)
         store_health_pots = True
-
+    location_art()
     while True:
-        location_art()
-        print('        Town of Lut Gholein')
-        location_art()
-        print('')
         print('1. Go to Sewers')
         print('2. Go to Dessert')
         print('\n')
@@ -252,21 +245,20 @@ def enemy_zone_navigation(char_list, hero_stats):
         enemy_zone = SHEET.worksheet('dessert').get_all_values()
         x = 1
         y = 1
-    
+    current_loc = enemy_zone[x][y]
+    location_art()
     while True:
         # Variables that check if player is trying to go outside of the map
         off_north_wall = x > 0
         off_east_wall = y < len(enemy_zone[x]) - 1
         off_south_wall = x < len(enemy_zone) - 1
         off_west_wall = y > 0
+        
         current_loc = enemy_zone[x][y]
-        location_art()
-        print(f'      >>►► {current_loc} ◄◄<<     ')
-        location_art()
-        print('')
         if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
+                    location_art()
                     print('You found 200 gold!')
                     hero_gold += int(char_list[5][3])
                     treasure_chest = False
@@ -280,7 +272,9 @@ def enemy_zone_navigation(char_list, hero_stats):
         else:
             if fight:
                 fight = False
+                location_art()
                 return_to_town()
+                
         # If statements hide the movement options if you've reached corresponding edge of map
         if off_north_wall:
             print(f'1. Go North to {enemy_zone[x-1][y]}')
@@ -322,6 +316,7 @@ def battle(current_loc, char_list, hero_stats):
         enemy_list = slice(2, 7)
     if dessert == True:
         enemy_list = slice(7, 19)
+    location_art()
     while fight:
         enemy = tuple(random.choice(char_list[enemy_list]))
             
@@ -334,13 +329,8 @@ def battle(current_loc, char_list, hero_stats):
             mob_dmg = int(enemy_stats.attack)
             hero_dmg = int(hero_stats.attack)
             current_enemy_health = int(enemy_stats.health)
-            fight = False
-        
+            fight = False  
     while current_enemy_health > 0:
-        location_art()
-        print(f'      >>►► {current_loc} ◄◄<<     ')
-        location_art()
-        print('')
         print(f'You have been attacked by {enemy[0]}')
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
         current_health -= mob_dmg
@@ -369,6 +359,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     while True:
         battle_option = input('\n')
         clear()
+        location_art() 
         # Option to attack
         if battle_option == '1':
             current_enemy_health -= hero_dmg
@@ -406,6 +397,7 @@ def return_to_town():
             town_zone()
             
         elif town_portal.lower() == 'n':
+            location_art()
             return False
         else:
             print('Type in "y" to go back to town or "N" to stay')
@@ -421,8 +413,11 @@ def location_art():
     """
     ASCII art to improve game looks
     """
-    current_loc = 'Lut Gholein'
+    
     print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
+    print(f'      >>►► {current_loc} ◄◄<<     ')
+    print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
+    print('')
 
 # Classes
 class Character():
