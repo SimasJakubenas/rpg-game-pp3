@@ -279,17 +279,7 @@ def enemy_zone_navigation(char_list, hero_stats):
                 location_art()
                 return_to_town()
                 
-        # If statements hide the movement options if you've reached corresponding edge of map
-        if off_north_wall:
-            print(f'1. Go North to {enemy_zone[x-1][y]}')
-        if off_east_wall:
-            print(f'2. Go East to {enemy_zone[x][y+1]}')
-        if off_south_wall:
-            print(f'3. Go South to {enemy_zone[x+1][y]}')
-        if off_west_wall:
-            print(f'4. Go West to {enemy_zone[x][y-1]}')
-        print('')
-        print('Q. Open Menu')
+        zone_navigation_menu(off_east_wall, off_north_wall, off_south_wall, off_west_wall, enemy_zone, x, y)
         zone_controls = input('\n')
         clear()
         # 'And' operators prevents game from crashing if player tries to move out of map
@@ -308,6 +298,22 @@ def enemy_zone_navigation(char_list, hero_stats):
         if zone_controls.lower() == 'q':
             game_menu_display()
             game_menu_select()
+
+def zone_navigation_menu(off_east_wall, off_north_wall, off_south_wall, off_west_wall, enemy_zone, x, y):
+    """
+    Displays navigation options depending on a current position of the map
+    Hides corresponding options if player is next to the edge of the map
+    """
+    if off_north_wall:
+        print(f'1. Go North to {enemy_zone[x-1][y]}')
+    if off_east_wall:
+        print(f'2. Go East to {enemy_zone[x][y+1]}')
+    if off_south_wall:
+        print(f'3. Go South to {enemy_zone[x+1][y]}')
+    if off_west_wall:
+        print(f'4. Go West to {enemy_zone[x][y-1]}')
+    print('')
+    print('Q. Open Menu')
 
 def battle(current_loc, char_list, hero_stats):
     """
