@@ -96,6 +96,9 @@ def game_menu_select():
                     town_zone()
             else:
                 clear()
+                if current_loc == 'Lut Gholein':
+                    location_art()
+                    ingame_menu()
                 return False
         # Game save
         elif menu_item == '2':
@@ -207,11 +210,8 @@ def town_zone():
         health_potion = int(hero_stats.health_pot)
         store_health_pots = True
     location_art()
+    ingame_menu()
     while True:
-        print('1. Go to Sewers')
-        print('2. Go to Dessert')
-        print('\n')
-        print('Q. Open Menu')
         navigate_town = input('\n')
         clear()
         if navigate_town == '1':
@@ -222,6 +222,8 @@ def town_zone():
                 dessert = True
                 enemy_zone_navigation(char_list, hero_stats)
             else:
+                location_art()
+                ingame_menu()
                 print('Town Gate is locked!')
         elif navigate_town == '3':
             pass
@@ -229,6 +231,8 @@ def town_zone():
             game_menu_display()
             game_menu_select()
         else:
+            location_art()
+            ingame_menu()
             print('Enter a number 1-4 to select your destination')
 
 def enemy_zone_navigation(char_list, hero_stats):
@@ -284,7 +288,7 @@ def enemy_zone_navigation(char_list, hero_stats):
             print(f'3. Go South to {enemy_zone[x+1][y]}')
         if off_west_wall:
             print(f'4. Go West to {enemy_zone[x][y-1]}')
-        print('\n')
+        print('')
         print('Q. Open Menu')
         zone_controls = input('\n')
         clear()
@@ -329,9 +333,9 @@ def battle(current_loc, char_list, hero_stats):
             mob_dmg = int(enemy_stats.attack)
             hero_dmg = int(hero_stats.attack)
             current_enemy_health = int(enemy_stats.health)
-            fight = False  
+            fight = False
+    print(f'You have been attacked by {enemy[0]}')
     while current_enemy_health > 0:
-        print(f'You have been attacked by {enemy[0]}')
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
         current_health -= mob_dmg
 
@@ -367,7 +371,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             if current_enemy_health <= 0:
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
                 hero_gold += int(enemy[3])
-                print(hero_gold)
+                print('')
                 if enemy[0] == 'Radement':
                     key = True
 
@@ -417,6 +421,16 @@ def location_art():
     print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
     print(f'      >>►► {current_loc} ◄◄<<     ')
     print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
+    print('')
+
+def ingame_menu():
+    """
+    In game menu selection
+    """
+    print('1. Go to Sewers')
+    print('2. Go to Dessert')
+    print('')
+    print('Q. Open Menu')
     print('')
 
 # Classes
