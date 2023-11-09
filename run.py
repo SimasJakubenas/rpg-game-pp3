@@ -475,21 +475,16 @@ def ingame_menu():
 
 def vendor():
     """
+    Display items on sale and requests user input to purchase
     """
-    global current_loc
+    global current_loc, health_potion
 
     current_loc = 'Vendor'
-    location_art()
-    print('1. Buy Health Potion        100 gold')
-    print('\n')
-    print('Q. Go Back')
+    vendor_menu()
     while True:
         buy = input('\n')
         clear()
-        location_art()
-        print('1. Buy Health Potion        100 gold')
-        print('\n')
-        print('Q. Go Back')
+        vendor_menu()
         if buy == '1':
             print('Would you like to buy Health Potion?')
             purchase_confirm = input('Y/N\n')
@@ -501,25 +496,28 @@ def vendor():
                     vendor()
                 else:
                     clear()
-                    location_art()
-                    print('1. Buy Health Potion        100 gold')
-                    print('\n')
-                    print('Q. Go Back')
-                    print('You do not have enough gold')
+                    vendor_menu()
             elif purchase_confirm.lower() == 'n':
                 clear()
                 vendor()
             else:
-                location_art()
-                print('1. Buy Health Potion        100 gold')
-                print('\n')
-                print('Q. Go Back')
-                print('Press "Y" to confirm the purchase and "N" to deny')
+                vendor_menu()
         elif buy.lower() == 'q':
             clear()
             town_zone()
         else:
             print('Press "1" to buy item or "Q" to go back')
+
+def vendor_menu():
+    """
+    Display vendors menu options
+    """
+    location_art()
+    print('1. Buy Health Potion        100 gold')
+    print('\n')
+    print('Q. Go Back')
+    print('')
+
 # Classes
 class Character():
     """
