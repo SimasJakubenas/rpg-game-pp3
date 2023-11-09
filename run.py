@@ -398,7 +398,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 print('')
                 if enemy[0] == 'Radement':
                     key = True
-
+                    clear()
+                    location_art()
                     return_to_town()
                 
             return current_enemy_health
@@ -423,6 +424,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             print('Type a number 1-n to select battle option')
 
 def return_to_town():
+    zone_navigation_menu(enemy_zone, x, y)
+    print('')
     print('Would you like to return to town?')
     while True:
         town_portal = input('Y/N:\n')
@@ -432,8 +435,12 @@ def return_to_town():
             
         elif town_portal.lower() == 'n':
             location_art()
+            zone_navigation_menu(enemy_zone, x, y)
             return False
         else:
+            location_art()
+            zone_navigation_menu(enemy_zone, x, y)
+            print('')
             print('Type in "y" to go back to town or "N" to stay')
 
 def clear():
