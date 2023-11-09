@@ -232,6 +232,8 @@ def town_zone():
         elif navigate_town.lower() == 'q':
             game_menu_display()
             game_menu_select()
+        elif navigate_town.lower() == 'w':
+            vendor()
         else:
             location_art()
             ingame_menu()
@@ -468,8 +470,56 @@ def ingame_menu():
     print('2. Go to Dessert')
     print('')
     print('Q. Open Menu')
+    print('W. Visit Vendor')
     print('')
 
+def vendor():
+    """
+    """
+    global current_loc
+
+    current_loc = 'Vendor'
+    location_art()
+    print('1. Buy Health Potion        100 gold')
+    print('\n')
+    print('Q. Go Back')
+    while True:
+        buy = input('\n')
+        clear()
+        location_art()
+        print('1. Buy Health Potion        100 gold')
+        print('\n')
+        print('Q. Go Back')
+        if buy == '1':
+            print('Would you like to buy Health Potion?')
+            purchase_confirm = input('Y/N\n')
+            if purchase_confirm.lower() == 'y':
+                if hero_gold >= 100:
+                    hero_gold -+ 100
+                    health_potion += 1
+                    clear()
+                    vendor()
+                else:
+                    clear()
+                    location_art()
+                    print('1. Buy Health Potion        100 gold')
+                    print('\n')
+                    print('Q. Go Back')
+                    print('You do not have enough gold')
+            elif purchase_confirm.lower() == 'n':
+                clear()
+                vendor()
+            else:
+                location_art()
+                print('1. Buy Health Potion        100 gold')
+                print('\n')
+                print('Q. Go Back')
+                print('Press "Y" to confirm the purchase and "N" to deny')
+        elif buy.lower() == 'q':
+            clear()
+            town_zone()
+        else:
+            print('Press "1" to buy item or "Q" to go back')
 # Classes
 class Character():
     """
