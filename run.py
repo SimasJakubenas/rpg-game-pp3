@@ -147,6 +147,7 @@ def menu_option(menu_item):
                 save_game()
                 game_menu_display()
                 print('The game was saved...')
+                return False
             if menu_item == 'load':
                 print('The game was loaded...')
                 hero_selection()
