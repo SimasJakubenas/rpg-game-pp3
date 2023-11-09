@@ -96,9 +96,11 @@ def game_menu_select():
                     town_zone()
             else:
                 clear()
+                location_art()
                 if current_loc == 'Lut Gholein':
-                    location_art()
                     ingame_menu()
+                else:
+                    zone_navigation_menu(enemy_zone, x, y)
                 return False
         # Game save
         elif menu_item == '2':
@@ -239,7 +241,7 @@ def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, fight, treasure_chest, hero_gold, sewers, dessert, current_loc
+    global health_potion, fight, treasure_chest, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
 
     if sewers == True:
         enemy_zone = SHEET.worksheet('sewers').get_all_values()
@@ -251,12 +253,9 @@ def enemy_zone_navigation(char_list, hero_stats):
         y = 1
     current_loc = enemy_zone[x][y]
     location_art()
+    zone_navigation_menu(enemy_zone, x, y)
     while True:
-        # Variables that check if player is trying to go outside of the map
-        off_north_wall = x > 0
-        off_east_wall = y < len(enemy_zone[x]) - 1
-        off_south_wall = x < len(enemy_zone) - 1
-        off_west_wall = y > 0
+        text_fix = False
         
         current_loc = enemy_zone[x][y]
         if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
@@ -278,39 +277,42 @@ def enemy_zone_navigation(char_list, hero_stats):
                 fight = False
                 location_art()
                 return_to_town()
-                
-        zone_navigation_menu(off_east_wall, off_north_wall, off_south_wall, off_west_wall, enemy_zone, x, y)
         zone_controls = input('\n')
         clear()
         # 'And' operators prevents game from crashing if player tries to move out of map
-        if zone_controls == '1' and off_north_wall:
+        if zone_controls == '1' and x > 0:
             x -= 1
             fight = True
-        if zone_controls == '2' and off_east_wall:
+        elif zone_controls == '2' and y < len(enemy_zone[x]) - 1:
             y += 1
             fight = True
-        if zone_controls == '3' and off_south_wall:
+        elif zone_controls == '3' and x < len(enemy_zone) - 1:
             x += 1
             fight = True
-        if zone_controls == '4' and off_west_wall:
+        elif zone_controls == '4' and y > 0:
             y -= 1
             fight = True
-        if zone_controls.lower() == 'q':
+        elif zone_controls.lower() == 'q':
             game_menu_display()
             game_menu_select()
+        else:
+            location_art()
+            zone_navigation_menu(enemy_zone, x, y)
+            print('')
+            print('Use numers 1-4 to navigate the map')
 
-def zone_navigation_menu(off_east_wall, off_north_wall, off_south_wall, off_west_wall, enemy_zone, x, y):
+def zone_navigation_menu(enemy_zone, x, y):
     """
     Displays navigation options depending on a current position of the map
     Hides corresponding options if player is next to the edge of the map
     """
-    if off_north_wall:
+    if x > 0:
         print(f'1. Go North to {enemy_zone[x-1][y]}')
-    if off_east_wall:
+    if y < len(enemy_zone[x]) - 1:
         print(f'2. Go East to {enemy_zone[x][y+1]}')
-    if off_south_wall:
+    if x < len(enemy_zone) - 1:
         print(f'3. Go South to {enemy_zone[x+1][y]}')
-    if off_west_wall:
+    if y > 0:
         print(f'4. Go West to {enemy_zone[x][y-1]}')
     print('')
     print('Q. Open Menu')
@@ -376,6 +378,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
+                print('')
+                zone_navigation_menu(enemy_zone, x, y)
                 hero_gold += int(enemy[3])
                 print('')
                 if enemy[0] == 'Radement':
