@@ -255,20 +255,23 @@ def enemy_zone_navigation(char_list, hero_stats):
     location_art()
     zone_navigation_menu(enemy_zone, x, y)
     while True:
-        text_fix = False
-        
         current_loc = enemy_zone[x][y]
         if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
                     location_art()
+                    zone_navigation_menu(enemy_zone, x, y)
+                    print('')
                     print('You found 200 gold!')
                     hero_gold += int(char_list[5][3])
                     treasure_chest = False
                     fight = False
                 else:
+                    # location_art()
                     battle(current_loc, char_list, hero_stats)
             if fight:
+                location_art()
+                print('sdfsdf')
                 battle(current_loc, char_list, hero_stats)
                 health_potion += 1
                 fight = False
@@ -323,13 +326,14 @@ def battle(current_loc, char_list, hero_stats):
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_health, current_enemy_health, health_potion, alive, fight, key
+    global current_health, current_enemy_health, health_potion, alive, fight, key, first_attack
+
+    first_attack = False
     if sewers == True:
         enemy_list = slice(2, 7)
     if dessert == True:
         enemy_list = slice(7, 19)
-    location_art()
-    while fight:
+    while fight: 
         enemy = tuple(random.choice(char_list[enemy_list]))
             
         if enemy[4] == current_loc:
@@ -342,7 +346,7 @@ def battle(current_loc, char_list, hero_stats):
             hero_dmg = int(hero_stats.attack)
             current_enemy_health = int(enemy_stats.health)
             fight = False
-    print(f'You have been attacked by {enemy[0]}')
+            print(f'You have been attacked by {enemy[0]}')
     while current_enemy_health > 0:
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
         current_health -= mob_dmg
@@ -353,20 +357,29 @@ def battle(current_loc, char_list, hero_stats):
             input('\n')
             clear()
             main()
-        print('Your Life')
-        print(f'{current_health}/{int(hero_stats.health)}')
-        print(f'{enemy_stats.name} Life')
-        print(f'{current_enemy_health}/{int(enemy_stats.health)}')
-        print('1. Attack')
-        print('2. Use Potion')
+        battle_menu(hero_stats, enemy_stats)
 
         battle_options(enemy, hero_dmg, hero_stats, enemy_stats)
+
+def battle_menu(hero_stats, enemy_stats):
+    """
+    Display health of player and enemy and display menu options in battle
+    """
+    global current_enemy_health, current_health
+
+    print('Your Life')
+    print(f'{current_health}/{int(hero_stats.health)}')
+    print(f'{enemy_stats.name} Life')
+    print(f'{current_enemy_health}/{int(enemy_stats.health)}')
+    print('1. Attack')
+    print('2. Use Potion')
+    print('')
 
 def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, health_potion, hero_gold ,key
+    global current_enemy_health, current_health, health_potion, hero_gold , key, first_attack
 
     while True:
         battle_option = input('\n')
@@ -374,6 +387,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
         location_art() 
         # Option to attack
         if battle_option == '1':
+            first_attack = True
             current_enemy_health -= hero_dmg
             print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
@@ -400,6 +414,12 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 print('You have no health pots')
             return False
         else:
+            if first_attack == False:
+                print(f'You have been attacked by {enemy[0]}')
+            else:
+                print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
+            print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
+            battle_menu(hero_stats, enemy_stats)
             print('Type a number 1-n to select battle option')
 
 def return_to_town():
