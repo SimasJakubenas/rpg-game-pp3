@@ -130,8 +130,9 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
-    global alive, hero_created
+    global alive, hero_created, loaded_game
 
+    loaded_game = False
     print('')
     while True:
         want_to_quit = input(f"Do you want to {menu_item} the game?Y/N\n")
@@ -149,7 +150,7 @@ def menu_option(menu_item):
                 print('The game was saved...')
                 return False
             if menu_item == 'load':
-                print('The game was loaded...')
+                loaded_game = True
                 hero_selection()
                 load_game()
                 town_zone()
@@ -203,7 +204,7 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, store_health_pots, hero_stats, char_list, sewers, dessert, current_loc
+    global current_health, health_potion, store_health_pots, hero_stats, char_list, sewers, dessert, current_loc, loaded_game
 
     current_loc = 'Lut Gholein'
     current_health = int(hero_stats.health)
@@ -214,6 +215,9 @@ def town_zone():
         store_health_pots = True
     location_art()
     ingame_menu()
+    if loaded_game == True:
+        print('The game was loaded...')
+    loaded_game = False
     while True:
         navigate_town = input('\n')
         clear()
