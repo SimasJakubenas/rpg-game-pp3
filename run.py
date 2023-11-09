@@ -271,7 +271,6 @@ def enemy_zone_navigation(char_list, hero_stats):
                     battle(current_loc, char_list, hero_stats)
             if fight:
                 location_art()
-                print('sdfsdf')
                 battle(current_loc, char_list, hero_stats)
                 health_potion += 1
                 fight = False
@@ -410,10 +409,11 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 if current_health > int(hero_stats.max_health):
                     current_health = int(hero_stats.max_health)
                 health_potion -= 1
+                print('You gained 50 life!')
                 return current_health
             else:
+                battle_menu(hero_stats, enemy_stats)
                 print('You have no health pots')
-            return False
         else:
             if first_attack == False:
                 print(f'You have been attacked by {enemy[0]}')
