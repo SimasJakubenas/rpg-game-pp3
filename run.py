@@ -233,9 +233,9 @@ def town_zone():
             game_menu_display()
             game_menu_select()
         elif navigate_town.lower() == 'w':
+            character_info()    
+        elif navigate_town.lower() == 'r':
             vendor()
-        elif navigate_town.lower() == 'e':
-            character_info()
         else:
             location_art()
             ingame_menu()
@@ -301,7 +301,7 @@ def enemy_zone_navigation(char_list, hero_stats):
         elif zone_controls.lower() == 'q':
             game_menu_display()
             game_menu_select()
-        elif zone_controls.lower() == 'e':
+        elif zone_controls.lower() == 'w':
             character_info()
         else:
             location_art()
@@ -324,7 +324,7 @@ def zone_navigation_menu(enemy_zone, x, y):
         print(f'4. Go West to {enemy_zone[x][y-1]}')
     print('')
     print('Q. Open Menu')
-    print('E. Character Info')
+    print('W. Character Info')
 
 def battle(current_loc, char_list, hero_stats):
     """
@@ -475,8 +475,9 @@ def ingame_menu():
     print('2. Go to Dessert')
     print('')
     print('Q. Open Menu')
-    print('W. Visit Vendor')
-    print('E. Character Info')
+    print('W. Character Info')
+    print('R. Visit Vendor')
+    
 
 def vendor():
     """
@@ -507,11 +508,11 @@ def vendor():
                 vendor()
             else:
                 vendor_menu()
-        elif buy.lower() == 'q':
+        elif buy.lower() == 'r':
             clear()
             town_zone()
         else:
-            print('Press "1" to buy item or "Q" to go back')
+            print('Press "1" to buy item or "R" to go back')
 
 def vendor_menu():
     """
@@ -520,7 +521,7 @@ def vendor_menu():
     location_art()
     print('1. Buy Health Potion        100 gold')
     print('\n')
-    print('Q. Go Back')
+    print('R. Go Back')
     print('')
 
 def character_info():
@@ -537,7 +538,7 @@ def character_info():
         clear()
         location_art()
         stats()
-        if go_back.lower() == 'e':
+        if go_back.lower() == 'w':
             clear()
             if current_loc == 'Lut Gholein':
                 town_zone()
@@ -546,7 +547,7 @@ def character_info():
                 zone_navigation_menu(enemy_zone, x, y)
                 return False
         else:
-            print('Press "E" to go back')
+            print('Press "W" to go back')
 def stats():
     """
     Character stats
@@ -555,7 +556,7 @@ def stats():
     print(f'Attack:    {hero_stats.attack}')
     print(f'Potions    {health_potion}')
     print(f'Gold:      {hero_gold}\n')
-    print('E. Go Back\n')
+    print('W. Go Back\n')
 
 # Classes
 class Character():
