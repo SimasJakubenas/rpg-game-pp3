@@ -238,7 +238,9 @@ def town_zone():
             game_menu_display()
             game_menu_select()
         elif navigate_town.lower() == 'w':
-            character_info()    
+            character_info()
+        elif navigate_town.lower() == 'e':
+            stash()
         elif navigate_town.lower() == 'r':
             vendor()
         else:
@@ -308,6 +310,8 @@ def enemy_zone_navigation(char_list, hero_stats):
             game_menu_select()
         elif zone_controls.lower() == 'w':
             character_info()
+        elif zone_controls.lower() == 'e':
+            stash()
         else:
             location_art()
             zone_navigation_menu(enemy_zone, x, y)
@@ -435,6 +439,36 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             battle_menu(hero_stats, enemy_stats)
             print('Type a number 1-n to select battle option')
 
+def stash():
+    """
+    Display aquired items
+    Pull and display relevant data from 'stash' spreadsheet
+    """
+    location_art()
+    stash_sheet = SHEET.worksheet('stash').get_all_values()
+    stash_limit = stash_sheet[1:8]
+    print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
+    for number, item in enumerate(stash_limit, 1):
+        # Enumerates all items in stash and ensures correct positioning of the display
+        print(str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
+              item[1],' ' * (10 - len(item[2]) + 2), item[2])
+    print('')
+    print('E. Go back')
+    while True:
+        go_back = input('\n')
+        clear()
+        location_art()
+        if go_back.lower() == 'e':
+            clear()
+            if current_loc == 'Lut Gholein':
+                town_zone()
+            else:
+                location_art()
+                zone_navigation_menu(enemy_zone, x, y)
+                return False
+        else:
+            print('Press "E" to go back')
+
 def return_to_town():
     zone_navigation_menu(enemy_zone, x, y)
     print('')
@@ -481,9 +515,9 @@ def ingame_menu():
     print('')
     print('Q. Open Menu')
     print('W. Character Info')
+    print('E. Open Stash')
     print('R. Visit Vendor')
     
-
 def vendor():
     """
     Display items on sale and requests user input to purchase
