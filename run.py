@@ -597,6 +597,17 @@ def vendor():
         else:
             print('Press "1" to buy item or "R" to go back')
 
+def vendor_menu():
+    """
+    Display vendors menu options
+    """
+    location_art()
+    print('1. Buy')
+    print('2. Sell')
+    print('3. Gossip\n')
+    print('R. Go Back\n')
+
+
 def vendor_buy_menu():
     """
     Display vendors menu options
