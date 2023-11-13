@@ -450,34 +450,37 @@ def item_drop():
     Chance to aquire item after a fight
     """
     global replace
+
     stash = SHEET.worksheet('stash')
     stash_list = SHEET.worksheet('stash').get_all_values()
     item_list = SHEET.worksheet('items').get_all_values()
     weapon_list = item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
+            clear()
+            location_art()
             print(f'You found {weapon[0]}')
             stash.append_row(weapon)
-            if len(stash_list) >= 8:
-                
-                while True:
-                    remove_item = input(f'Not enough space in stash would you like to remove {stash_list[1][0]}?Y/N\n')
-                    clear()
-                    if remove_item.lower() == 'y':
-                        remove_first = stash_list.pop(1)
-                        stash.clear()
-                        for row in stash_list:
-                            stash.append_row(row)
-                        stash.append_row(weapon)
-                        return stash
-                    elif remove_item.lower() == 'n':
-                        stash.delete_rows(9)
-                        replace = True
-                        return False
-                    else:
-                        location_art()
-                        print(f'Press "Y" to replace {stash_list[1][0]} or "N" to pass on this item')
-            
+            stash_list.append(weapon)
+        while len(stash_list) > 8:
+            remove_item = input(f'Not enough space in stash would you like to remove {stash_list[1][0]}?Y/N\n')
+            clear()
+            if remove_item.lower() == 'y':
+                remove_first = stash_list.pop(1)
+                stash.clear()
+                for row in stash_list:
+                    stash.append_row(row)
+            elif remove_item.lower() == 'n':
+                del stash_list[-1]
+                stash.clear()
+                for row in stash_list:
+                    stash.append_row(row)
+                replace = True
+            else:
+                location_art()
+                print(f'You found {weapon[0]}\n')
+                print(f'Press "Y" to replace {stash_list[1][0]} or "N" to pass on this item')
+
 def stash():
     """
     Display aquired items
