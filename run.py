@@ -612,7 +612,8 @@ def vendor_buy_menu_option():
     """
     Takes player input to navigate vendors buy menu
     """
-    global health_potion
+    global health_potion, hero_gold
+
     while True:
         buy = input('\n')
         clear()
@@ -622,16 +623,16 @@ def vendor_buy_menu_option():
             purchase_confirm = input('Y/N\n')
             if purchase_confirm.lower() == 'y':
                 if hero_gold >= 100:
-                    hero_gold -+ 100
+                    hero_gold -= 100
                     health_potion += 1
                     clear()
-                    vendor()
+                    vendor_buy_menu()
                 else:
                     clear()
                     vendor_buy_menu()
             elif purchase_confirm.lower() == 'n':
                 clear()
-                vendor()
+                vendor_buy_menu()
             else:
                 vendor_buy_menu()
         elif buy.lower() == 'r':
