@@ -17,7 +17,7 @@ def main():
     Main game function
     """
     
-    global fight, hero_created, alive, key, store_health_pots, treasure_chest
+    global fight, hero_created, alive, key, store_health_pots, treasure_chest, replace
 
     fight = False
     hero_created = False
@@ -25,6 +25,7 @@ def main():
     key = False
     store_health_pots = False
     treasure_chest = True
+    replace = False
 
     title_and_greeting()
 
@@ -323,6 +324,8 @@ def zone_navigation_menu(enemy_zone, x, y):
     Displays navigation options depending on a current position of the map
     Hides corresponding options if player is next to the edge of the map
     """
+    global replace
+
     if x > 0:
         print(f'1. Go North to {enemy_zone[x-1][y]}')
     if y < len(enemy_zone[x]) - 1:
@@ -334,6 +337,10 @@ def zone_navigation_menu(enemy_zone, x, y):
     print('')
     print('Q. Open Menu')
     print('W. Character Info')
+    
+    if replace == True:
+        print(f'You left your loot behind')
+    replace = False
 
 def battle(current_loc, char_list, hero_stats):
     """
@@ -407,6 +414,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
+                item_drop()
                 print('')
                 zone_navigation_menu(enemy_zone, x, y)
                 hero_gold += int(enemy[3])
@@ -439,6 +447,39 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             battle_menu(hero_stats, enemy_stats)
             print('Type a number 1-n to select battle option')
 
+def item_drop():
+    """
+    Chance to aquire item after a fight
+    """
+    global replace
+    stash = SHEET.worksheet('stash')
+    stash_list = SHEET.worksheet('stash').get_all_values()
+    item_list = SHEET.worksheet('items').get_all_values()
+    weapon_list = item_list[3:]
+    for weapon in weapon_list:
+        if float(weapon[-1]) >= random.random():
+            print(f'You found {weapon}')
+            stash.append_row(weapon)
+            if len(stash_list) >= 8:
+                
+                while True:
+                    remove_item = input(f'Not enough space in stash would you like to remove {stash_list[1][0]}?Y/N\n')
+                    clear()
+                    if remove_item.lower() == 'y':
+                        remove_first = stash_list.pop(1)
+                        stash.clear()
+                        for row in stash_list:
+                            stash.append_row(row)
+                        stash.append_row(weapon)
+                        return stash
+                    elif remove_item.lower() == 'n':
+                        stash.delete_rows(9)
+                        replace = True
+                        return False
+                    else:
+                        location_art()
+                        print(f'Press "Y" to replace {stash_list[1][0]} or "N" to pass on this item')
+            
 def stash():
     """
     Display aquired items
