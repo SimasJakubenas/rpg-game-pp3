@@ -264,14 +264,12 @@ def enemy_zone_navigation(char_list, hero_stats):
         x = 1
         y = 1
     current_loc = enemy_zone[x][y]
-    location_art()
     zone_navigation_menu(enemy_zone, x, y)
     while True:
         current_loc = enemy_zone[x][y]
         if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
             if current_loc == 'Sewers Hideout':
                 if treasure_chest == True:
-                    location_art()
                     zone_navigation_menu(enemy_zone, x, y)
                     print('')
                     print('You found 200 gold!')
@@ -314,7 +312,6 @@ def enemy_zone_navigation(char_list, hero_stats):
         elif zone_controls.lower() == 'e':
             stash()
         else:
-            location_art()
             zone_navigation_menu(enemy_zone, x, y)
             print('')
             print('Use numers 1-4 to navigate the map')
@@ -326,6 +323,7 @@ def zone_navigation_menu(enemy_zone, x, y):
     """
     global replace
 
+    location_art()
     if x > 0:
         print(f'1. Go North to {enemy_zone[x-1][y]}')
     if y < len(enemy_zone[x]) - 1:
@@ -458,7 +456,7 @@ def item_drop():
     weapon_list = item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
-            print(f'You found {weapon}')
+            print(f'You found {weapon[0]}')
             stash.append_row(weapon)
             if len(stash_list) >= 8:
                 
