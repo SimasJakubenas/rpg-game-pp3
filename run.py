@@ -579,6 +579,7 @@ def vendor():
             vendor_buy_menu_option()
         elif vendor_menu_select == '2':
             vendor_sell_menu()
+            vendor_sell_menu_option()
         elif vendor_menu_select == '3':
             pass
         elif vendor_menu_select.lower() == 'r':
@@ -642,7 +643,6 @@ def vendor_buy_menu_option():
         elif buy.lower() == 'r':
             clear()
             return False
-            # vendor_menu()
         else:
             print('Press "1" to buy item or "R" to go back')
 
@@ -650,7 +650,7 @@ def vendor_sell_menu():
     """
     Display vendors sell menu options
     """
-    global hero_gold
+    global hero_gold, stash_sheet, stash_limit, num
 
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
@@ -660,9 +660,45 @@ def vendor_sell_menu():
         # Enumerates all items in stash and ensures correct positioning of the display
         print(str(number) + '.', item[0].title() + ' ' * (15 - len(item[0])), item[4])
     print('')
+    num = number
     print(f'Enter number from 1 to {number} to sell\n')
     print('R. Go Back\n')
-    
+
+def vendor_sell_menu_option():
+    """
+    Takes player input to navigate vendors sell menu
+    """
+    global health_potion, hero_gold, stash_sheet, num
+
+    stash = SHEET.worksheet('stash')
+    while True:
+        sell = input('\n')
+        clear()
+
+        if sell == '1':
+            vendor_sell_menu()
+            print(f'Would you like to sell {stash_sheet[1][0]}?')
+            sale_confirm = input('Y/N\n')
+            if sale_confirm.lower() == 'y':
+                hero_gold += int(stash_sheet[1][4])
+                remove_first = stash_sheet.pop(1)
+                stash.clear()
+                for row in stash_sheet:
+                    stash.append_row(row)
+                clear()
+                vendor_sell_menu()
+            elif sale_confirm.lower() == 'n':
+                clear()
+                vendor_sell_menu()
+            else:
+                vendor_sell_menu()
+                print('Type "Y" to confirm the sale or "N" to cancel')
+        elif sell.lower() == 'r':
+            clear()
+            return False
+        else:
+            vendor_sell_menu()
+            print(f'Press 1 - {num} to sell item or "R" to go back')
 
 def character_info():
     """
