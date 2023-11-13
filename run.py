@@ -578,7 +578,7 @@ def vendor():
             vendor_buy_menu()
             vendor_buy_menu_option()
         elif vendor_menu_select == '2':
-            pass
+            vendor_sell_menu()
         elif vendor_menu_select == '3':
             pass
         elif vendor_menu_select.lower() == 'r':
@@ -645,6 +645,24 @@ def vendor_buy_menu_option():
             # vendor_menu()
         else:
             print('Press "1" to buy item or "R" to go back')
+
+def vendor_sell_menu():
+    """
+    Display vendors sell menu options
+    """
+    global hero_gold
+
+    location_art()
+    print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
+    stash_sheet = SHEET.worksheet('stash').get_all_values()
+    stash_limit = stash_sheet[1:8]
+    for number, item in enumerate(stash_limit, 1):
+        # Enumerates all items in stash and ensures correct positioning of the display
+        print(str(number) + '.', item[0].title() + ' ' * (15 - len(item[0])), item[4])
+    print('')
+    print(f'Enter number from 1 to {number} to sell\n')
+    print('R. Go Back\n')
+    
 
 def character_info():
     """
