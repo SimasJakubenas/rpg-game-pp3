@@ -572,7 +572,7 @@ def vendor():
     
     while True:
         vendor_menu()
-        vendor_menu_select = input('fghfd')
+        vendor_menu_select = input('')
         clear()
         if vendor_menu_select == '1':
             vendor_buy_menu()
@@ -602,7 +602,11 @@ def vendor_buy_menu():
     """
     Display vendors menu options
     """
+    global health_potion, hero_gold
+
     location_art()
+    print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}')
+    print('Health_potion:' + ' ' * (4 - len(str(health_potion))) + f'{health_potion}\n')
     print('1. Buy Health Potion        100 gold')
     print('\n')
     print('R. Go Back')
