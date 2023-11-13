@@ -570,32 +570,6 @@ def vendor():
 
     current_loc = 'Vendor'
     vendor_menu()
-    while True:
-        buy = input('\n')
-        clear()
-        vendor_menu()
-        if buy == '1':
-            print('Would you like to buy Health Potion?')
-            purchase_confirm = input('Y/N\n')
-            if purchase_confirm.lower() == 'y':
-                if hero_gold >= 100:
-                    hero_gold -+ 100
-                    health_potion += 1
-                    clear()
-                    vendor()
-                else:
-                    clear()
-                    vendor_menu()
-            elif purchase_confirm.lower() == 'n':
-                clear()
-                vendor()
-            else:
-                vendor_menu()
-        elif buy.lower() == 'r':
-            clear()
-            town_zone()
-        else:
-            print('Press "1" to buy item or "R" to go back')
 
 def vendor_menu():
     """
@@ -617,6 +591,34 @@ def vendor_buy_menu():
     print('\n')
     print('R. Go Back')
     print('')
+
+def vendor_buy_menu_option():
+    while True:
+        buy = input('\n')
+        clear()
+        vendor_buy_menu()
+        if buy == '1':
+            print('Would you like to buy Health Potion?')
+            purchase_confirm = input('Y/N\n')
+            if purchase_confirm.lower() == 'y':
+                if hero_gold >= 100:
+                    hero_gold -+ 100
+                    health_potion += 1
+                    clear()
+                    vendor()
+                else:
+                    clear()
+                    vendor_buy_menu()
+            elif purchase_confirm.lower() == 'n':
+                clear()
+                vendor()
+            else:
+                vendor_buy_menu()
+        elif buy.lower() == 'r':
+            clear()
+            town_zone()
+        else:
+            print('Press "1" to buy item or "R" to go back')
 
 def character_info():
     """
