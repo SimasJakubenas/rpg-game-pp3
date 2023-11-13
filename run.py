@@ -609,6 +609,10 @@ def vendor_buy_menu():
     print('')
 
 def vendor_buy_menu_option():
+    """
+    Takes player input to navigate vendors buy menu
+    """
+    global health_potion
     while True:
         buy = input('\n')
         clear()
