@@ -597,7 +597,7 @@ def vendor():
         else:
             print('Press "1" to buy item or "R" to go back')
 
-def vendor_menu():
+def vendor_buy_menu():
     """
     Display vendors menu options
     """
