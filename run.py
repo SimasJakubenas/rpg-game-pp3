@@ -566,10 +566,26 @@ def vendor():
     """
     Display items on sale and requests user input to purchase
     """
-    global current_loc, health_potion
+    global current_loc
 
     current_loc = 'Vendor'
-    vendor_menu()
+    
+    while True:
+        vendor_menu()
+        vendor_menu_select = input('fghfd')
+        clear()
+        if vendor_menu_select == '1':
+            vendor_buy_menu()
+            vendor_buy_menu_option()
+        elif vendor_menu_select == '2':
+            pass
+        elif vendor_menu_select == '3':
+            pass
+        elif vendor_menu_select.lower() == 'r':
+            town_zone()
+        else:
+            vendor_menu()
+            print('Type 1-3 to select a menu option')
 
 def vendor_menu():
     """
@@ -616,7 +632,8 @@ def vendor_buy_menu_option():
                 vendor_buy_menu()
         elif buy.lower() == 'r':
             clear()
-            town_zone()
+            return False
+            # vendor_menu()
         else:
             print('Press "1" to buy item or "R" to go back')
 
