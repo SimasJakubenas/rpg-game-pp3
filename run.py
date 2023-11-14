@@ -17,7 +17,7 @@ def main():
     Main game function
     """
     
-    global fight, hero_created, alive, key, store_health_pots, treasure_chest, replace
+    global fight, hero_created, alive, key, store_health_pots, treasure_chest, replace, saved
 
     fight = False
     hero_created = False
@@ -26,6 +26,7 @@ def main():
     store_health_pots = False
     treasure_chest = True
     replace = False
+    saved = False
 
     title_and_greeting()
 
@@ -145,7 +146,7 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
-    global alive, hero_created, loaded_game
+    global alive, hero_created, loaded_game, saved
 
     stash = SHEET.worksheet('stash')
     loaded_game = False
@@ -164,6 +165,7 @@ def menu_option(menu_item):
                 town_zone()
             if menu_item == 'save':
                 save_game()
+                saved = True
                 clear()
                 game_menu_display()
                 print('')
@@ -210,20 +212,28 @@ def load_game():
     Loads the game by pulling character stats from save worksheet
     Transfers save items to a relevant worksheet
     """
-    global hero_stats, hero_gold, health_potion, hero
+    global hero_stats, hero_gold, health_potion, hero, saved
 
-    print('Game loading please wait....')
-    load_list = SHEET.worksheet('save').get_all_values()
-    last_save = load_list[-1]
-    hero_gold = int(last_save[4])
-    health_potion = int(last_save[5])
-    hero_stats = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
+    while True:
+        if saved == True:
+            print('Game loading please wait....')
+            load_list = SHEET.worksheet('save').get_all_values()
+            last_save = load_list[-1]
+            hero_gold = int(last_save[4])
+            health_potion = int(last_save[5])
+            hero_stats = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
 
-    load_items_list = SHEET.worksheet('stash_save').get_all_values()
-    clear_stash = SHEET.worksheet('stash')
-    clear_stash.clear()
-    for item in load_items_list:
-        clear_stash.append_row(item)
+            load_items_list = SHEET.worksheet('stash_save').get_all_values()
+            clear_stash = SHEET.worksheet('stash')
+            clear_stash.clear()
+            for item in load_items_list:
+                clear_stash.append_row(item)
+            return False
+        else:
+            game_menu_display()
+            print('You need to save the game first!')
+            game_menu_select()
+
 
 def game_rules():
     """
