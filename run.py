@@ -160,7 +160,7 @@ def menu_option(menu_item):
                 hero_created = True
                 hero_selection()
                 game_lore()
-                stash.clear()
+                SHEET.values_clear("stash!A2:F10000")
                 town_zone()
             if menu_item == 'save':
                 save_game()
