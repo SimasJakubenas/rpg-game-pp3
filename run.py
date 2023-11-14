@@ -569,17 +569,19 @@ def vendor():
     global current_loc
 
     current_loc = 'Vendor'
-    
+    vendor_menu()
     while True:
-        vendor_menu()
         vendor_menu_select = input('')
         clear()
         if vendor_menu_select == '1':
             vendor_buy_menu()
             vendor_buy_menu_option()
+            vendor_menu()
         elif vendor_menu_select == '2':
             vendor_sell_menu()
             vendor_sell_menu_option()
+            clear()
+            vendor_menu()
         elif vendor_menu_select == '3':
             pass
         elif vendor_menu_select.lower() == 'r':
@@ -587,7 +589,7 @@ def vendor():
         else:
             vendor_menu()
             print('Type 1-3 to select a menu option')
-
+            
 def vendor_menu():
     """
     Display vendors menu options
