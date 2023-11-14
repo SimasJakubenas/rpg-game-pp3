@@ -655,13 +655,16 @@ def vendor_sell_menu():
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
     stash_sheet = SHEET.worksheet('stash').get_all_values()
-    stash_limit = stash_sheet[1:8]
-    for number, item in enumerate(stash_limit, 1):
-        # Enumerates all items in stash and ensures correct positioning of the display
-        print(str(number) + '.', item[0].title() + ' ' * (15 - len(item[0])), item[4])
-    print('')
-    num = number
-    print(f'Enter number from 1 to {number} to sell\n')
+    stash_limit = stash_sheet[1:]
+    if len(stash_limit) > 0:
+        for number, item in enumerate(stash_limit, 1):
+            # Enumerates all items in stash and ensures correct positioning of the display
+            print(str(number) + '.', item[0].title() + ' ' * (15 - len(item[0])), item[4])
+        print('')
+        num = number
+        print(f'Enter number from 1 to {number} to sell\n')
+    else:
+        print('You have nothing to sell\n')
     print('R. Go Back\n')
 
 def vendor_sell_menu_option():
@@ -675,12 +678,13 @@ def vendor_sell_menu_option():
         sell = input('\n')
         clear()
         vendor_sell_input(sell, stash)
+        return False
 
 def vendor_sell_input(sell, stash):
     """
     Handles player input for vendor sell menu
     """
-    global hero_gold, stash_sheet
+    global hero_gold, stash_sheet, num
 
     if sell == '1' or sell == '2' or sell == '3' or sell == '4' or sell == '5' or sell == '6' or sell == '7':
         if 0 < int(sell) < len(stash_sheet):
@@ -703,13 +707,14 @@ def vendor_sell_input(sell, stash):
                 print('Type "Y" to confirm the sale or "N" to cancel')
         else:
             vendor_sell_menu()
-            print(f'Press 1 - {num} to sell item or "R" to go back')
+            print(f'Type number to sell item or "R" to go back')
     elif sell.lower() == 'r':
         clear()
-        vendor_menu()
+        vendor_sell_menu()
     else:
         vendor_sell_menu()
-        print(f'Press 1 - {num} to sell item or "R" to go back')
+        print(f'Type numbe to sell item or "R" to go backward')
+
 
 def character_info():
     """
