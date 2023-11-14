@@ -162,6 +162,8 @@ def menu_option(menu_item):
                 hero_selection()
                 game_lore()
                 SHEET.values_clear("stash!A2:F10000")
+                # A space holder for equipped weapon
+                stash.append_row(['Stick', '0', '0', '0', '5', '0'])
                 town_zone()
             if menu_item == 'save':
                 save_game()
@@ -192,10 +194,10 @@ def save_game():
     Saves heros stats by pushing hero stats to a google spreadsheet
     Saves aquired items to a google spreadsheet
     """
-    global hero, hero_gold, health_potion
+    global hero, hero_gold, health_potion, hero_attack, hero_max_health
 
     print('Game saving please wait....')
-    hero_stats_pull = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
+    hero_stats_pull = Hero(hero[0], hero_max_health, hero_attack, hero_gold, health_potion)
     hero_stats_dict = vars(hero_stats_pull)
     hero_stats_list = list(hero_stats_dict.values())
     save_file = SHEET.worksheet('save')
@@ -466,7 +468,7 @@ def battle_menu(hero_stats, enemy_stats):
     global current_enemy_health, current_health
 
     print('Your Life')
-    print(f'{current_health}/{int(hero_stats.health)}')
+    print(f'{current_health}/{hero_max_health}')
     print(f'{enemy_stats.name} Life')
     print(f'{current_enemy_health}/{int(enemy_stats.health)}')
     print('1. Attack')
@@ -477,7 +479,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, health_potion, hero_gold , key, first_attack
+    global current_enemy_health, current_health, health_potion, hero_gold , key, first_attack, hero_attack
 
     while True:
         battle_option = input('\n')
@@ -486,8 +488,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
         # Option to attack
         if battle_option == '1':
             first_attack = True
-            current_enemy_health -= hero_dmg
-            print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
+            current_enemy_health -= hero_attack
+            print(f'You have done {hero_attack} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
                 item_drop()
@@ -509,8 +511,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
         elif battle_option == '2':
             if health_potion > 0:
                 current_health += 50
-                if current_health > int(hero_stats.max_health):
-                    current_health = int(hero_stats.max_health)
+                if current_health > hero_max_health:
+                    current_health = hero_max_health
                 health_potion -= 1
                 print('You gained 50 life!')
                 return current_health
@@ -521,7 +523,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             if first_attack == False:
                 print(f'You have been attacked by {enemy[0]}')
             else:
-                print(f'You have done {hero_dmg} damage to {enemy_stats.name}')
+                print(f'You have done {hero_attack} damage to {enemy_stats.name}')
             print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
             battle_menu(hero_stats, enemy_stats)
             print('Type a number 1-n to select battle option')
@@ -567,34 +569,44 @@ def stash():
     Display aquired items
     Pull and display relevant data from 'stash' spreadsheet
     """
+    global hero_attack, hero_max_health, stash, stash_sheet
+
     location_art()
     stash = SHEET.worksheet('stash')
     stash_sheet = SHEET.worksheet('stash').get_all_values()
-    stash_limit = stash_sheet[1:8]
-    stash_menu(stash_limit)
+    stash_limit = stash_sheet[1:9]
+    equipped_weapon = stash_sheet[1]
+    stash_menu(equipped_weapon)
     while True:
         equip = input('\n')
         clear()
         location_art()
         if equip == '1' or equip == '2' or equip == '3' or equip == '4' or equip == '5' or equip == '6' or equip == '7':
             if 0 < int(equip) < len(stash_sheet):
-                stash_menu(stash_limit)
-                print(f'Would you like to equip {stash_sheet[int(equip)][0]}?')
+                stash_menu(equipped_weapon)
+                print(f'Would you like to equip {stash_sheet[int(equip)+1][0]}?')
                 equip_confirm = input('Y/N\n')
                 if equip_confirm.lower() == 'y':
-                    stash_limit.pop(int(equip)-1)
+                    stash_limit = stash_sheet[1:9]
+                    equipped_weapon = stash_limit.pop(int(equip))
+                    
                     SHEET.values_clear("stash!A2:F10000")
+                    hero_attack = int(hero[2]) + int(equipped_weapon[1])
+                    hero_max_health = int(hero[1]) + int(equipped_weapon[2])
+                    stash.append_row(equipped_weapon)
                     for row in stash_limit:
                         stash.append_row(row)
+                    stash = SHEET.worksheet('stash')
+                    stash_sheet = SHEET.worksheet('stash').get_all_values()
                     clear()
                     location_art()
-                    stash_menu(stash_limit)
+                    stash_menu(equipped_weapon)
                 elif equip_confirm.lower() == 'n':
                     clear()
                     location_art()
-                    stash_menu(stash_limit)
+                    stash_menu(equipped_weapon)
                 else:
-                    stash_menu(stash_limit)
+                    stash_menu(equipped_weapon)
                     print('Type "Y" to confirm to equip or "N" to cancel')
             else:
                 print(f'Type number to equip item or "R" to go back')
@@ -607,21 +619,26 @@ def stash():
                 zone_navigation_menu(enemy_zone, x, y)
                 return False
         else:
-            stash_menu(stash_limit)
+            stash_menu(equipped_weapon)
             print('Type number to equip item or "R" to go backward')
 
-def stash_menu(stash_limit):
+def stash_menu(equipped_weapon):
     """
     Display stash menu
     """
-
+    stash_sheet = SHEET.worksheet('stash').get_all_values()
+    stash_limit = stash_sheet[2:9]
+    print(f'Equipped:    {stash_sheet[1][0]}\n')
     print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
     for number, item in enumerate(stash_limit, 1):
         # Enumerates all items in stash and ensures correct positioning of the display
         print(str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
               item[1],' ' * (10 - len(item[2]) + 2), item[2])
     print('')
-    print('Select a number to equip the weapon\n')
+    if len(stash_sheet) > 2:
+        print('Select a number to equip the weapon\n')
+    else:
+        print('You have no items to equip\n')
     print('E. Go back\n')
 
 def return_to_town():
@@ -909,8 +926,8 @@ def stats():
     """
     Character stats
     """
-    print(f'Health:    {hero_stats.max_health}')
-    print(f'Attack:    {hero_stats.attack}')
+    print(f'Health:    {hero_max_health}')
+    print(f'Attack:    {hero_attack}')
     print(f'Potions    {health_potion}')
     print(f'Gold:      {hero_gold}\n')
     print('W. Go Back\n')
