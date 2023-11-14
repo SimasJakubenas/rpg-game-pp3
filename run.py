@@ -51,6 +51,19 @@ def title_and_greeting():
     game_menu_display()
     game_menu_select()
 
+def game_lore():
+    """
+    Lore of the game 
+    """
+    print('')
+    print('     Been wondering in the dessert for weeks in search of Duriel...')
+    print('       I Must be getting close I can feel his evil presence.')
+    print('      The towers of town Lut Gholein appeared in the distance.')
+    print('                I will spend the night here\n')
+    input('                  Press ENTER to continue')
+    clear()
+
+
 def game_menu_display():
     """
     Calls for game menu and requires user input to select menu item
@@ -145,6 +158,7 @@ def menu_option(menu_item):
                 alive = True
                 hero_created = True
                 hero_selection()
+                game_lore()
                 town_zone()
             if menu_item == 'save':
                 save_game()
