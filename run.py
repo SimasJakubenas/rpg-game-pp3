@@ -569,13 +569,7 @@ def stash():
     location_art()
     stash_sheet = SHEET.worksheet('stash').get_all_values()
     stash_limit = stash_sheet[1:8]
-    print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
-    for number, item in enumerate(stash_limit, 1):
-        # Enumerates all items in stash and ensures correct positioning of the display
-        print(str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
-              item[1],' ' * (10 - len(item[2]) + 2), item[2])
-    print('')
-    print('E. Go back')
+    stash_menu(stash_limit)
     while True:
         go_back = input('\n')
         clear()
@@ -589,7 +583,21 @@ def stash():
                 zone_navigation_menu(enemy_zone, x, y)
                 return False
         else:
+            stash_menu(stash_limit)
             print('Press "E" to go back')
+
+def stash_menu(stash_limit):
+    """
+    Display stash menu
+    """
+    print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
+    for number, item in enumerate(stash_limit, 1):
+        # Enumerates all items in stash and ensures correct positioning of the display
+        print(str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
+              item[1],' ' * (10 - len(item[2]) + 2), item[2])
+    print('')
+    print('Select a number to equip the weapon\n')
+    print('E. Go back\n')
 
 def return_to_town():
     zone_navigation_menu(enemy_zone, x, y)
