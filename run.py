@@ -128,6 +128,7 @@ def game_menu_select():
         # Game load
         elif menu_item == '3':
             menu_item = 'load'
+            hero_created = True
             menu_option(menu_item)
             
         elif menu_item == '4':
@@ -170,6 +171,7 @@ def menu_option(menu_item):
                 print('The game was saved...')
                 return False
             if menu_item == 'load':
+                alive = True
                 loaded_game = True
                 hero_selection()
                 load_game()
@@ -200,7 +202,8 @@ def save_game():
     save_file.append_row(hero_stats_list)
 
     get_items = SHEET.worksheet('stash').get_all_values()
-    SHEET.values_clear("stash!A2:F10000")
+    save_items = SHEET.worksheet('stash_save')
+    save_items.clear()
     for item in get_items:
         save_items.append_row(item)
 
@@ -215,17 +218,16 @@ def load_game():
     while True:
         if len(save_file) > 1:
             print('Game loading please wait....')
-            load_list = SHEET.worksheet('save').get_all_values()
-            last_save = load_list[-1]
+            last_save = save_file[-1]
             hero_gold = int(last_save[4])
             health_potion = int(last_save[5])
             hero_stats = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
 
             load_items_list = SHEET.worksheet('stash_save').get_all_values()
-            clear_stash = SHEET.worksheet('stash')
-            clear_stash.clear()
+            stash = SHEET.worksheet('stash')
+            stash.clear()
             for item in load_items_list:
-                clear_stash.append_row(item)
+                stash.append_row(item)
             return False
         else:
             game_menu_display()
