@@ -402,6 +402,7 @@ def zone_navigation_menu(enemy_zone, x, y):
     print('')
     print('Q. Open Menu')
     print('W. Character Info')
+    print('E. Open stash')
     
     if replace == True:
         print(f'You left your loot behind')
