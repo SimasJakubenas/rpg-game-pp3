@@ -674,14 +674,22 @@ def vendor_sell_menu_option():
     while True:
         sell = input('\n')
         clear()
+        vendor_sell_input(sell, stash)
 
-        if sell == '1':
+def vendor_sell_input(sell, stash):
+    """
+    Handles player input for vendor sell menu
+    """
+    global hero_gold, stash_sheet
+
+    if sell == '1' or sell == '2' or sell == '3' or sell == '4' or sell == '5' or sell == '6' or sell == '7':
+        if 0 < int(sell) < len(stash_sheet):
             vendor_sell_menu()
-            print(f'Would you like to sell {stash_sheet[1][0]}?')
+            print(f'Would you like to sell {stash_sheet[int(sell)][0]}?')
             sale_confirm = input('Y/N\n')
             if sale_confirm.lower() == 'y':
-                hero_gold += int(stash_sheet[1][4])
-                remove_first = stash_sheet.pop(1)
+                hero_gold += int(stash_sheet[int(sell)][4])
+                remove_first = stash_sheet.pop(int(sell))
                 stash.clear()
                 for row in stash_sheet:
                     stash.append_row(row)
@@ -693,12 +701,15 @@ def vendor_sell_menu_option():
             else:
                 vendor_sell_menu()
                 print('Type "Y" to confirm the sale or "N" to cancel')
-        elif sell.lower() == 'r':
-            clear()
-            return False
         else:
             vendor_sell_menu()
             print(f'Press 1 - {num} to sell item or "R" to go back')
+    elif sell.lower() == 'r':
+        clear()
+        vendor_menu()
+    else:
+        vendor_sell_menu()
+        print(f'Press 1 - {num} to sell item or "R" to go back')
 
 def character_info():
     """
