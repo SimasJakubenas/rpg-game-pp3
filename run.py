@@ -171,6 +171,7 @@ def menu_option(menu_item):
                 loaded_game = True
                 hero_selection()
                 load_game()
+                clear()
                 town_zone()
             if menu_item == 'quit':
                 quit()
@@ -205,14 +206,22 @@ def save_game():
 def load_game():
     """
     Loads the game by pulling character stats from save worksheet
+    Transfers save items to a relevant worksheet
     """
     global hero_stats, hero_gold, health_potion, hero
 
+    print('Game loading please wait....')
     load_list = SHEET.worksheet('save').get_all_values()
     last_save = load_list[-1]
     hero_gold = int(last_save[4])
     health_potion = int(last_save[5])
     hero_stats = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
+
+    load_items_list = SHEET.worksheet('stash_save').get_all_values()
+    clear_stash = SHEET.worksheet('stash')
+    clear_stash.clear()
+    for item in load_items_list:
+        clear_stash.append_row(item)
 
 def game_rules():
     """
