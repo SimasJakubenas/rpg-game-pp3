@@ -457,6 +457,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                     return_to_town()
                 if enemy[0] == 'Duriel':
                     game_win_logo()
+                    game_win()
                 
             return current_enemy_health
         # Option to heal
@@ -788,7 +789,20 @@ def game_win_logo():
     print(' ▓██ ░▒░   ░ ▒ ▒░ ░░▒░ ░ ░      ▒ ░ ░   ▒ ░░ ░░   ░ ▒░')
     print(' ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░      ░   ░   ▒ ░   ░   ░ ░ ')
     print(' ░ ░         ░ ░     ░            ░     ░           ░ ')
-    print(' ░ ░                                                  ')
+    print(' ░ ░                                                  \n')
+    print('Would you like to continue the game?Y/N\n')
+
+def game_win():
+    while True:
+        continue_game = input('\n')
+        clear()
+        if continue_game.lower() == 'y':
+            return False
+        elif continue_game.lower() == 'n':
+            quit()
+        else:
+            game_win_logo()
+            print('Type "Y" to continue the game and "N" to quit')
 
 def character_info():
     """
