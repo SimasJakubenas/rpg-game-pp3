@@ -567,14 +567,37 @@ def stash():
     Pull and display relevant data from 'stash' spreadsheet
     """
     location_art()
+    stash = SHEET.worksheet('stash')
     stash_sheet = SHEET.worksheet('stash').get_all_values()
     stash_limit = stash_sheet[1:8]
     stash_menu(stash_limit)
     while True:
-        go_back = input('\n')
+        equip = input('\n')
         clear()
         location_art()
-        if go_back.lower() == 'e':
+        if equip == '1' or equip == '2' or equip == '3' or equip == '4' or equip == '5' or equip == '6' or equip == '7':
+            if 0 < int(equip) < len(stash_sheet):
+                stash_menu(stash_limit)
+                print(f'Would you like to equip {stash_sheet[int(equip)][0]}?')
+                equip_confirm = input('Y/N\n')
+                if equip_confirm.lower() == 'y':
+                    stash_limit.pop(int(equip)-1)
+                    SHEET.values_clear("stash!A2:F10000")
+                    for row in stash_limit:
+                        stash.append_row(row)
+                    clear()
+                    location_art()
+                    stash_menu(stash_limit)
+                elif equip_confirm.lower() == 'n':
+                    clear()
+                    location_art()
+                    stash_menu(stash_limit)
+                else:
+                    stash_menu(stash_limit)
+                    print('Type "Y" to confirm to equip or "N" to cancel')
+            else:
+                print(f'Type number to equip item or "R" to go back')
+        elif equip.lower() == 'e':
             clear()
             if current_loc == 'Lut Gholein':
                 town_zone()
@@ -584,12 +607,13 @@ def stash():
                 return False
         else:
             stash_menu(stash_limit)
-            print('Press "E" to go back')
+            print('Type number to equip item or "R" to go backward')
 
 def stash_menu(stash_limit):
     """
     Display stash menu
     """
+
     print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
     for number, item in enumerate(stash_limit, 1):
         # Enumerates all items in stash and ensures correct positioning of the display
