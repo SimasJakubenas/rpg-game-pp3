@@ -119,6 +119,7 @@ def game_menu_select():
             
         elif menu_item == '4':
             game_rules()
+            game_rules_back()
         # Game quit
         elif menu_item == '5':
             menu_item = 'quit'
@@ -205,7 +206,20 @@ def game_rules():
     print('Talk to the Vendor he will be abe to help you to advance')
     print('to the new area\n')
     print('Best of luck traveler!\n')
-    print('4. Back to menu')
+    print('4. Back to menu\n')
+
+def game_rules_back():
+    """
+    Game rules navigation
+    """
+    while True:
+        back_to_menu = input('\n')
+        if back_to_menu == '4':
+            game_menu_display()
+            game_menu_select()
+        else:
+            game_rules()
+            print('Type "4" to go back to menu')
 
 def hero_selection():
     """
