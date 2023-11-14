@@ -200,8 +200,7 @@ def save_game():
     save_file.append_row(hero_stats_list)
 
     get_items = SHEET.worksheet('stash').get_all_values()
-    save_items = SHEET.worksheet('stash_save')
-    save_items.clear()
+    SHEET.values_clear("stash!A2:F10000")
     for item in get_items:
         save_items.append_row(item)
 
