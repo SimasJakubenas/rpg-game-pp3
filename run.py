@@ -628,7 +628,7 @@ def ingame_menu():
     print('Q. Open Menu')
     print('W. Character Info')
     print('E. Open Stash')
-    print('R. Visit Vendor')
+    print('R. Visit Vendor\n')
     
 def vendor():
     """
