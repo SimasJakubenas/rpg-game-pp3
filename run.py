@@ -147,6 +147,7 @@ def menu_option(menu_item):
     """
     global alive, hero_created, loaded_game
 
+    stash = SHEET.worksheet('stash')
     loaded_game = False
     print('')
     while True:
@@ -159,6 +160,7 @@ def menu_option(menu_item):
                 hero_created = True
                 hero_selection()
                 game_lore()
+                stash.clear()
                 town_zone()
             if menu_item == 'save':
                 save_game()
