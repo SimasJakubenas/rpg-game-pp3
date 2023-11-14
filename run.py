@@ -455,6 +455,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                     clear()
                     location_art()
                     return_to_town()
+                if enemy[0] == 'Duriel':
+                    game_win_logo()
                 
             return current_enemy_health
         # Option to heal
@@ -772,6 +774,21 @@ def vendor_gossip_back():
         else:
             vendor_gossip()
             print('Type "4" to go back to menu')
+
+def game_win_logo():
+    """
+    Display winning screen
+    """
+    print('▓██   ██▓ ▒█████   █    ██     █     █░ ██▓ ███▄    █ ')
+    print(' ▒██  ██▒▒██▒  ██▒ ██  ▓██▒   ▓█░ █ ░█░▓██▒ ██ ▀█   █ ')
+    print('  ▒██ ██░▒██░  ██▒▓██  ▒██░   ▒█░ █ ░█ ▒██▒▓██  ▀█ ██▒')
+    print('  ░ ▐██▓░▒██   ██░▓▓█  ░██░   ░█░ █ ░█ ░██░▓██▒  ▐▌██▒')
+    print('  ░ ██▒▓░░ ████▓▒░▒▒█████▓    ░░██▒██▓ ░██░▒██░   ▓██░')
+    print('   ██▒▒▒ ░ ▒░▒░▒░ ░▒▓▒ ▒ ▒    ░ ▓░▒ ▒  ░▓  ░ ▒░   ▒ ▒ ')
+    print(' ▓██ ░▒░   ░ ▒ ▒░ ░░▒░ ░ ░      ▒ ░ ░   ▒ ░░ ░░   ░ ▒░')
+    print(' ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░      ░   ░   ▒ ░   ░   ░ ░ ')
+    print(' ░ ░         ░ ░     ░            ░     ░           ░ ')
+    print(' ░ ░                                                  ')
 
 def character_info():
     """
