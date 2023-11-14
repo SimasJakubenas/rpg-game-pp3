@@ -615,6 +615,7 @@ def vendor():
             vendor_menu()
         elif vendor_menu_select == '3':
             vendor_gossip()
+            vendor_gossip_back()
         elif vendor_menu_select.lower() == 'r':
             town_zone()
         else:
@@ -749,11 +750,28 @@ def vendor_sell_input(sell, stash):
         print(f'Type numbe to sell item or "R" to go backward')
 
 def vendor_gossip():
+    """
+    Prints text that gives a hint to player
+    """
+    location_art()
     print('Someone stole the key for the main gate last night.')
     print('That bloody Radement must have send a goblin over.')
     print('Radement is imprisoned deep inside the sewers.')
     print('Only if there was anyone brave enough to confront him.\n')
-    print('3. Go back\n')
+    print('R. Go back\n')
+
+def vendor_gossip_back():
+    """
+    Vendor gossip navigation
+    """
+    while True:
+        back_to_menu = input('\n')
+        clear()
+        if back_to_menu == 'r':
+            vendor()
+        else:
+            vendor_gossip()
+            print('Type "4" to go back to menu')
 
 def character_info():
     """
