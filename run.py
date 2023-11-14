@@ -162,7 +162,9 @@ def menu_option(menu_item):
                 town_zone()
             if menu_item == 'save':
                 save_game()
+                clear()
                 game_menu_display()
+                print('')
                 print('The game was saved...')
                 return False
             if menu_item == 'load':
@@ -182,16 +184,23 @@ def menu_option(menu_item):
 
 def save_game():
     """
-    Saves the game by pushing hero stats to a google spreadsheet
+    Saves heros stats by pushing hero stats to a google spreadsheet
+    Saves aquired items to a google spreadsheet
     """
     global hero, hero_gold, health_potion
 
+    print('Game saving please wait....')
     hero_stats_pull = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
     hero_stats_dict = vars(hero_stats_pull)
     hero_stats_list = list(hero_stats_dict.values())
     save_file = SHEET.worksheet('save')
     save_file.append_row(hero_stats_list)
-    print(hero_stats_list)
+
+    get_items = SHEET.worksheet('stash').get_all_values()
+    save_items = SHEET.worksheet('stash_save')
+    save_items.clear()
+    for item in get_items:
+        save_items.append_row(item)
 
 def load_game():
     """
