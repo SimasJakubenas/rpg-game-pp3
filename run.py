@@ -17,7 +17,7 @@ def main():
     Main game function
     """
     
-    global fight, hero_created, alive, key, store_health_pots, treasure_chest, replace, saved
+    global fight, hero_created, alive, key, store_health_pots, treasure_chest, replace
 
     fight = False
     hero_created = False
@@ -26,7 +26,6 @@ def main():
     store_health_pots = False
     treasure_chest = True
     replace = False
-    saved = False
 
     title_and_greeting()
 
@@ -146,7 +145,7 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
-    global alive, hero_created, loaded_game, saved
+    global alive, hero_created, loaded_game
 
     stash = SHEET.worksheet('stash')
     loaded_game = False
@@ -165,7 +164,6 @@ def menu_option(menu_item):
                 town_zone()
             if menu_item == 'save':
                 save_game()
-                saved = True
                 clear()
                 game_menu_display()
                 print('')
@@ -212,10 +210,11 @@ def load_game():
     Loads the game by pulling character stats from save worksheet
     Transfers save items to a relevant worksheet
     """
-    global hero_stats, hero_gold, health_potion, hero, saved
+    global hero_stats, hero_gold, health_potion, hero
 
+    save_file = SHEET.worksheet('save').get_all_values()
     while True:
-        if saved == True:
+        if len(save_file) > 1:
             print('Game loading please wait....')
             load_list = SHEET.worksheet('save').get_all_values()
             last_save = load_list[-1]
