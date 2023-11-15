@@ -21,9 +21,8 @@ def main():
     Main game function
     """
     
-    global hero_created, alive, key, store_health_pots, treasure_chest, replace
+    global alive, key, store_health_pots, treasure_chest, replace
 
-    hero_created = False
     alive = False
     key = False
     store_health_pots = False
@@ -80,7 +79,7 @@ def game_menu_display():
     print('                         .-@+.,-----------------,.+@=. ')
     print('                        .-@:  |    GAME MENU    |  .@+.')
     print('                        -@+@@@|                 |...:@-')
-    if hero_created == False:
+    if initial_state.hero_created == False:
         print('                        #%..:@|   1. New Game   |@@@+%%')
     else:
         print('                        #%..:@|   1. Continue   |@@@+%%')
@@ -98,7 +97,7 @@ def game_menu_select():
     """
     Selects menu option based of user input
     """
-    global hero_created, alive
+    global alive
 
     while True:
         menu_item = input('\n')
@@ -107,7 +106,7 @@ def game_menu_select():
         if menu_item == '1':
             menu_item = 'start'
             if alive == False:
-                if hero_created == False:
+                if initial_state.hero_created == False:
                     menu_option(menu_item)
                 else:
                     town_zone()
@@ -131,7 +130,7 @@ def game_menu_select():
         # Game load
         elif menu_item == '3':
             menu_item = 'load'
-            hero_created = True
+            initial_state.hero_created = True
             menu_option(menu_item)
             
         elif menu_item == '4':
@@ -149,7 +148,7 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
-    global alive, hero_created, loaded_game
+    global alive, loaded_game
 
     stash = SHEET.worksheet('stash')
     loaded_game = False
@@ -161,7 +160,7 @@ def menu_option(menu_item):
         if want_to_quit.lower() == 'y':
             if menu_item == 'start':
                 alive = True
-                hero_created = True
+                initial_state.hero_created = True
                 hero_selection()
                 game_lore()
                 SHEET.values_clear("stash!A2:F10000")
