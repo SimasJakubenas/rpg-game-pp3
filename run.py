@@ -271,12 +271,14 @@ def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_gold, hero_stats, char_list, hero
+    global hero_gold, hero_stats, char_list, hero, hero_max_health, hero_attack
 
     char_list = SHEET.worksheet('chars').get_all_values()
     hero = tuple(char_list[1])
     hero_stats = Hero(*hero)
     hero_gold = int(hero_stats.gold)
+    hero_attack = int(hero_stats.attack)
+    hero_max_health = int(hero_stats.max_health)
 
 def town_zone():
     """
@@ -465,7 +467,7 @@ def battle_menu(hero_stats, enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
     """
-    global current_enemy_health, current_health
+    global current_enemy_health, current_health, hero_max_health
 
     print('Your Life')
     print(f'{current_health}/{hero_max_health}')
