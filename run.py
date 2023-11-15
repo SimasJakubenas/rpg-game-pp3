@@ -318,7 +318,7 @@ def town_zone():
         elif navigate_town.lower() == 'w':
             character_info()
         elif navigate_town.lower() == 'e':
-            stash()
+            stash_open()
         elif navigate_town.lower() == 'r':
             vendor()
         else:
@@ -389,7 +389,7 @@ def enemy_zone_navigation(char_list, hero_stats):
         elif zone_controls.lower() == 'w':
             character_info()
         elif zone_controls.lower() == 'e':
-            stash()
+            stash_open()
         else:
             location_art()
             zone_navigation_menu(enemy_zone, x, y)
@@ -564,7 +564,7 @@ def item_drop():
                 print(f'You found {weapon[0]}\n')
                 print(f'Press "Y" to replace {stash_list[1][0]} or "N" to pass on this item')
 
-def stash():
+def stash_open():
     """
     Display aquired items
     Pull and display relevant data from 'stash' spreadsheet
@@ -572,24 +572,21 @@ def stash():
     global hero_attack, hero_max_health, stash, stash_sheet
 
     location_art()
-    stash = SHEET.worksheet('stash')
-    stash_sheet = SHEET.worksheet('stash').get_all_values()
-    stash_limit = stash_sheet[1:9]
-    equipped_weapon = stash_sheet[1]
-    stash_menu(equipped_weapon)
+    stash_menu()
     while True:
         equip = input('\n')
         clear()
         location_art()
         if equip == '1' or equip == '2' or equip == '3' or equip == '4' or equip == '5' or equip == '6' or equip == '7':
+            stash_sheet = SHEET.worksheet('stash').get_all_values()
             if 0 < int(equip) < len(stash_sheet):
-                stash_menu(equipped_weapon)
+                stash_menu()
                 print(f'Would you like to equip {stash_sheet[int(equip)+1][0]}?')
                 equip_confirm = input('Y/N\n')
                 if equip_confirm.lower() == 'y':
                     stash_limit = stash_sheet[1:9]
                     equipped_weapon = stash_limit.pop(int(equip))
-                    
+                    stash = SHEET.worksheet('stash')
                     SHEET.values_clear("stash!A2:F10000")
                     hero_attack = int(hero[2]) + int(equipped_weapon[1])
                     hero_max_health = int(hero[1]) + int(equipped_weapon[2])
@@ -600,13 +597,13 @@ def stash():
                     stash_sheet = SHEET.worksheet('stash').get_all_values()
                     clear()
                     location_art()
-                    stash_menu(equipped_weapon)
+                    stash_menu()
                 elif equip_confirm.lower() == 'n':
                     clear()
                     location_art()
-                    stash_menu(equipped_weapon)
+                    stash_menu()
                 else:
-                    stash_menu(equipped_weapon)
+                    stash_menu()
                     print('Type "Y" to confirm to equip or "N" to cancel')
             else:
                 print(f'Type number to equip item or "R" to go back')
@@ -619,10 +616,10 @@ def stash():
                 zone_navigation_menu(enemy_zone, x, y)
                 return False
         else:
-            stash_menu(equipped_weapon)
+            stash_menu()
             print('Type number to equip item or "R" to go backward')
 
-def stash_menu(equipped_weapon):
+def stash_menu():
     """
     Display stash menu
     """
@@ -786,7 +783,7 @@ def vendor_sell_menu():
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
     stash_sheet = SHEET.worksheet('stash').get_all_values()
-    stash_limit = stash_sheet[1:]
+    stash_limit = stash_sheet[2:]
     if len(stash_limit) > 0:
         for number, item in enumerate(stash_limit, 1):
             # Enumerates all items in stash and ensures correct positioning of the display
