@@ -2,6 +2,7 @@ import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool
 from modules.ascii_art import title_and_greeting
+from modules.game_text import game_lore
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -25,19 +26,6 @@ def main():
     clear()
     game_menu_display()
     game_menu_select()
-
-def game_lore():
-    """
-    Lore of the game 
-    """
-    print('')
-    print('     Been wondering in the dessert for weeks in search of Duriel...')
-    print('       I Must be getting close I can feel his evil presence.')
-    print('      The towers of town Lut Gholein appeared in the distance.')
-    print('                I will spend the night here\n')
-    input('                  Press ENTER to continue')
-    clear()
-
 
 def game_menu_display():
     """
@@ -134,6 +122,7 @@ def menu_option(menu_item):
                 initial_state.hero_created = True
                 hero_selection()
                 game_lore()
+                clear()
                 SHEET.values_clear("stash!A2:F10000")
                 # A space holder for equipped weapon
                 stash.append_row(['Stick', '0', '0', '0', '5', '0'])
