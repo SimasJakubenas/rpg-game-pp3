@@ -21,9 +21,8 @@ def main():
     Main game function
     """
     
-    global key, store_health_pots, treasure_chest, replace
+    global store_health_pots, treasure_chest, replace
 
-    key = False
     store_health_pots = False
     treasure_chest = True
     replace = False
@@ -307,7 +306,7 @@ def town_zone():
             sewers = True
             enemy_zone_navigation(char_list, hero_stats)
         elif navigate_town == '2':
-            if key == True:
+            if initial_state.key:
                 dessert = True
                 enemy_zone_navigation(char_list, hero_stats)
             else:
@@ -430,7 +429,7 @@ def battle(current_loc, char_list, hero_stats):
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_health, current_enemy_health, health_potion key, first_attack
+    global current_health, current_enemy_health, health_potion, first_attack
 
     first_attack = False
     if current_health > hero_max_health:
@@ -443,7 +442,7 @@ def battle(current_loc, char_list, hero_stats):
         enemy = tuple(random.choice(char_list[enemy_list]))
             
         if enemy[4] == current_loc:
-            if (enemy[0] == 'Radement' and key == True) \
+            if (enemy[0] == 'Radement' and initial_state.key == True) \
                 or (current_loc == 'Sewers Hideout' and treasure_chest == False):
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(char_list[enemy_list]))
@@ -485,7 +484,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, health_potion, hero_gold , key, first_attack, hero_attack
+    global current_enemy_health, current_health, health_potion, hero_gold , first_attack, hero_attack
 
     while True:
         battle_option = input('\n')
@@ -504,7 +503,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 hero_gold += int(enemy[3])
                 print('')
                 if enemy[0] == 'Radement':
-                    key = True
+                    initial_state.key = True
                     clear()
                     location_art()
                     return_to_town()
