@@ -1,6 +1,7 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
-from modules.game_classes import Character, Hero, Enemy
+from modules.game_classes import Character, Hero, Enemy, Game_flow_bool
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -12,14 +13,16 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
+# Sets initial boolean values in the Game_flow_bool class
+initial_state = Game_flow_bool(False, False, False, False, False, True, False)
+
 def main():
     """
     Main game function
     """
     
-    global fight, hero_created, alive, key, store_health_pots, treasure_chest, replace
+    global hero_created, alive, key, store_health_pots, treasure_chest, replace
 
-    fight = False
     hero_created = False
     alive = False
     key = False
@@ -335,7 +338,7 @@ def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, fight, treasure_chest, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
+    global health_potion, treasure_chest, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
 
     if sewers == True:
         enemy_zone = SHEET.worksheet('sewers').get_all_values()
@@ -359,18 +362,18 @@ def enemy_zone_navigation(char_list, hero_stats):
                     print('You found 200 gold!')
                     hero_gold += int(char_list[5][3])
                     treasure_chest = False
-                    fight = False
+                    initial_state.fight = False
                 else:
                     # location_art()
                     battle(current_loc, char_list, hero_stats)
-            if fight:
+            if initial_state.fight:
                 location_art()
                 battle(current_loc, char_list, hero_stats)
                 health_potion += 1
-                fight = False
+                initial_state.fight = False
         else:
-            if fight:
-                fight = False
+            if initial_state.fight:
+                initial_state.fight = False
                 location_art()
                 return_to_town()
         zone_controls = input('\n')
@@ -378,16 +381,16 @@ def enemy_zone_navigation(char_list, hero_stats):
         # 'And' operators prevents game from crashing if player tries to move out of map
         if zone_controls == '1' and x > 0:
             x -= 1
-            fight = True
+            initial_state.fight = True
         elif zone_controls == '2' and y < len(enemy_zone[x]) - 1:
             y += 1
-            fight = True
+            initial_state.fight = True
         elif zone_controls == '3' and x < len(enemy_zone) - 1:
             x += 1
-            fight = True
+            initial_state.fight = True
         elif zone_controls == '4' and y > 0:
             y -= 1
-            fight = True
+            initial_state.fight = True
         elif zone_controls.lower() == 'q':
             game_menu_display()
             game_menu_select()
@@ -431,7 +434,7 @@ def battle(current_loc, char_list, hero_stats):
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_health, current_enemy_health, health_potion, alive, fight, key, first_attack
+    global current_health, current_enemy_health, health_potion, alive, key, first_attack
 
     first_attack = False
     if current_health > hero_max_health:
@@ -440,7 +443,7 @@ def battle(current_loc, char_list, hero_stats):
         enemy_list = slice(2, 7)
     if dessert == True:
         enemy_list = slice(7, 19)
-    while fight: 
+    while initial_state.fight: 
         enemy = tuple(random.choice(char_list[enemy_list]))
             
         if enemy[4] == current_loc:
@@ -452,7 +455,7 @@ def battle(current_loc, char_list, hero_stats):
             mob_dmg = int(enemy_stats.attack)
             hero_dmg = int(hero_stats.attack)
             current_enemy_health = int(enemy_stats.health)
-            fight = False
+            initial_state.fight = False
             print(f'You have been attacked by {enemy[0]}')
     while current_enemy_health > 0:
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
