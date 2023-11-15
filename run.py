@@ -2,7 +2,7 @@ import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool
 from modules.ascii_art import title_and_greeting
-from modules.game_text import game_lore
+from modules.game_text import game_lore, game_rules
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -200,24 +200,6 @@ def load_game():
             game_menu_display()
             print('You need to save the game first!')
             game_menu_select()
-
-
-def game_rules():
-    """
-    Display game rules
-    """
-    clear()
-    print('Welcome to the world of Tal Rasha traveler\n')
-    print('Navigate the menu by pressing corresponding')
-    print('number or letter and confirm it with "enter" key\n')
-    print('Navigate the map by chosing any of the 4 directions. Once')
-    print('you have reach the edge of map you will not be able to')
-    print('advance further in that direction')
-    print('Kill Duriel to complete the game\n')
-    print('Talk to the Vendor he will be abe to help you to advance')
-    print('to the new area\n')
-    print('Best of luck traveler!\n')
-    print('4. Back to menu\n')
 
 def game_rules_back():
     """
