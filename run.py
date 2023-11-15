@@ -214,7 +214,7 @@ def load_game():
     Loads the game by pulling character stats from save worksheet
     Transfers save items to a relevant worksheet
     """
-    global hero_stats, hero_gold, health_potion, hero
+    global hero_stats, hero_gold, health_potion, hero, hero_max_health, hero_attack, current_health
 
     save_file = SHEET.worksheet('save').get_all_values()
     while True:
@@ -223,7 +223,10 @@ def load_game():
             last_save = save_file[-1]
             hero_gold = int(last_save[4])
             health_potion = int(last_save[5])
-            hero_stats = Hero(hero[0], hero[1], hero[2], hero_gold, health_potion)
+            hero_max_health = int(last_save[2])
+            current_health = int(last_save[2])
+            hero_attack = int(last_save[3])
+            hero_stats = Hero(hero[0], hero_max_health, hero_attack, hero_gold, health_potion)
 
             load_items_list = SHEET.worksheet('stash_save').get_all_values()
             stash = SHEET.worksheet('stash')
@@ -431,6 +434,8 @@ def battle(current_loc, char_list, hero_stats):
     global current_health, current_enemy_health, health_potion, alive, fight, key, first_attack
 
     first_attack = False
+    if current_health > hero_max_health:
+        current_health = hero_max_health
     if sewers == True:
         enemy_list = slice(2, 7)
     if dessert == True:
