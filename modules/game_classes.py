@@ -1,3 +1,14 @@
+# Class that hold boolean logic to control flow of the game
+class Game_flow_bool:
+  def __init__(self, fight, hero_created, alive, key, store_health_pots, treasure_chest, replace):
+    self.fight = fight
+    self.hero_created = hero_created
+    self.alive = alive
+    self.key = key
+    self.store_health_pots = store_health_pots
+    self.treasure_chest = treasure_chest
+    self.replace = replace
+
 class Character:
     """
     Superclass for all playeable characters and enemies in the game
