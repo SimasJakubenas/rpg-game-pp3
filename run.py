@@ -21,9 +21,8 @@ def main():
     Main game function
     """
     
-    global store_health_pots, treasure_chest, replace
+    global treasure_chest, replace
 
-    store_health_pots = False
     treasure_chest = True
     replace = False
 
@@ -285,15 +284,15 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, store_health_pots, hero_stats, char_list, sewers, dessert, current_loc, loaded_game
+    global current_health, health_potion, hero_stats, char_list, sewers, dessert, current_loc, loaded_game
 
     current_loc = 'Lut Gholein'
     current_health = int(hero_stats.health)
     sewers = False
     dessert = False
-    if store_health_pots == False:
+    if initial_state.store_health_pots == False:
         health_potion = int(hero_stats.health_pot)
-        store_health_pots = True
+        initial_state.store_health_pots = True
     location_art()
     ingame_menu()
     if loaded_game == True:
