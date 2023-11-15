@@ -21,9 +21,8 @@ def main():
     Main game function
     """
     
-    global alive, key, store_health_pots, treasure_chest, replace
+    global key, store_health_pots, treasure_chest, replace
 
-    alive = False
     key = False
     store_health_pots = False
     treasure_chest = True
@@ -97,15 +96,13 @@ def game_menu_select():
     """
     Selects menu option based of user input
     """
-    global alive
-
     while True:
         menu_item = input('\n')
         clear()
         game_menu_display()
         if menu_item == '1':
             menu_item = 'start'
-            if alive == False:
+            if initial_state.alive == False:
                 if initial_state.hero_created == False:
                     menu_option(menu_item)
                 else:
@@ -120,7 +117,7 @@ def game_menu_select():
                 return False
         # Game save
         elif menu_item == '2':
-            if alive == False:
+            if initial_state.alive == False:
                 menu_item = 'start'
                 print('Start the game first')
                 menu_option(menu_item)
@@ -148,7 +145,7 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
-    global alive, loaded_game
+    global loaded_game
 
     stash = SHEET.worksheet('stash')
     loaded_game = False
@@ -159,7 +156,7 @@ def menu_option(menu_item):
 
         if want_to_quit.lower() == 'y':
             if menu_item == 'start':
-                alive = True
+                initial_state.alive = True
                 initial_state.hero_created = True
                 hero_selection()
                 game_lore()
@@ -175,7 +172,7 @@ def menu_option(menu_item):
                 print('The game was saved...')
                 return False
             if menu_item == 'load':
-                alive = True
+                initial_state.alive = True
                 loaded_game = True
                 hero_selection()
                 load_game()
@@ -433,7 +430,7 @@ def battle(current_loc, char_list, hero_stats):
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_health, current_enemy_health, health_potion, alive, key, first_attack
+    global current_health, current_enemy_health, health_potion key, first_attack
 
     first_attack = False
     if current_health > hero_max_health:
@@ -462,7 +459,7 @@ def battle(current_loc, char_list, hero_stats):
 
         if current_health <= 0:
             print('GAME OVER')
-            alive = False
+            initial_state.alive = False
             input('\n')
             clear()
             main()
