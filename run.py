@@ -21,9 +21,8 @@ def main():
     Main game function
     """
     
-    global treasure_chest, replace
+    global replace
 
-    treasure_chest = True
     replace = False
 
     title_and_greeting()
@@ -332,7 +331,7 @@ def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, treasure_chest, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
+    global health_potion, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
 
     if sewers == True:
         enemy_zone = SHEET.worksheet('sewers').get_all_values()
@@ -349,13 +348,13 @@ def enemy_zone_navigation(char_list, hero_stats):
         current_loc = enemy_zone[x][y]
         if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
             if current_loc == 'Sewers Hideout':
-                if treasure_chest == True:
+                if initial_state.treasure_chest:
                     location_art()
                     zone_navigation_menu(enemy_zone, x, y)
                     print('')
                     print('You found 200 gold!')
                     hero_gold += int(char_list[5][3])
-                    treasure_chest = False
+                    initial_state.treasure_chest = False
                     initial_state.fight = False
                 else:
                     # location_art()
@@ -442,7 +441,7 @@ def battle(current_loc, char_list, hero_stats):
             
         if enemy[4] == current_loc:
             if (enemy[0] == 'Radement' and initial_state.key == True) \
-                or (current_loc == 'Sewers Hideout' and treasure_chest == False):
+                or (current_loc == 'Sewers Hideout' and initial_state.treasure_chest == False):
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(char_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
