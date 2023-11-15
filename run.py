@@ -812,16 +812,17 @@ def vendor_sell_input(sell, stash):
     """
     Handles player input for vendor sell menu
     """
-    global hero_gold, stash_sheet, num
+    global hero_gold, num
 
     if sell == '1' or sell == '2' or sell == '3' or sell == '4' or sell == '5' or sell == '6' or sell == '7':
+        stash_sheet = SHEET.worksheet('stash').get_all_values()
         if 0 < int(sell) < len(stash_sheet):
             vendor_sell_menu()
-            print(f'Would you like to sell {stash_sheet[int(sell)][0]}?')
+            print(f'Would you like to sell {stash_sheet[int(sell)+1][0]}?')
             sale_confirm = input('Y/N\n')
             if sale_confirm.lower() == 'y':
-                hero_gold += int(stash_sheet[int(sell)][4])
-                remove_first = stash_sheet.pop(int(sell))
+                hero_gold += int(stash_sheet[int(sell)+1][4])
+                remove_first = stash_sheet.pop(int(sell)+1)
                 stash.clear()
                 for row in stash_sheet:
                     stash.append_row(row)
