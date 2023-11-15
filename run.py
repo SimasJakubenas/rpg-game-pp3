@@ -20,11 +20,6 @@ def main():
     """
     Main game function
     """
-    
-    global replace
-
-    replace = False
-
     title_and_greeting()
 
 def title_and_greeting():
@@ -402,8 +397,6 @@ def zone_navigation_menu(enemy_zone, x, y):
     Displays navigation options depending on a current position of the map
     Hides corresponding options if player is next to the edge of the map
     """
-    global replace
-
     if x > 0:
         print(f'1. Go North to {enemy_zone[x-1][y]}')
     if y < len(enemy_zone[x]) - 1:
@@ -417,9 +410,9 @@ def zone_navigation_menu(enemy_zone, x, y):
     print('W. Character Info')
     print('E. Open stash')
     
-    if replace == True:
+    if initial_state.replace:
         print(f'You left your loot behind')
-    replace = False
+    initial_state.replace = False
 
 def battle(current_loc, char_list, hero_stats):
     """
@@ -535,8 +528,6 @@ def item_drop():
     """
     Chance to aquire item after a fight
     """
-    global replace
-
     stash = SHEET.worksheet('stash')
     stash_list = SHEET.worksheet('stash').get_all_values()
     item_list = SHEET.worksheet('items').get_all_values()
@@ -560,7 +551,7 @@ def item_drop():
                 stash.clear()
                 for row in stash_list:
                     stash.append_row(row)
-                replace = True
+                initial_state.replace = True
                 location_art()
             else:
                 location_art()
