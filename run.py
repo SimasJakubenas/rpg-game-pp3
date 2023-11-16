@@ -97,7 +97,7 @@ def game_menu_select():
                 if location.current_location == 'Lut Gholein':
                     ingame_menu()
                 else:
-                    zone_navigation_menu(enemy_zone, x, y)
+                    zone_navigation_menu(x, y)
                 return False
         # Game save
         elif menu_item == '2':
@@ -293,26 +293,26 @@ def enemy_zone_navigation(hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, hero_gold, x, y, enemy_zone
+    global health_potion, hero_gold, x, y
 
     if initial_state.sewers == True:
-        enemy_zone = worksheets.sewers_map.get_all_values()
+        location.enemy_zone = worksheets.sewers_map.get_all_values()
         x = 2
         y = 2
     if initial_state.dessert == True:
-        enemy_zone = worksheets.dessert_map.get_all_values()
+        location.enemy_zone = worksheets.dessert_map.get_all_values()
         x = 1
         y = 1
-    location.current_location = enemy_zone[x][y]
+    location.current_location = location.enemy_zone[x][y]
     location_art()
-    zone_navigation_menu(enemy_zone, x, y)
+    zone_navigation_menu(x, y)
     while True:
-        location.current_location = enemy_zone[x][y]
+        location.current_location = location.enemy_zone[x][y]
         if (location.current_location != 'Dungeon Gate') and (location.current_location != 'Town Gate'):
             if location.current_location == 'Sewers Hideout':
                 if initial_state.treasure_chest:
                     location_art()
-                    zone_navigation_menu(enemy_zone, x, y)
+                    zone_navigation_menu(x, y)
                     print('')
                     print('You found 200 gold!')
                     hero_gold += int(worksheets.character_list[5][3])
@@ -337,10 +337,10 @@ def enemy_zone_navigation(hero_stats):
         if zone_controls == '1' and x > 0:
             x -= 1
             initial_state.fight = True
-        elif zone_controls == '2' and y < len(enemy_zone[x]) - 1:
+        elif zone_controls == '2' and y < len(location.enemy_zone[x]) - 1:
             y += 1
             initial_state.fight = True
-        elif zone_controls == '3' and x < len(enemy_zone) - 1:
+        elif zone_controls == '3' and x < len(location.enemy_zone) - 1:
             x += 1
             initial_state.fight = True
         elif zone_controls == '4' and y > 0:
@@ -355,23 +355,23 @@ def enemy_zone_navigation(hero_stats):
             stash_open()
         else:
             location_art()
-            zone_navigation_menu(enemy_zone, x, y)
+            zone_navigation_menu(x, y)
             print('')
             print('Use numers 1-4 to navigate the map')
 
-def zone_navigation_menu(enemy_zone, x, y):
+def zone_navigation_menu(x, y):
     """
     Displays navigation options depending on a current position of the map
     Hides corresponding options if player is next to the edge of the map
     """
     if x > 0:
-        print(f'1. Go North to {enemy_zone[x-1][y]}')
-    if y < len(enemy_zone[x]) - 1:
-        print(f'2. Go East to {enemy_zone[x][y+1]}')
-    if x < len(enemy_zone) - 1:
-        print(f'3. Go South to {enemy_zone[x+1][y]}')
+        print(f'1. Go North to {location.enemy_zone[x-1][y]}')
+    if y < len(location.enemy_zone[x]) - 1:
+        print(f'2. Go East to {location.enemy_zone[x][y+1]}')
+    if x < len(location.enemy_zone) - 1:
+        print(f'3. Go South to {location.enemy_zone[x+1][y]}')
     if y > 0:
-        print(f'4. Go West to {enemy_zone[x][y-1]}')
+        print(f'4. Go West to {location.enemy_zone[x][y-1]}')
     print('')
     print('Q. Open Menu')
     print('W. Character Info')
@@ -457,7 +457,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
                 item_drop()
                 print('')
-                zone_navigation_menu(enemy_zone, x, y)
+                zone_navigation_menu(x, y)
                 hero_gold += int(enemy[3])
                 print('')
                 if enemy[0] == 'Radement':
@@ -570,7 +570,7 @@ def stash_open():
                 town_zone()
             else:
                 location_art()
-                zone_navigation_menu(enemy_zone, x, y)
+                zone_navigation_menu(x, y)
                 return False
         else:
             stash_menu()
@@ -596,7 +596,7 @@ def stash_menu():
     print('E. Go back\n')
 
 def return_to_town():
-    zone_navigation_menu(enemy_zone, x, y)
+    zone_navigation_menu(x, y)
     print('')
     print('Would you like to return to town?')
     while True:
@@ -607,11 +607,11 @@ def return_to_town():
             
         elif town_portal.lower() == 'n':
             location_art()
-            zone_navigation_menu(enemy_zone, x, y)
+            zone_navigation_menu(x, y)
             return False
         else:
             location_art()
-            zone_navigation_menu(enemy_zone, x, y)
+            zone_navigation_menu(x, y)
             print('')
             print('Type in "y" to go back to town or "N" to stay')
 
@@ -854,7 +854,7 @@ def character_info():
                 town_zone()
             else:
                 location_art()
-                zone_navigation_menu(enemy_zone, x, y)
+                zone_navigation_menu(x, y)
                 return False
         else:
             print('Press "W" to go back')
