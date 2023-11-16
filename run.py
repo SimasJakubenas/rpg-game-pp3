@@ -1,6 +1,6 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
-from modules.game_classes import Character, Hero, Enemy, Game_flow_bool
+from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location
 from modules.ascii_art import title_and_greeting, game_win_logo
 from modules.game_text import game_lore, game_rules
 
@@ -37,6 +37,8 @@ class Worksheets:
 
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
+# Location class inital values
+location = Location('', '', 0, 0 )
 
 def main():
     """
@@ -92,7 +94,7 @@ def game_menu_select():
             else:
                 clear()
                 location_art()
-                if current_loc == 'Lut Gholein':
+                if location.current_location == 'Lut Gholein':
                     ingame_menu()
                 else:
                     zone_navigation_menu(enemy_zone, x, y)
@@ -243,9 +245,9 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, hero_stats, current_loc
+    global current_health, health_potion, hero_stats
 
-    current_loc = 'Lut Gholein'
+    location.current_location = 'Lut Gholein'
     current_health = int(hero_stats.health)
     initial_state.sewers = False
     initial_state.dessert = False
@@ -291,7 +293,7 @@ def enemy_zone_navigation(hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, hero_gold, current_loc, x, y, enemy_zone
+    global health_potion, hero_gold, x, y, enemy_zone
 
     if initial_state.sewers == True:
         enemy_zone = worksheets.sewers_map.get_all_values()
@@ -301,13 +303,13 @@ def enemy_zone_navigation(hero_stats):
         enemy_zone = worksheets.dessert_map.get_all_values()
         x = 1
         y = 1
-    current_loc = enemy_zone[x][y]
+    location.current_location = enemy_zone[x][y]
     location_art()
     zone_navigation_menu(enemy_zone, x, y)
     while True:
-        current_loc = enemy_zone[x][y]
-        if (current_loc != 'Dungeon Gate') and (current_loc != 'Town Gate'):
-            if current_loc == 'Sewers Hideout':
+        location.current_location = enemy_zone[x][y]
+        if (location.current_location != 'Dungeon Gate') and (location.current_location != 'Town Gate'):
+            if location.current_location == 'Sewers Hideout':
                 if initial_state.treasure_chest:
                     location_art()
                     zone_navigation_menu(enemy_zone, x, y)
@@ -318,10 +320,10 @@ def enemy_zone_navigation(hero_stats):
                     initial_state.fight = False
                 else:
                     # location_art()
-                    battle(current_loc, hero_stats)
+                    battle(hero_stats)
             if initial_state.fight:
                 location_art()
-                battle(current_loc, hero_stats)
+                battle(hero_stats)
                 health_potion += 1
                 initial_state.fight = False
         else:
@@ -379,7 +381,7 @@ def zone_navigation_menu(enemy_zone, x, y):
         print(f'You left your loot behind')
     initial_state.replace = False
 
-def battle(current_loc, hero_stats):
+def battle(hero_stats):
     """
     Battle function determines an enemy encounter depending on map area
     Loops through a fight until either player or enemy dies
@@ -397,9 +399,9 @@ def battle(current_loc, hero_stats):
     while initial_state.fight: 
         enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             
-        if enemy[4] == current_loc:
+        if enemy[4] == location.current_location:
             if (enemy[0] == 'Radement' and initial_state.key == True) \
-                or (current_loc == 'Sewers Hideout' and initial_state.treasure_chest == False):
+                or (location.current_location == 'Sewers Hideout' and initial_state.treasure_chest == False):
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
@@ -564,7 +566,7 @@ def stash_open():
                 print(f'Type number to equip item or "R" to go back')
         elif equip.lower() == 'e':
             clear()
-            if current_loc == 'Lut Gholein':
+            if location.current_location == 'Lut Gholein':
                 town_zone()
             else:
                 location_art()
@@ -625,9 +627,9 @@ def location_art():
     ASCII art to improve game looks
     """
     
-    print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
-    print(f'      >>►► {current_loc} ◄◄<<     ')
-    print('-.;:~■-■---' + '~' * len(current_loc) + '---■-■~:;.-')
+    print('-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
+    print(f'      >>►► {location.current_location} ◄◄<<     ')
+    print('-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
     print('')
 
 def ingame_menu():
@@ -646,9 +648,7 @@ def vendor():
     """
     Display items on sale and requests user input to purchase
     """
-    global current_loc
-
-    current_loc = 'Vendor'
+    location.current_location = 'Vendor'
     vendor_menu()
     while True:
         vendor_menu_select = input('')
