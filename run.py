@@ -1,7 +1,7 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool
-from modules.ascii_art import title_and_greeting
+from modules.ascii_art import title_and_greeting, game_win_logo
 from modules.game_text import game_lore, game_rules
 
 SCOPE = [
@@ -814,22 +814,6 @@ def vendor_gossip_back():
         else:
             vendor_gossip()
             print('Type "4" to go back to menu')
-
-def game_win_logo():
-    """
-    Display winning screen
-    """
-    print('▓██   ██▓ ▒█████   █    ██     █     █░ ██▓ ███▄    █ ')
-    print(' ▒██  ██▒▒██▒  ██▒ ██  ▓██▒   ▓█░ █ ░█░▓██▒ ██ ▀█   █ ')
-    print('  ▒██ ██░▒██░  ██▒▓██  ▒██░   ▒█░ █ ░█ ▒██▒▓██  ▀█ ██▒')
-    print('  ░ ▐██▓░▒██   ██░▓▓█  ░██░   ░█░ █ ░█ ░██░▓██▒  ▐▌██▒')
-    print('  ░ ██▒▓░░ ████▓▒░▒▒█████▓    ░░██▒██▓ ░██░▒██░   ▓██░')
-    print('   ██▒▒▒ ░ ▒░▒░▒░ ░▒▓▒ ▒ ▒    ░ ▓░▒ ▒  ░▓  ░ ▒░   ▒ ▒ ')
-    print(' ▓██ ░▒░   ░ ▒ ▒░ ░░▒░ ░ ░      ▒ ░ ░   ▒ ░░ ░░   ░ ▒░')
-    print(' ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░      ░   ░   ▒ ░   ░   ░ ░ ')
-    print(' ░ ░         ░ ░     ░            ░     ░           ░ ')
-    print(' ░ ░                                                  \n')
-    print('Would you like to continue the game?Y/N\n')
 
 def game_win():
     while True:

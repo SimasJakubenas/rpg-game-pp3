@@ -16,3 +16,20 @@ def title_and_greeting():
     print('                                                                              ')
     print('                    Welcome to a Diablo II themed RPG game')
     input('                             Press ENTER to play\n')
+
+def game_win_logo():
+    """
+    Display winning screen
+    """
+    print('')
+    print('▓██   ██▓ ▒█████   █    ██     █     █░ ██▓ ███▄    █ ')
+    print(' ▒██  ██▒▒██▒  ██▒ ██  ▓██▒   ▓█░ █ ░█░▓██▒ ██ ▀█   █ ')
+    print('  ▒██ ██░▒██░  ██▒▓██  ▒██░   ▒█░ █ ░█ ▒██▒▓██  ▀█ ██▒')
+    print('  ░ ▐██▓░▒██   ██░▓▓█  ░██░   ░█░ █ ░█ ░██░▓██▒  ▐▌██▒')
+    print('  ░ ██▒▓░░ ████▓▒░▒▒█████▓    ░░██▒██▓ ░██░▒██░   ▓██░')
+    print('   ██▒▒▒ ░ ▒░▒░▒░ ░▒▓▒ ▒ ▒    ░ ▓░▒ ▒  ░▓  ░ ▒░   ▒ ▒ ')
+    print(' ▓██ ░▒░   ░ ▒ ▒░ ░░▒░ ░ ░      ▒ ░ ░   ▒ ░░ ░░   ░ ▒░')
+    print(' ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░      ░   ░   ▒ ░   ░   ░ ░ ')
+    print(' ░ ░         ░ ░     ░            ░     ░           ░ ')
+    print(' ░ ░                                                  \n')
+    print('Would you like to continue the game?Y/N\n')
