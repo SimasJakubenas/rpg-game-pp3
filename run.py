@@ -493,40 +493,40 @@ def item_drop():
     """
     Chance to aquire item after a fight
     """
-    stash_list = worksheets.stash.get_all_values()
+    stash_sheet = worksheets.stash.get_all_values()
     weapon_list = worksheets.item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
             print(f'You found {weapon[0]}\n')
             worksheets.stash.append_row(weapon)
-            stash_list.append(weapon)
-        while len(stash_list) > 8:
-            remove_item = input(f'Not enough space in stash would you like to remove {stash_list[1][0]}?Y/N\n')
+            stash_sheet.append(weapon)
+        while len(stash_sheet) > 8:
+            remove_item = input(f'Not enough space in stash would you like to remove {stash_sheet[1][0]}?Y/N\n')
             clear()
             if remove_item.lower() == 'y':
-                remove_first = stash_list.pop(1)
+                remove_first = stash_sheet.pop(1)
                 worksheets.stash.clear()
-                for row in stash_list:
+                for row in stash_sheet:
                     worksheets.stash.append_row(row)
                 location_art()
             elif remove_item.lower() == 'n':
-                del stash_list[-1]
+                del stash_sheet[-1]
                 worksheets.stash.clear()
-                for row in stash_list:
+                for row in stash_sheet:
                     worksheets.stash.append_row(row)
                 initial_state.replace = True
                 location_art()
             else:
                 location_art()
                 print(f'You found {weapon[0]}\n')
-                print(f'Press "Y" to replace {stash_list[1][0]} or "N" to pass on this item')
+                print(f'Press "Y" to replace {stash_sheet[1][0]} or "N" to pass on this item')
 
 def stash_open():
     """
     Display aquired items
     Pull and display relevant data from 'stash' spreadsheet
     """
-    global hero_attack, hero_max_health, stash_sheet
+    global hero_attack, hero_max_health
 
     location_art()
     stash_menu()
@@ -733,7 +733,7 @@ def vendor_sell_menu():
     """
     Display vendors sell menu options
     """
-    global hero_gold, stash_sheet, stash_limit, num
+    global hero_gold, stash_limit, num
 
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
@@ -754,7 +754,7 @@ def vendor_sell_menu_option():
     """
     Takes player input to navigate vendors sell menu
     """
-    global health_potion, hero_gold, stash_sheet, num
+    global health_potion, hero_gold, num
 
     while True:
         sell = input('\n')
