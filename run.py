@@ -33,6 +33,7 @@ class Worksheets:
         self.stash_save = SHEET.worksheet(stash_save)
 
     character_list = SHEET.worksheet('chars').get_all_values()
+    item_list = SHEET.worksheet('items').get_all_values()
 
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
@@ -493,8 +494,7 @@ def item_drop():
     Chance to aquire item after a fight
     """
     stash_list = worksheets.stash.get_all_values()
-    item_list = worksheets.items.get_all_values()
-    weapon_list = item_list[3:]
+    weapon_list = worksheets.item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
             print(f'You found {weapon[0]}\n')
