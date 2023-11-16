@@ -12,6 +12,16 @@ class Game_flow_bool:
     self.dessert = dessert
     self.loaded_game = loaded_game
 
+class Location:
+    """
+    Hold variable that are used to control movement
+    """
+    def __init__(self, current_location, enemy_zone, x, y):
+        self.current_location = current_location
+        self.enemy_zone = enemy_zone
+        self.x = x
+        self.y = y
+
 class Character:
     """
     Superclass for all playeable characters and enemies in the game
