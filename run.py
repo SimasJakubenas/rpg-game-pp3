@@ -18,22 +18,22 @@ SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 # Sets initial boolean values in the Game_flow_bool class
 initial_state = Game_flow_bool(False, False, False, False, False, True, False)
 
-# Assigns worksheets from a spreadsheet to Worksheet class
-worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
-
 class Worksheets:
     """
     Class that hold all the worksheets used in the game
     """
-    def __init__(self, sewers_map, dessert_map, characters, items, vendor, stash, save, stash_save):
-        self.sewers_map = SHEET.worksheet(sewers)
-        self.dessert_map = SHEET.worksheet(dessert)
-        self.characters = SHEET.worksheet(chars)
+    def __init__(self, sewers_map, dessert_map, characters, items, shop, stash, save, stash_save):
+        self.sewers_map = SHEET.worksheet(sewers_map)
+        self.dessert_map = SHEET.worksheet(dessert_map)
+        self.characters = SHEET.worksheet(characters)
         self.items = SHEET.worksheet(items)
         self.vendor = SHEET.worksheet(shop)
         self.stash = SHEET.worksheet(stash)
         self.save = SHEET.worksheet(save)
         self.stash_save = SHEET.worksheet(stash_save)
+
+# Assigns worksheets from a spreadsheet to Worksheet class
+worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 
 def main():
     """
@@ -126,7 +126,6 @@ def menu_option(menu_item):
     """
     global loaded_game
 
-    stash = SHEET.worksheet('stash')
     loaded_game = False
     print('')
     while True:
@@ -142,7 +141,7 @@ def menu_option(menu_item):
                 clear()
                 SHEET.values_clear("stash!A2:F10000")
                 # A space holder for equipped weapon
-                stash.append_row(['Stick', '0', '0', '0', '5', '0'])
+                worksheets.stash.append_row(['Stick', '0', '0', '0', '5', '0'])
                 town_zone()
             if menu_item == 'save':
                 save_game()
@@ -179,14 +178,12 @@ def save_game():
     hero_stats_pull = Hero(hero[0], hero_max_health, hero_attack, hero_gold, health_potion)
     hero_stats_dict = vars(hero_stats_pull)
     hero_stats_list = list(hero_stats_dict.values())
-    save_file = SHEET.worksheet('save')
-    save_file.append_row(hero_stats_list)
+    worksheets.save.append_row(hero_stats_list)
 
-    get_items = SHEET.worksheet('stash').get_all_values()
-    save_items = SHEET.worksheet('stash_save')
-    save_items.clear()
+    get_items = worksheets.stash.get_all_values()
+    worksheets.stash_save.clear()
     for item in get_items:
-        save_items.append_row(item)
+        worksheets.stash_save.append_row(item)
 
 def load_game():
     """
@@ -195,7 +192,7 @@ def load_game():
     """
     global hero_stats, hero_gold, health_potion, hero, hero_max_health, hero_attack, current_health
 
-    save_file = SHEET.worksheet('save').get_all_values()
+    save_file = worksheets.save.get_all_values()
     while True:
         if len(save_file) > 1:
             print('Game loading please wait....')
@@ -207,11 +204,10 @@ def load_game():
             hero_attack = int(last_save[3])
             hero_stats = Hero(hero[0], hero_max_health, hero_attack, hero_gold, health_potion)
 
-            load_items_list = SHEET.worksheet('stash_save').get_all_values()
-            stash = SHEET.worksheet('stash')
-            stash.clear()
+            load_items_list = worksheets.stash_save.get_all_values()
+            worksheets.stash.clear()
             for item in load_items_list:
-                stash.append_row(item)
+                worksheets.stash.append_row(item)
             return False
         else:
             game_menu_display()
@@ -237,7 +233,7 @@ def hero_selection():
     """
     global hero_gold, hero_stats, char_list, hero, hero_max_health, hero_attack
 
-    char_list = SHEET.worksheet('chars').get_all_values()
+    char_list = worksheets.characters.get_all_values()
     hero = tuple(char_list[1])
     hero_stats = Hero(*hero)
     hero_gold = int(hero_stats.gold)
@@ -299,11 +295,11 @@ def enemy_zone_navigation(char_list, hero_stats):
     global health_potion, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
 
     if sewers == True:
-        enemy_zone = SHEET.worksheet('sewers').get_all_values()
+        enemy_zone = worksheets.sewers_map.get_all_values()
         x = 2
         y = 2
     if dessert == True:
-        enemy_zone = SHEET.worksheet('dessert').get_all_values()
+        enemy_zone = worksheets.dessert_map.get_all_values()
         x = 1
         y = 1
     current_loc = enemy_zone[x][y]
@@ -498,29 +494,28 @@ def item_drop():
     """
     Chance to aquire item after a fight
     """
-    stash = SHEET.worksheet('stash')
-    stash_list = SHEET.worksheet('stash').get_all_values()
-    item_list = SHEET.worksheet('items').get_all_values()
+    stash_list = worksheets.stash.get_all_values()
+    item_list = worksheets.items.get_all_values()
     weapon_list = item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
             print(f'You found {weapon[0]}\n')
-            stash.append_row(weapon)
+            worksheets.stash.append_row(weapon)
             stash_list.append(weapon)
         while len(stash_list) > 8:
             remove_item = input(f'Not enough space in stash would you like to remove {stash_list[1][0]}?Y/N\n')
             clear()
             if remove_item.lower() == 'y':
                 remove_first = stash_list.pop(1)
-                stash.clear()
+                worksheets.stash.clear()
                 for row in stash_list:
-                    stash.append_row(row)
+                    worksheets.stash.append_row(row)
                 location_art()
             elif remove_item.lower() == 'n':
                 del stash_list[-1]
-                stash.clear()
+                worksheets.stash.clear()
                 for row in stash_list:
-                    stash.append_row(row)
+                    worksheets.stash.append_row(row)
                 initial_state.replace = True
                 location_art()
             else:
@@ -533,7 +528,7 @@ def stash_open():
     Display aquired items
     Pull and display relevant data from 'stash' spreadsheet
     """
-    global hero_attack, hero_max_health, stash, stash_sheet
+    global hero_attack, hero_max_health, stash_sheet
 
     location_art()
     stash_menu()
@@ -542,7 +537,7 @@ def stash_open():
         clear()
         location_art()
         if equip == '1' or equip == '2' or equip == '3' or equip == '4' or equip == '5' or equip == '6' or equip == '7':
-            stash_sheet = SHEET.worksheet('stash').get_all_values()
+            stash_sheet = worksheets.stash.get_all_values()
             if 0 < int(equip) < len(stash_sheet):
                 stash_menu()
                 print(f'Would you like to equip {stash_sheet[int(equip)+1][0]}?')
@@ -550,15 +545,13 @@ def stash_open():
                 if equip_confirm.lower() == 'y':
                     stash_limit = stash_sheet[1:9]
                     equipped_weapon = stash_limit.pop(int(equip))
-                    stash = SHEET.worksheet('stash')
                     SHEET.values_clear("stash!A2:F10000")
                     hero_attack = int(hero[2]) + int(equipped_weapon[1])
                     hero_max_health = int(hero[1]) + int(equipped_weapon[2])
-                    stash.append_row(equipped_weapon)
+                    worksheets.stash.append_row(equipped_weapon)
                     for row in stash_limit:
-                        stash.append_row(row)
-                    stash = SHEET.worksheet('stash')
-                    stash_sheet = SHEET.worksheet('stash').get_all_values()
+                        worksheets.stash.append_row(row)
+                    stash_sheet = worksheets.stash.get_all_values()
                     clear()
                     location_art()
                     stash_menu()
@@ -587,7 +580,7 @@ def stash_menu():
     """
     Display stash menu
     """
-    stash_sheet = SHEET.worksheet('stash').get_all_values()
+    stash_sheet = worksheets.stash.get_all_values()
     stash_limit = stash_sheet[2:9]
     print(f'Equipped:    {stash_sheet[1][0]}\n')
     print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
@@ -746,7 +739,7 @@ def vendor_sell_menu():
 
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
-    stash_sheet = SHEET.worksheet('stash').get_all_values()
+    stash_sheet = worksheets.stash.get_all_values()
     stash_limit = stash_sheet[2:]
     if len(stash_limit) > 0:
         for number, item in enumerate(stash_limit, 1):
@@ -765,21 +758,20 @@ def vendor_sell_menu_option():
     """
     global health_potion, hero_gold, stash_sheet, num
 
-    stash = SHEET.worksheet('stash')
     while True:
         sell = input('\n')
         clear()
-        vendor_sell_input(sell, stash)
+        vendor_sell_input(sell)
         return False
 
-def vendor_sell_input(sell, stash):
+def vendor_sell_input(sell):
     """
     Handles player input for vendor sell menu
     """
     global hero_gold, num
 
     if sell == '1' or sell == '2' or sell == '3' or sell == '4' or sell == '5' or sell == '6' or sell == '7':
-        stash_sheet = SHEET.worksheet('stash').get_all_values()
+        stash_sheet = worksheets.stash.get_all_values()
         if 0 < int(sell) < len(stash_sheet):
             vendor_sell_menu()
             print(f'Would you like to sell {stash_sheet[int(sell)+1][0]}?')
@@ -787,9 +779,9 @@ def vendor_sell_input(sell, stash):
             if sale_confirm.lower() == 'y':
                 hero_gold += int(stash_sheet[int(sell)+1][4])
                 remove_first = stash_sheet.pop(int(sell)+1)
-                stash.clear()
+                worksheets.stash.clear()
                 for row in stash_sheet:
-                    stash.append_row(row)
+                    worksheets.stash.append_row(row)
                 clear()
                 vendor_sell_menu()
             elif sale_confirm.lower() == 'n':
