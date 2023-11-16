@@ -849,7 +849,7 @@ def character_info():
         stats()
         if go_back.lower() == 'w':
             clear()
-            if current_loc == 'Lut Gholein':
+            if location.current_location == 'Lut Gholein':
                 town_zone()
             else:
                 location_art()
