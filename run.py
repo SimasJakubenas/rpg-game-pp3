@@ -97,7 +97,7 @@ def game_menu_select():
                 if location.current_location == 'Lut Gholein':
                     ingame_menu()
                 else:
-                    zone_navigation_menu(x, y)
+                    zone_navigation_menu()
                 return False
         # Game save
         elif menu_item == '2':
@@ -293,33 +293,32 @@ def enemy_zone_navigation(hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, hero_gold, x, y
+    global health_potion, hero_gold
 
     if initial_state.sewers == True:
         location.enemy_zone = worksheets.sewers_map.get_all_values()
-        x = 2
-        y = 2
+        location.x = 2
+        location.y = 2
     if initial_state.dessert == True:
         location.enemy_zone = worksheets.dessert_map.get_all_values()
-        x = 1
-        y = 1
-    location.current_location = location.enemy_zone[x][y]
+        location.x = 1
+        location.y = 1
+    location.current_location = location.enemy_zone[location.x][location.y]
     location_art()
-    zone_navigation_menu(x, y)
+    zone_navigation_menu()
     while True:
-        location.current_location = location.enemy_zone[x][y]
+        location.current_location = location.enemy_zone[location.x][location.y]
         if (location.current_location != 'Dungeon Gate') and (location.current_location != 'Town Gate'):
             if location.current_location == 'Sewers Hideout':
                 if initial_state.treasure_chest:
                     location_art()
-                    zone_navigation_menu(x, y)
+                    zone_navigation_menu()
                     print('')
                     print('You found 200 gold!')
                     hero_gold += int(worksheets.character_list[5][3])
                     initial_state.treasure_chest = False
                     initial_state.fight = False
                 else:
-                    # location_art()
                     battle(hero_stats)
             if initial_state.fight:
                 location_art()
@@ -334,17 +333,17 @@ def enemy_zone_navigation(hero_stats):
         zone_controls = input('\n')
         clear()
         # 'And' operators prevents game from crashing if player tries to move out of map
-        if zone_controls == '1' and x > 0:
-            x -= 1
+        if zone_controls == '1' and location.x > 0:
+            location.x -= 1
             initial_state.fight = True
-        elif zone_controls == '2' and y < len(location.enemy_zone[x]) - 1:
-            y += 1
+        elif zone_controls == '2' and location.y < len(location.enemy_zone[location.x]) - 1:
+            location.y += 1
             initial_state.fight = True
-        elif zone_controls == '3' and x < len(location.enemy_zone) - 1:
-            x += 1
+        elif zone_controls == '3' and location.x < len(location.enemy_zone) - 1:
+            location.x += 1
             initial_state.fight = True
-        elif zone_controls == '4' and y > 0:
-            y -= 1
+        elif zone_controls == '4' and location.y > 0:
+            location.y -= 1
             initial_state.fight = True
         elif zone_controls.lower() == 'q':
             game_menu_display()
@@ -355,23 +354,23 @@ def enemy_zone_navigation(hero_stats):
             stash_open()
         else:
             location_art()
-            zone_navigation_menu(x, y)
+            zone_navigation_menu()
             print('')
             print('Use numers 1-4 to navigate the map')
 
-def zone_navigation_menu(x, y):
+def zone_navigation_menu():
     """
     Displays navigation options depending on a current position of the map
     Hides corresponding options if player is next to the edge of the map
     """
-    if x > 0:
-        print(f'1. Go North to {location.enemy_zone[x-1][y]}')
-    if y < len(location.enemy_zone[x]) - 1:
-        print(f'2. Go East to {location.enemy_zone[x][y+1]}')
-    if x < len(location.enemy_zone) - 1:
-        print(f'3. Go South to {location.enemy_zone[x+1][y]}')
-    if y > 0:
-        print(f'4. Go West to {location.enemy_zone[x][y-1]}')
+    if location.x > 0:
+        print(f'1. Go North to {location.enemy_zone[location.x-1][location.y]}')
+    if location.y < len(location.enemy_zone[location.x]) - 1:
+        print(f'2. Go East to {location.enemy_zone[location.x][location.y+1]}')
+    if location.x < len(location.enemy_zone) - 1:
+        print(f'3. Go South to {location.enemy_zone[location.x+1][location.y]}')
+    if location.y > 0:
+        print(f'4. Go West to {location.enemy_zone[location.x][location.y-1]}')
     print('')
     print('Q. Open Menu')
     print('W. Character Info')
@@ -457,7 +456,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
                 item_drop()
                 print('')
-                zone_navigation_menu(x, y)
+                zone_navigation_menu()
                 hero_gold += int(enemy[3])
                 print('')
                 if enemy[0] == 'Radement':
@@ -570,7 +569,7 @@ def stash_open():
                 town_zone()
             else:
                 location_art()
-                zone_navigation_menu(x, y)
+                zone_navigation_menu()
                 return False
         else:
             stash_menu()
@@ -596,7 +595,7 @@ def stash_menu():
     print('E. Go back\n')
 
 def return_to_town():
-    zone_navigation_menu(x, y)
+    zone_navigation_menu()
     print('')
     print('Would you like to return to town?')
     while True:
@@ -607,11 +606,11 @@ def return_to_town():
             
         elif town_portal.lower() == 'n':
             location_art()
-            zone_navigation_menu(x, y)
+            zone_navigation_menu()
             return False
         else:
             location_art()
-            zone_navigation_menu(x, y)
+            zone_navigation_menu()
             print('')
             print('Type in "y" to go back to town or "N" to stay')
 
@@ -854,7 +853,7 @@ def character_info():
                 town_zone()
             else:
                 location_art()
-                zone_navigation_menu(x, y)
+                zone_navigation_menu()
                 return False
         else:
             print('Press "W" to go back')
