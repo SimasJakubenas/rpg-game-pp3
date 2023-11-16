@@ -18,6 +18,23 @@ SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 # Sets initial boolean values in the Game_flow_bool class
 initial_state = Game_flow_bool(False, False, False, False, False, True, False)
 
+# Assigns worksheets from a spreadsheet to Worksheet class
+worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
+
+class Worksheets:
+    """
+    Class that hold all the worksheets used in the game
+    """
+    def __init__(self, sewers_map, dessert_map, characters, items, vendor, stash, save, stash_save):
+        self.sewers_map = SHEET.worksheet(sewers)
+        self.dessert_map = SHEET.worksheet(dessert)
+        self.characters = SHEET.worksheet(chars)
+        self.items = SHEET.worksheet(items)
+        self.vendor = SHEET.worksheet(shop)
+        self.stash = SHEET.worksheet(stash)
+        self.save = SHEET.worksheet(save)
+        self.stash_save = SHEET.worksheet(stash_save)
+
 def main():
     """
     Main game function
