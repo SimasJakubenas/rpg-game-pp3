@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
 # Sets initial boolean values in the Game_flow_bool class
-initial_state = Game_flow_bool(False, False, False, False, False, True, False)
+initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False)
 
 class Worksheets:
     """
@@ -244,12 +244,12 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, hero_stats, char_list, sewers, dessert, current_loc, loaded_game
+    global current_health, health_potion, hero_stats, char_list, current_loc, loaded_game
 
     current_loc = 'Lut Gholein'
     current_health = int(hero_stats.health)
-    sewers = False
-    dessert = False
+    initial_state.sewers = False
+    initial_state.dessert = False
     if initial_state.store_health_pots == False:
         health_potion = int(hero_stats.health_pot)
         initial_state.store_health_pots = True
@@ -262,11 +262,11 @@ def town_zone():
         navigate_town = input('\n')
         clear()
         if navigate_town == '1':
-            sewers = True
+            initial_state.sewers = True
             enemy_zone_navigation(char_list, hero_stats)
         elif navigate_town == '2':
             if initial_state.key:
-                dessert = True
+                initial_state.dessert = True
                 enemy_zone_navigation(char_list, hero_stats)
             else:
                 location_art()
@@ -292,13 +292,13 @@ def enemy_zone_navigation(char_list, hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, hero_gold, sewers, dessert, current_loc, x, y, enemy_zone
+    global health_potion, hero_gold, current_loc, x, y, enemy_zone
 
-    if sewers == True:
+    if initial_state.sewers == True:
         enemy_zone = worksheets.sewers_map.get_all_values()
         x = 2
         y = 2
-    if dessert == True:
+    if initial_state.dessert == True:
         enemy_zone = worksheets.dessert_map.get_all_values()
         x = 1
         y = 1
@@ -391,9 +391,9 @@ def battle(current_loc, char_list, hero_stats):
     first_attack = False
     if current_health > hero_max_health:
         current_health = hero_max_health
-    if sewers == True:
+    if initial_state.sewers == True:
         enemy_list = slice(2, 7)
-    if dessert == True:
+    if initial_state.dessert == True:
         enemy_list = slice(7, 19)
     while initial_state.fight: 
         enemy = tuple(random.choice(char_list[enemy_list]))
