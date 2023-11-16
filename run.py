@@ -32,6 +32,8 @@ class Worksheets:
         self.save = SHEET.worksheet(save)
         self.stash_save = SHEET.worksheet(stash_save)
 
+    character_list = SHEET.worksheet('chars').get_all_values()
+
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 
@@ -228,10 +230,9 @@ def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_gold, hero_stats, char_list, hero, hero_max_health, hero_attack
+    global hero_gold, hero_stats, hero, hero_max_health, hero_attack
 
-    char_list = worksheets.characters.get_all_values()
-    hero = tuple(char_list[1])
+    hero = tuple(worksheets.character_list[1])
     hero_stats = Hero(*hero)
     hero_gold = int(hero_stats.gold)
     hero_attack = int(hero_stats.attack)
@@ -241,7 +242,7 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, hero_stats, char_list, current_loc
+    global current_health, health_potion, hero_stats, current_loc
 
     current_loc = 'Lut Gholein'
     current_health = int(hero_stats.health)
@@ -260,11 +261,11 @@ def town_zone():
         clear()
         if navigate_town == '1':
             initial_state.sewers = True
-            enemy_zone_navigation(char_list, hero_stats)
+            enemy_zone_navigation(hero_stats)
         elif navigate_town == '2':
             if initial_state.key:
                 initial_state.dessert = True
-                enemy_zone_navigation(char_list, hero_stats)
+                enemy_zone_navigation(hero_stats)
             else:
                 location_art()
                 ingame_menu()
@@ -285,7 +286,7 @@ def town_zone():
             ingame_menu()
             print('Enter a number 1-4 to select your destination')
 
-def enemy_zone_navigation(char_list, hero_stats):
+def enemy_zone_navigation(hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
@@ -311,15 +312,15 @@ def enemy_zone_navigation(char_list, hero_stats):
                     zone_navigation_menu(enemy_zone, x, y)
                     print('')
                     print('You found 200 gold!')
-                    hero_gold += int(char_list[5][3])
+                    hero_gold += int(worksheets.character_list[5][3])
                     initial_state.treasure_chest = False
                     initial_state.fight = False
                 else:
                     # location_art()
-                    battle(current_loc, char_list, hero_stats)
+                    battle(current_loc, hero_stats)
             if initial_state.fight:
                 location_art()
-                battle(current_loc, char_list, hero_stats)
+                battle(current_loc, hero_stats)
                 health_potion += 1
                 initial_state.fight = False
         else:
@@ -377,7 +378,7 @@ def zone_navigation_menu(enemy_zone, x, y):
         print(f'You left your loot behind')
     initial_state.replace = False
 
-def battle(current_loc, char_list, hero_stats):
+def battle(current_loc, hero_stats):
     """
     Battle function determines an enemy encounter depending on map area
     Loops through a fight until either player or enemy dies
@@ -393,13 +394,13 @@ def battle(current_loc, char_list, hero_stats):
     if initial_state.dessert == True:
         enemy_list = slice(7, 19)
     while initial_state.fight: 
-        enemy = tuple(random.choice(char_list[enemy_list]))
+        enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             
         if enemy[4] == current_loc:
             if (enemy[0] == 'Radement' and initial_state.key == True) \
                 or (current_loc == 'Sewers Hideout' and initial_state.treasure_chest == False):
                 enemy_list = slice(2, 5)
-                enemy = tuple(random.choice(char_list[enemy_list]))
+                enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
             mob_dmg = int(enemy_stats.attack)
             hero_dmg = int(hero_stats.attack)
