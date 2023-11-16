@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
 # Sets initial boolean values in the Game_flow_bool class
-initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False)
+initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False, False)
 
 class Worksheets:
     """
@@ -124,9 +124,6 @@ def menu_option(menu_item):
     """
     Calls appropriate functions that corresponds with players input 
     """
-    global loaded_game
-
-    loaded_game = False
     print('')
     while True:
         want_to_quit = input(f"Do you want to {menu_item} the game?Y/N\n")
@@ -152,7 +149,7 @@ def menu_option(menu_item):
                 return False
             if menu_item == 'load':
                 initial_state.alive = True
-                loaded_game = True
+                initial_state.loaded_game = True
                 hero_selection()
                 load_game()
                 clear()
@@ -244,7 +241,7 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, hero_stats, char_list, current_loc, loaded_game
+    global current_health, health_potion, hero_stats, char_list, current_loc
 
     current_loc = 'Lut Gholein'
     current_health = int(hero_stats.health)
@@ -255,9 +252,9 @@ def town_zone():
         initial_state.store_health_pots = True
     location_art()
     ingame_menu()
-    if loaded_game == True:
+    if initial_state.loaded_game == True:
         print('The game was loaded...')
-    loaded_game = False
+    initial_state.loaded_game = False
     while True:
         navigate_town = input('\n')
         clear()
