@@ -59,7 +59,7 @@ def game_menu_select():
         game_menu_display()
         # Starts game
         if menu_item == '1':
-        start_game()
+            start_game()
         # Game save
         elif menu_item == '2':
             if initial_state.alive == False:
@@ -116,30 +116,7 @@ def menu_option(menu_item):
         clear()
 
         if want_to_quit.lower() == 'y':
-            if menu_item == 'start':
-                initial_state.alive = True
-                initial_state.hero_created = True
-                game_lore()
-                clear()
-                SHEET.values_clear("stash!A2:F10000")
-                # A space holder for equipped weapon
-                SHEET.worksheet(worksheets.stash).append_row(['Stick', '0', '0', '0', '5', '0'])
-                town_zone()
-            if menu_item == 'save':
-                save_game()
-                clear()
-                game_menu_display()
-                print('')
-                print('The game was saved...')
-                return False
-            if menu_item == 'load':
-                initial_state.alive = True
-                initial_state.loaded_game = True
-                load_game()
-                clear()
-                town_zone()
-            if menu_item == 'quit':
-                quit()
+            confirmed_menu_selection(menu_item)
         elif want_to_quit.lower() == 'n':
             game_menu_display()
             return False
@@ -147,6 +124,36 @@ def menu_option(menu_item):
             game_menu_display()
             print('')
             print('Type in "y" to save or "N" to go back to menu')
+
+def confirmed_menu_selection(menu_item):
+    """
+    Starts corresponding game mode based on user input
+    """
+    if menu_item == 'start':
+        initial_state.alive = True
+        initial_state.hero_created = True
+        game_lore()
+        clear()
+        # Starting new game clears stash worksheet content
+        SHEET.values_clear("stash!A2:F10000")
+        # A space holder for equipped weapon
+        SHEET.worksheet(worksheets.stash).append_row(['Stick', '0', '0', '0', '5', '0'])
+        town_zone()
+    if menu_item == 'save':
+        save_game()
+        clear()
+        game_menu_display()
+        print('')
+        print('The game was saved...')
+        return False
+    if menu_item == 'load':
+        initial_state.alive = True
+        initial_state.loaded_game = True
+        load_game()
+        clear()
+        town_zone()
+    if menu_item == 'quit':
+        quit()
 
 def save_game():
     """
