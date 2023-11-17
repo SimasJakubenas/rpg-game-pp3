@@ -453,7 +453,8 @@ def battle_option_attack(enemy_stats):
 
 def item_drop():
     """
-    Chance to aquire item after a fight
+    Draws data from items worksheet for a chance to aquire item
+    If stash is over max capacity prompts user to replace first item in the stash with a new one
     """
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
     weapon_list = item_list[3:]
@@ -462,6 +463,7 @@ def item_drop():
             print(f'You found {weapon[0]}\n')
             SHEET.worksheet(worksheets.stash).append_row(weapon)
             stash_sheet.append(weapon)
+        # When stash over max capacity prompts user to replace first item in the stash with a new one
         while len(stash_sheet) > 8:
             remove_item = input(f'Not enough space in stash would you like to remove {stash_sheet[1][0]}?Y/N\n')
             clear()
@@ -494,32 +496,10 @@ def stash_open():
         equip = input('\n')
         clear()
         location_art()
-        if equip == '1' or equip == '2' or equip == '3' or equip == '4' or equip == '5' or equip == '6' or equip == '7':
+        if equip == '1' or equip == '2' or equip == '3' or equip == '4' or equip == '5' or equip == '6':
             stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
             if 0 < int(equip) < len(stash_sheet):
-                stash_menu()
-                print(f'Would you like to equip {stash_sheet[int(equip)+1][0]}?')
-                equip_confirm = input('Y/N\n')
-                if equip_confirm.lower() == 'y':
-                    stash_limit = stash_sheet[1:9]
-                    equipped_weapon = stash_limit.pop(int(equip))
-                    SHEET.values_clear("stash!A2:F10000")
-                    hero_stats.attack = int(hero[2]) + int(equipped_weapon[1])
-                    hero_stats.max_health = int(hero[1]) + int(equipped_weapon[2])
-                    SHEET.worksheet(worksheets.stash).append_row(equipped_weapon)
-                    for row in stash_limit:
-                        SHEET.worksheet(worksheets.stash).append_row(row)
-                    stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
-                    clear()
-                    location_art()
-                    stash_menu()
-                elif equip_confirm.lower() == 'n':
-                    clear()
-                    location_art()
-                    stash_menu()
-                else:
-                    stash_menu()
-                    print('Type "Y" to confirm to equip or "N" to cancel')
+                equip_weapon(equip, stash_sheet)
             else:
                 print(f'Type number to equip item or "R" to go back')
         elif equip.lower() == 'e':
@@ -533,6 +513,36 @@ def stash_open():
         else:
             stash_menu()
             print('Type number to equip item or "R" to go backward')
+
+def equip_weapon(equip, stash_sheet):
+    """
+    Haddles user input to equip weapon
+    if weapon is equiped the stash worksheet is appended appropreately
+    """
+    stash_menu()
+    print(f'Would you like to equip {stash_sheet[int(equip)+1][0]}?')
+    while True:
+        equip_confirm = input('Y/N\n')
+        if equip_confirm.lower() == 'y':
+            stash_limit = stash_sheet[1:9]
+            equipped_weapon = stash_limit.pop(int(equip))
+            SHEET.values_clear("stash!A2:F10000")
+            hero_stats.attack = int(hero[2]) + int(equipped_weapon[1])
+            hero_stats.max_health = int(hero[1]) + int(equipped_weapon[2])
+            SHEET.worksheet(worksheets.stash).append_row(equipped_weapon)
+            for row in stash_limit:
+                SHEET.worksheet(worksheets.stash).append_row(row)
+            stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
+            clear()
+            stash_open()
+        elif equip_confirm.lower() == 'n':
+            clear()
+            stash_open()
+        else:
+            clear()
+            location_art()
+            stash_menu()
+            print('Type "Y" to confirm to equip or "N" to cancel')
 
 def stash_menu():
     """
