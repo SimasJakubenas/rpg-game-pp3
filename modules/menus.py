@@ -59,3 +59,13 @@ def vendor_buy_menu_art():
     print('R. Go Back')
     print('')
 
+def vendor_menu_main():
+    print('\n')
+    print('                   φäðœ‰~-                             -~‰œðäφ   ')
+    print('                   ‘%  ╔════════════════════════════════╗  %‘    ')
+    print('                    δ  ║        1. Buy Weapon           ║  δ     ')
+    print('                       ║        2. Sell Items           ║        ')
+    print('                    δ  ║        3. Gossip               ║  δ     ')
+    print('                   ‘%  ╚════════════════════════════════╝  %‘    ')
+    print('                 ‘φäðœ‰~-                              -~‰œðäφ‘\n')
+    print('R. Go Back')

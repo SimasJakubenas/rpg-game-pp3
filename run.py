@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
-from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_sell_menu_empty, vendor_buy_menu_art
+from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -659,15 +659,7 @@ def vendor_menu():
     Display vendors menu options
     """
     location_art()
-    print('\n')
-    print('                   φäðœ‰~-                             -~‰œðäφ   ')
-    print('                   ‘%  ╔════════════════════════════════╗  %‘    ')
-    print('                    δ  ║        1. Buy Weapon           ║  δ     ')
-    print('                       ║        2. Sell Items           ║        ')
-    print('                    δ  ║        3. Gossip               ║  δ     ')
-    print('                   ‘%  ╚════════════════════════════════╝  %‘    ')
-    print('                 ‘φäðœ‰~-                              -~‰œðäφ‘\n')
-    print('R. Go Back')
+    vendor_menu_main()
 
 def vendor_buy_menu():
     """
