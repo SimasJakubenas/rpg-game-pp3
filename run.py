@@ -79,6 +79,7 @@ def game_menu_select():
             menu_option(menu_item)
         # Game rules   
         elif menu_item == '4':
+            clear()
             game_rules()
             game_rules_back()
         # Game quit
@@ -209,6 +210,7 @@ def game_rules_back():
             game_menu_display()
             game_menu_select()
         else:
+            clear()
             game_rules()
             print('Type "4" to go back to menu')
 
