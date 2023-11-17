@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo
 from modules.game_text import game_lore, game_rules
+from modules.menus import game_menu_display_top, game_menu_display_bottom
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -41,27 +42,12 @@ def game_menu_display():
     Calls for game menu and requires user input to select menu item
     ASCII art was created with https://www.asciiart.eu/image-to-ascii
     """
-
-    print('\n')
-    print('                               ...:*@@@@@@@@@*:..      ')
-    print('                             .*@@=..   =@. ..=@@*..    ')
-    print('                          ..#@+.      .@@%.    .+@%..  ')
-    print('                         .-@+.,-----------------,.+@=. ')
-    print('                        .-@:  |    GAME MENU    |  .@+.')
-    print('                        -@+@@@|                 |...:@-')
+    game_menu_display_top()
     if initial_state.hero_created == False:
         print('                        #%..:@|   1. New Game   |@@@+%%')
     else:
         print('                        #%..:@|   1. Continue   |@@@+%%')
-    print('                        @*   .|   2. Save Game  |+.  +@')
-    print('                        @*    |   3. Load Game  |    +@')
-    print('                        *%    |   4. Rules      |   .%#')
-    print('                        :@:.  |   5. End game   |  .:@-')
-    print('                        .-@:  "-----------------" .:@=.')
-    print('                         .:@+..@@@+.     .:@@@*. .+@-. ')
-    print('                           .*@%=.           .*@.+@#..  ')
-    print('                             .+@@=....   ....=@@*.     ')
-    print('                               ..-*@@@@@@@@@*-..       ')
+    game_menu_display_bottom()
 
 def game_menu_select():
     """
