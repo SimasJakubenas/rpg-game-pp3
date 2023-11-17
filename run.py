@@ -276,33 +276,7 @@ def enemy_zone_navigation():
                 initial_state.fight = False
                 location_art()
                 return_to_town()
-        zone_controls = input('\n')
-        clear()
-        # 'And' operators prevents game from crashing if player tries to move out of map
-        if zone_controls == '1' and location.x > 0:
-            location.x -= 1
-            initial_state.fight = True
-        elif zone_controls == '2' and location.y < len(location.enemy_zone[location.x]) - 1:
-            location.y += 1
-            initial_state.fight = True
-        elif zone_controls == '3' and location.x < len(location.enemy_zone) - 1:
-            location.x += 1
-            initial_state.fight = True
-        elif zone_controls == '4' and location.y > 0:
-            location.y -= 1
-            initial_state.fight = True
-        elif zone_controls.lower() == 'q':
-            game_menu_display()
-            game_menu_select()
-        elif zone_controls.lower() == 'w':
-            character_info()
-        elif zone_controls.lower() == 'e':
-            stash_open()
-        else:
-            location_art()
-            zone_navigation_menu()
-            print('')
-            print('Use numers 1-4 to navigate the map')
+        zone_navigation_menu_input()
 
 def not_town_portal():
     """
@@ -324,6 +298,38 @@ def not_town_portal():
         battle()
         hero_stats.health_potion += 1
         initial_state.fight = False
+
+def zone_navigation_menu_input():
+    """
+    Takes user input to navigate enemy zone
+    """
+    zone_controls = input('\n')
+    clear()
+    # 'And' operators prevents game from crashing if player tries to move out of map
+    if zone_controls == '1' and location.x > 0:
+        location.x -= 1
+        initial_state.fight = True
+    elif zone_controls == '2' and location.y < len(location.enemy_zone[location.x]) - 1:
+        location.y += 1
+        initial_state.fight = True
+    elif zone_controls == '3' and location.x < len(location.enemy_zone) - 1:
+        location.x += 1
+        initial_state.fight = True
+    elif zone_controls == '4' and location.y > 0:
+        location.y -= 1
+        initial_state.fight = True
+    elif zone_controls.lower() == 'q':
+        game_menu_display()
+        game_menu_select()
+    elif zone_controls.lower() == 'w':
+        character_info()
+    elif zone_controls.lower() == 'e':
+        stash_open()
+    else:
+        location_art()
+        zone_navigation_menu()
+        print('')
+        print('Use numers 1-4 to navigate the map')
 
 def zone_navigation_menu():
     """
