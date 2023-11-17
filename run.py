@@ -699,8 +699,6 @@ def vendor_sell_menu():
     """
     Display vendors sell menu options
     """
-    global stash_limit, num
-
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}\n')
     stash_sheet = worksheets.stash.get_all_values()
@@ -710,7 +708,6 @@ def vendor_sell_menu():
             # Enumerates all items in stash and ensures correct positioning of the display
             print(str(number) + '.', item[0].title() + ' ' * (15 - len(item[0])), item[4])
         print('')
-        num = number
         print(f'Enter number from 1 to {number} to sell\n')
     else:
         print('You have nothing to sell\n')
@@ -720,8 +717,6 @@ def vendor_sell_menu_option():
     """
     Takes player input to navigate vendors sell menu
     """
-    global  num
-
     while True:
         sell = input('\n')
         clear()
@@ -732,8 +727,6 @@ def vendor_sell_input(sell):
     """
     Handles player input for vendor sell menu
     """
-    global num
-
     if sell == '1' or sell == '2' or sell == '3' or sell == '4' or sell == '5' or sell == '6' or sell == '7':
         stash_sheet = worksheets.stash.get_all_values()
         if 0 < int(sell) < len(stash_sheet):
