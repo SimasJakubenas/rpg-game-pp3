@@ -244,14 +244,13 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, health_potion, hero_stats
+    global current_health, hero_stats
 
     location.current_location = 'Lut Gholein'
     current_health = int(hero_stats.health)
     initial_state.sewers = False
     initial_state.dessert = False
     if initial_state.store_health_pots == False:
-        health_potion = int(hero_stats.health_pot)
         initial_state.store_health_pots = True
     location_art()
     ingame_menu()
@@ -292,8 +291,6 @@ def enemy_zone_navigation(hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion
-
     if initial_state.sewers == True:
         location.enemy_zone = worksheets.sewers_map.get_all_values()
         location.x = 2
@@ -322,7 +319,7 @@ def enemy_zone_navigation(hero_stats):
             if initial_state.fight:
                 location_art()
                 battle(hero_stats)
-                health_potion += 1
+                hero_stats.health_potion += 1
                 initial_state.fight = False
         else:
             if initial_state.fight:
@@ -385,7 +382,7 @@ def battle(hero_stats):
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_health, current_enemy_health, health_potion, first_attack
+    global current_health, current_enemy_health, first_attack
 
     first_attack = False
     if current_health > hero_max_health:
@@ -440,7 +437,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, health_potion, first_attack, hero_attack
+    global current_enemy_health, current_health, first_attack, hero_attack
 
     while True:
         battle_option = input('\n')
@@ -470,11 +467,11 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             return current_enemy_health
         # Option to heal
         elif battle_option == '2':
-            if health_potion > 0:
+            if hero_stats.health_potion > 0:
                 current_health += 50
                 if current_health > hero_max_health:
                     current_health = hero_max_health
-                health_potion -= 1
+                hero_stats.health_potion -= 1
                 print('You gained 50 life!')
                 return current_health
             else:
@@ -684,11 +681,9 @@ def vendor_buy_menu():
     """
     Display vendors menu options
     """
-    global health_potion
-
     location_art()
     print('Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}')
-    print('Health_potion:' + ' ' * (4 - len(str(health_potion))) + f'{health_potion}\n')
+    print('Health_potion:' + ' ' * (4 - len(str(hero_stats.health_potion))) + f'{hero_stats.health_potion}\n')
     print('1. Buy Health Potion        100 gold')
     print('\n')
     print('R. Go Back')
@@ -698,8 +693,6 @@ def vendor_buy_menu_option():
     """
     Takes player input to navigate vendors buy menu
     """
-    global health_potion
-
     while True:
         buy = input('\n')
         clear()
@@ -710,7 +703,7 @@ def vendor_buy_menu_option():
             if purchase_confirm.lower() == 'y':
                 if hero_stats.gold >= 100:
                     hero_stats.gold -= 100
-                    health_potion += 1
+                    hero_stats.health_potion += 1
                     clear()
                     vendor_buy_menu()
                 else:
@@ -752,7 +745,7 @@ def vendor_sell_menu_option():
     """
     Takes player input to navigate vendors sell menu
     """
-    global health_potion, num
+    global  num
 
     while True:
         sell = input('\n')
@@ -862,7 +855,7 @@ def stats():
     """
     print(f'Health:    {hero_max_health}')
     print(f'Attack:    {hero_attack}')
-    print(f'Potions    {health_potion}')
+    print(f'Potions    {hero_stats.health_potion}')
     print(f'Gold:      {hero_stats.gold}\n')
     print('W. Go Back\n')
 

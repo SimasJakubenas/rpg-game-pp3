@@ -42,7 +42,7 @@ class Hero(Character):
     """
     def __init__(self, *stats):
         super().__init__(*stats)
-        self.health_pot = stats[4]
+        self.health_potion = int(stats[4])
 
 class Enemy(Character):
     """
