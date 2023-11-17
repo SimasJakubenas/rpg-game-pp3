@@ -233,11 +233,10 @@ def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_stats, hero, hero_max_health, hero_attack
+    global hero_stats, hero, hero_max_health
 
     hero = tuple(worksheets.character_list[1])
     hero_stats = Hero(*hero)
-    hero_attack = int(hero_stats.attack)
     hero_max_health = int(hero_stats.max_health)
 
 def town_zone():
@@ -401,7 +400,6 @@ def battle(hero_stats):
                 enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
             mob_dmg = int(enemy_stats.attack)
-            hero_dmg = int(hero_stats.attack)
             current_enemy_health = int(enemy_stats.health)
             initial_state.fight = False
             print(f'You have been attacked by {enemy[0]}')
@@ -417,7 +415,7 @@ def battle(hero_stats):
             main()
         battle_menu(hero_stats, enemy_stats)
 
-        battle_options(enemy, hero_dmg, hero_stats, enemy_stats)
+        battle_options(enemy, hero_stats, enemy_stats)
 
 def battle_menu(hero_stats, enemy_stats):
     """
@@ -433,11 +431,11 @@ def battle_menu(hero_stats, enemy_stats):
     print('2. Use Potion')
     print('')
 
-def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
+def battle_options(enemy, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, first_attack, hero_attack
+    global current_enemy_health, current_health, first_attack
 
     while True:
         battle_option = input('\n')
@@ -446,8 +444,8 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
         # Option to attack
         if battle_option == '1':
             first_attack = True
-            current_enemy_health -= hero_attack
-            print(f'You have done {hero_attack} damage to {enemy_stats.name}')
+            current_enemy_health -= hero_stats.attack
+            print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
                 item_drop()
@@ -481,7 +479,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
             if first_attack == False:
                 print(f'You have been attacked by {enemy[0]}')
             else:
-                print(f'You have done {hero_attack} damage to {enemy_stats.name}')
+                print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
             print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
             battle_menu(hero_stats, enemy_stats)
             print('Type a number 1-n to select battle option')
@@ -523,7 +521,7 @@ def stash_open():
     Display aquired items
     Pull and display relevant data from 'stash' spreadsheet
     """
-    global hero_attack, hero_max_health
+    global  hero_max_health
 
     location_art()
     stash_menu()
@@ -541,7 +539,7 @@ def stash_open():
                     stash_limit = stash_sheet[1:9]
                     equipped_weapon = stash_limit.pop(int(equip))
                     SHEET.values_clear("stash!A2:F10000")
-                    hero_attack = int(hero[2]) + int(equipped_weapon[1])
+                    hero_stats.attack = int(hero[2]) + int(equipped_weapon[1])
                     hero_max_health = int(hero[1]) + int(equipped_weapon[2])
                     worksheets.stash.append_row(equipped_weapon)
                     for row in stash_limit:
@@ -854,7 +852,7 @@ def stats():
     Character stats
     """
     print(f'Health:    {hero_max_health}')
-    print(f'Attack:    {hero_attack}')
+    print(f'Attack:    {hero_stats.attack}')
     print(f'Potions    {hero_stats.health_potion}')
     print(f'Gold:      {hero_stats.gold}\n')
     print('W. Go Back\n')
