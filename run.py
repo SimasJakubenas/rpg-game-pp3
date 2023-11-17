@@ -39,6 +39,9 @@ class Worksheets:
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 # Location class inital values
 location = Location('', '', 0, 0 )
+# Initial hero stats
+hero = tuple(worksheets.character_list[1])
+hero_stats = Hero(*hero)
 
 def main():
     """
@@ -138,7 +141,6 @@ def menu_option(menu_item):
             if menu_item == 'start':
                 initial_state.alive = True
                 initial_state.hero_created = True
-                hero_selection()
                 game_lore()
                 clear()
                 SHEET.values_clear("stash!A2:F10000")
@@ -155,7 +157,6 @@ def menu_option(menu_item):
             if menu_item == 'load':
                 initial_state.alive = True
                 initial_state.loaded_game = True
-                hero_selection()
                 load_game()
                 clear()
                 town_zone()
@@ -228,15 +229,6 @@ def game_rules_back():
         else:
             game_rules()
             print('Type "4" to go back to menu')
-
-def hero_selection():
-    """
-    Creates hero character by pulling values from a spreadsheet
-    """
-    global hero
-
-    hero = tuple(worksheets.character_list[1])
-    hero_stats = Hero(*hero)
 
 def town_zone():
     """
