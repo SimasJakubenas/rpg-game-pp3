@@ -92,10 +92,15 @@ class Hero(Character):
         """
         Character stats
         """
-        print(f'Health:    {self.max_health}')
-        print(f'Attack:    {self.attack}')
-        print(f'Potions    {self.health_potion}')
-        print(f'Gold:      {self.gold}\n')
+        print('\n')
+        print('   ≥φäðœ‰~-                                                          -~‰œðäφ≥   ')
+        print('   ‘æ%  ╔══                                                          ══╗  %æ‘   ')
+        print('     δ  ║           Health:', ' ' * 20, f'{self.max_health}', ' '  * (20 - len(str(self.max_health))), '║  δ')
+        print('     :              Attack:', ' ' * 20, f'{self.attack}', ' '  * (20 - len(str(self.attack))), '   :')
+        print('     :              Potions:', ' ' * 19, f'{self.health_potion}', ' '  * (20 - len(str(self.health_potion))), '   :')
+        print('     δ  ║           Gold:', ' ' * 22, f'{self.gold}', ' '  * (20 - len(str(self.gold))), '║  δ')
+        print('   ‘æ%  ╚══                                                          ══╝  %æ‘   ')
+        print('  ‘≥φäðœ‰~-                                                          -~‰œðäφ≥‘  \n')
         print('W. Go Back\n')
 
 class Enemy(Character):
