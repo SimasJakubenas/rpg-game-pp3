@@ -89,7 +89,7 @@ def game_menu_select():
             menu_option(menu_item)
         else:
             print('')
-            print('Select Menu Option by entering a number 1-5')
+            print('                  Select Menu Option by entering a number 1-5')
 
 def start_game():
     """
@@ -117,7 +117,7 @@ def menu_option(menu_item):
     """
     print('')
     while True:
-        want_to_quit = input(f"Do you want to {menu_item} the game?Y/N\n")
+        want_to_quit = input(f"                       Do you want to {menu_item} the game?Y/N\n")
         clear()
 
         if want_to_quit.lower() == 'y':
@@ -128,7 +128,7 @@ def menu_option(menu_item):
         else:
             game_menu_display()
             print('')
-            print('Type in "y" to save or "N" to go back to menu')
+            print('                 Type in "y" to save or "N" to go back to menu')
 
 def confirmed_menu_selection(menu_item):
     """
@@ -149,7 +149,7 @@ def confirmed_menu_selection(menu_item):
         clear()
         game_menu_display()
         print('')
-        print('The game was saved...')
+        print('                            The game was saved...')
         return False
     if menu_item == 'load':
         initial_state.alive = True
@@ -165,7 +165,7 @@ def save_game():
     Saves heros stats by pushing hero stats to a google spreadsheet
     Saves aquired items to a google spreadsheet
     """
-    print('Game saving please wait....')
+    print('                          Game saving please wait....')
     hero_stats_dict = vars(hero_stats)
     hero_stats_list = list(hero_stats_dict.values())
     SHEET.worksheet(worksheets.save).append_row(hero_stats_list)
@@ -183,7 +183,7 @@ def load_game():
     save_file = SHEET.worksheet(worksheets.save).get_all_values()
     while True:
         if len(save_file) > 1:
-            print('Game loading please wait....')
+            print('                          Game loading please wait....')
             last_save = save_file[-1]
             hero_stats.health = int(last_save[2])
             hero_stats.max_health = int(last_save[2])
@@ -198,7 +198,7 @@ def load_game():
             return False
         else:
             game_menu_display()
-            print('You need to save the game first!')
+            print('                       You need to save the game first!')
             game_menu_select()
 
 def game_rules_back():
@@ -213,7 +213,7 @@ def game_rules_back():
         else:
             clear()
             game_rules()
-            print('Type "4" to go back to menu')
+            print('                         Type "4" to go back to menu')
 
 def town_zone():
     """
@@ -226,7 +226,7 @@ def town_zone():
     ingame_menu()
     # Loaded_game boolen used only to control positioning of the text bellow
     if initial_state.loaded_game == True:
-        print('The game was loaded...')
+        print('                            The game was loaded...')
     initial_state.loaded_game = False
     while True:
         navigate_town = input('\n')
@@ -241,7 +241,7 @@ def town_zone():
             else:
                 location_art()
                 ingame_menu()
-                print('Town Gate is locked!')
+                print('                             Town Gate is locked!')
         elif navigate_town == '3':
             pass
         elif navigate_town.lower() == 'q':
@@ -256,7 +256,7 @@ def town_zone():
         else:
             location_art()
             ingame_menu()
-            print('Enter a number 1-4 to select your destination')
+            print('                 Enter a number 1-4 to select your destination')
 
 def enemy_zone_navigation():
     """
@@ -293,7 +293,7 @@ def not_town_portal():
             location_art()
             zone_navigation_menu()
             print('')
-            print('You found 200 gold!')
+            print('                             You found 200 gold!')
             hero_stats.gold += int(character_list[5][3])
             initial_state.treasure_chest = False
             initial_state.fight = False
@@ -335,7 +335,7 @@ def zone_navigation_menu_input():
         location_art()
         zone_navigation_menu()
         print('')
-        print('Use numers 1-4 to navigate the map')
+        print('                      Use numers 1-4 to navigate the map')
 
 def zone_navigation_menu():
     """
@@ -345,7 +345,7 @@ def zone_navigation_menu():
     location.enemy_zone_menu()
     
     if initial_state.replace:
-        print(f'You left your loot behind')
+        print(f'                         You left your loot behind')
     initial_state.replace = False
 
 def battle():
@@ -372,10 +372,10 @@ def battle():
                 enemy = tuple(random.choice(character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
             initial_state.fight = False
-            print(f'You have been attacked by {enemy[0]}')
+            print(f'                        You have been attacked by {enemy[0]}')
     # Loops the fight until either player's or enemy's health reaches 0
     while enemy_stats.health > 0:
-        print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
+        print(f'                        {enemy_stats.name} has done {enemy_stats.attack} damage to you')
         hero_stats.health -= enemy_stats.attack
 
         if hero_stats.health <= 0:
@@ -398,17 +398,15 @@ def battle_menu(enemy_stats):
     current_health_bar_enemy = round((enemy_stats.health / enemy_stats.max_health) *100) // 4
     lost_life_bar = 25 - current_health_bar
     lost_life_bar_enemy = 25 - current_health_bar_enemy
-    print(' Your Life', ' ' * (52 - len(enemy_stats.name)), f"{enemy_stats.name}'s life")
+    print(' Your Life', ' ' * (60 - len(enemy_stats.name)), f"{enemy_stats.name}'s life")
     print(
         f'{current_health_bar * full_life}{lost_life_bar * empty_life}║',
         ' ' * (3 - len(str(hero_stats.health))),
         f'{hero_stats.health}/{hero_stats.max_health}',
-        ' ' * (13 - len(str(enemy_stats.health))),
-        f'{enemy_stats.health}/{enemy_stats.max_health} ║'
+        ' ' * (12 - len(str(enemy_stats.health))),
+        f'{enemy_stats.health}/{enemy_stats.max_health}  ║'
         f'{lost_life_bar_enemy * empty_life}{current_health_bar_enemy * full_life}\n')
-    print('1. Attack')
-    print('2. Use Potion')
-    print('')
+    print('                       1. Attack                 2. Use Potion\n')
 
 def battle_options(enemy_stats):
     """
@@ -429,19 +427,19 @@ def battle_options(enemy_stats):
                 if hero_stats.health > hero_stats.max_health:
                     hero_stats.health = hero_stats.max_health
                 hero_stats.health_potion -= 1
-                print('You gained 50 life!')
+                print('                             You gained 50 life!')
                 return hero_stats.health
             else:
                 battle_menu(enemy_stats)
-                print('You have no health pots')
+                print('                            You have no health pots')
         else:
             if initial_state.first_attack == False:
-                print(f'You have been attacked by {enemy[0]}')
+                print(f'                      You have been attacked by {enemy[0]}')
             else:
-                print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
-            print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
+                print(f'                   You have done {hero_stats.attack} damage to {enemy_stats.name}')
+            print(f'               {enemy_stats.name} has done {enemy_stats.attack} damage to you')
             battle_menu(enemy_stats)
-            print('Type a number 1-n to select battle option')
+            print('                   Type a number 1-n to select battle option')
 
 def battle_option_attack(enemy_stats):
     """
@@ -450,9 +448,9 @@ def battle_option_attack(enemy_stats):
     """
     initial_state.first_attack = True
     enemy_stats.health -= hero_stats.attack
-    print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
+    print(f'                        You have done {hero_stats.attack} damage to {enemy_stats.name}')
     if enemy_stats.health <= 0:
-        print(f'{enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
+        print(f'                      {enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
         item_drop()
         print('')
         zone_navigation_menu()
@@ -476,12 +474,12 @@ def item_drop():
     weapon_list = item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
-            print(f'You found {weapon[0]}\n')
+            print(f'                            You found {weapon[0]}\n')
             SHEET.worksheet(worksheets.stash).append_row(weapon)
             stash_sheet.append(weapon)
         # When stash over max capacity prompts user to replace first item in the stash with a new one
         while len(stash_sheet) > 8:
-            remove_item = input(f'Not enough space in stash would you like to remove {stash_sheet[1][0]}?Y/N\n')
+            remove_item = input(f'         Not enough space in stash would you like to remove {stash_sheet[1][0]}?Y/N\n')
             clear()
             if remove_item.lower() == 'y':
                 remove_first = stash_sheet.pop(1)
@@ -498,8 +496,8 @@ def item_drop():
                 location_art()
             else:
                 location_art()
-                print(f'You found {weapon[0]}\n')
-                print(f'Press "Y" to replace {stash_sheet[1][0]} or "N" to pass on this item')
+                print(f'                            You found {weapon[0]}\n')
+                print(f'           Press "Y" to replace {stash_sheet[1][0]} or "N" to pass on this item')
 
 def stash_open():
     """
@@ -517,7 +515,7 @@ def stash_open():
             if 0 < int(equip) < len(stash_sheet):
                 equip_weapon(equip, stash_sheet)
             else:
-                print(f'Type number to equip item or "R" to go back')
+                print(f'                 Type number to equip item or "R" to go back')
         elif equip.lower() == 'e':
             clear()
             if location.current_location == 'Lut Gholein':
@@ -528,7 +526,7 @@ def stash_open():
                 return False
         else:
             stash_menu()
-            print('Type number to equip item or "R" to go backward')
+            print('                Type number to equip item or "R" to go backward')
 
 def equip_weapon(equip, stash_sheet):
     """
@@ -536,7 +534,7 @@ def equip_weapon(equip, stash_sheet):
     if weapon is equiped the stash worksheet is appended appropreately
     """
     stash_menu()
-    print(f'Would you like to equip {stash_sheet[int(equip)+1][0]}?')
+    print(f'                       Would you like to equip {stash_sheet[int(equip)+1][0]}?')
     while True:
         equip_confirm = input('Y/N\n')
         if equip_confirm.lower() == 'y':
@@ -558,7 +556,7 @@ def equip_weapon(equip, stash_sheet):
             clear()
             location_art()
             stash_menu()
-            print('Type "Y" to confirm to equip or "N" to cancel')
+            print('                  Type "Y" to confirm to equip or "N" to cancel')
 
 def stash_menu():
     """
@@ -569,12 +567,12 @@ def stash_menu():
     stash_menu_display(stash_sheet, stash_limit)
     if len(stash_sheet) > 2:
         print(' ' * 20, 'Select a number to equip the weapon\n')
-    print('E. Go back')
+    print('                                 E. Go back')
 
 def return_to_town():
     zone_navigation_menu()
     print('')
-    print('Would you like to return to town?')
+    print('                       Would you like to return to town?')
     while True:
         town_portal = input('Y/N:\n')
         clear()
@@ -589,7 +587,7 @@ def return_to_town():
             location_art()
             zone_navigation_menu()
             print('')
-            print('Type in "y" to go back to town or "N" to stay')
+            print('                 Type in "y" to go back to town or "N" to stay')
 
 def clear():
     """
@@ -632,7 +630,7 @@ def vendor():
             town_zone()
         else:
             vendor_menu()
-            print('Type 1-3 to select a menu option')
+            print('                       Type 1-3 to select a menu option')
             
 def vendor_menu():
     """
@@ -664,12 +662,12 @@ def vendor_buy_menu_option():
             clear()
             return False
         else:
-            print('Press "1" to buy item or "R" to go back')
+            print('                    Press "1" to buy item or "R" to go back')
 
 def vendor_buy_select():
     """
     """
-    print('Would you like to buy Health Potion?')
+    print('                     Would you like to buy Health Potion?')
     while True:
         purchase_confirm = input('Y/N\n')
         clear()
@@ -683,14 +681,14 @@ def vendor_buy_select():
             else:
                 clear()
                 vendor_buy_menu()
-                print('Not enough gold')
+                print('                               Not enough gold')
                 vendor_buy_menu_option()
         elif purchase_confirm.lower() == 'n':
             vendor_buy_menu()
             vendor_buy_menu_option()
         else:
             vendor_buy_menu()
-            print('Type "Y" to confirm or "N" no cansel purchase')
+            print('                 Type "Y" to confirm or "N" no cansel purchase')
 
 def vendor_sell_menu():
     """
@@ -724,17 +722,17 @@ def vendor_sell_input(sell):
         stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
         if 0 < int(sell) < len(stash_sheet):
             vendor_sell_menu()
-            print(f'Would you like to sell {stash_sheet[int(sell)+1][0]}?')
+            print(f'                       Would you like to sell {stash_sheet[int(sell)+1][0]}?')
             vendor_sell_select(sell, stash_sheet)
         else:
             vendor_sell_menu()
-            print(f'Type number to sell item or "R" to go back')
+            print(f'                  Type number to sell item or "R" to go back')
     elif sell.lower() == 'r':
         clear()
         vendor_sell_menu()
     else:
         vendor_sell_menu()
-        print(f'Type numbe to sell item or "R" to go backward')
+        print(                 'Type number to sell item or "R" to go backward')
 
 def vendor_sell_select(sell, stash_sheet):
     """
@@ -758,7 +756,7 @@ def vendor_sell_select(sell, stash_sheet):
         else:
             clear()
             vendor_sell_menu()
-            print('Type "Y" to confirm the sale or "N" to cancel')
+            print('                 Type "Y" to confirm the sale or "N" to cancel')
 
 def vendor_gossip_back():
     """
@@ -772,7 +770,7 @@ def vendor_gossip_back():
         else:
             location_art()
             vendor_gossip()
-            print('Type "4" to go back to menu')
+            print('                          Type "R" to go back to menu')
 
 def game_win():
     """
@@ -787,7 +785,7 @@ def game_win():
             quit()
         else:
             game_win_logo()
-            print('Type "Y" to continue the game and "N" to quit')
+            print('                 Type "Y" to continue the game and "N" to quit')
 
 def character_info():
     """
@@ -810,6 +808,6 @@ def character_info():
                 zone_navigation_menu()
                 return False
         else:
-            print('Press "W" to go back')
+            print('                             Press "W" to go back')
 
 main()

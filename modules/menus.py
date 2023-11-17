@@ -56,7 +56,7 @@ def vendor_buy_menu_art():
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
     print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
     print('\n')
-    print('R. Go Back')
+    print('                                 R. Go Back')
     print('')
 
 def vendor_menu_main():
@@ -71,7 +71,7 @@ def vendor_menu_main():
     print('                    δ  ║        3. Gossip               ║  δ     ')
     print('                   ‘%  ╚════════════════════════════════╝  %‘    ')
     print('                 ‘φäðœ‰~-                              -~‰œðäφ‘\n')
-    print('R. Go Back')
+    print('                                 R. Go Back')
 
 def ingame_menu():
     """
