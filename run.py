@@ -659,10 +659,15 @@ def vendor_menu():
     Display vendors menu options
     """
     location_art()
-    print('1. Buy')
-    print('2. Sell')
-    print('3. Gossip\n')
-    print('R. Go Back\n')
+    print('\n')
+    print('                   φäðœ‰~-                             -~‰œðäφ   ')
+    print('                   ‘%  ╔════════════════════════════════╗  %‘    ')
+    print('                    δ  ║        1. Buy Weapon           ║  δ     ')
+    print('                       ║        2. Sell Items           ║        ')
+    print('                    δ  ║        3. Gossip               ║  δ     ')
+    print('                   ‘%  ╚════════════════════════════════╝  %‘    ')
+    print('                 ‘φäðœ‰~-                              -~‰œðäφ‘\n')
+    print('R. Go Back')
 
 def vendor_buy_menu():
     """
