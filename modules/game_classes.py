@@ -31,7 +31,7 @@ class Character:
     # properties
     def __init__(self, *stats):
         self.name = stats[0]
-        self.health = stats[1]
+        self.health = int(stats[1])
         self.max_health = int(stats[1])
         self.attack = int(stats[2])
         self.gold = int(stats[3])

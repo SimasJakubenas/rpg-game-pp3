@@ -242,10 +242,7 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health
-
     location.current_location = 'Lut Gholein'
-    current_health = int(hero_stats.health)
     initial_state.sewers = False
     initial_state.dessert = False
     if initial_state.store_health_pots == False:
@@ -380,11 +377,11 @@ def battle():
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_health, current_enemy_health, first_attack
+    global current_enemy_health, first_attack
 
     first_attack = False
-    if current_health > hero_stats.max_health:
-        current_health = hero_stats.max_health
+    if hero_stats.health > hero_stats.max_health:
+        hero_stats.health = hero_stats.max_health
     if initial_state.sewers == True:
         enemy_list = slice(2, 7)
     if initial_state.dessert == True:
@@ -404,9 +401,9 @@ def battle():
             print(f'You have been attacked by {enemy[0]}')
     while current_enemy_health > 0:
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
-        current_health -= mob_dmg
+        hero_stats.health -= mob_dmg
 
-        if current_health <= 0:
+        if hero_stats.health <= 0:
             print('GAME OVER')
             initial_state.alive = False
             input('\n')
@@ -420,10 +417,10 @@ def battle_menu(enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
     """
-    global current_enemy_health, current_health
+    global current_enemy_health
 
     print('Your Life')
-    print(f'{current_health}/{hero_stats.max_health}')
+    print(f'{hero_stats.health}/{hero_stats.max_health}')
     print(f'{enemy_stats.name} Life')
     print(f'{current_enemy_health}/{int(enemy_stats.health)}')
     print('1. Attack')
@@ -434,7 +431,7 @@ def battle_options(enemy, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, first_attack
+    global current_enemy_health, first_attack
 
     while True:
         battle_option = input('\n')
@@ -465,12 +462,12 @@ def battle_options(enemy, enemy_stats):
         # Option to heal
         elif battle_option == '2':
             if hero_stats.health_potion > 0:
-                current_health += 50
-                if current_health > hero_stats.max_health:
-                    current_health = hero_stats.max_health
+                hero_stats.health += 50
+                if hero_stats.health > hero_stats.max_health:
+                    hero_stats.health = hero_stats.max_health
                 hero_stats.health_potion -= 1
                 print('You gained 50 life!')
-                return current_health
+                return hero_stats.health
             else:
                 battle_menu(hero_stats, enemy_stats)
                 print('You have no health pots')
