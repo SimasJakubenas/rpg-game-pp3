@@ -38,3 +38,11 @@ def vendor_sell_menu_display(stash_limit):
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
     print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
     print('                         Enter a number to sell item                       \n')
+
+def vendor_sell_menu_empty():
+    print('         φäðœ‰~-                                                -~‰œðäφ    ')
+    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
+    print('                           You have nothing to sell                        ')
+    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
+

@@ -730,9 +730,8 @@ def vendor_sell_menu():
     if len(stash_limit) > 0:
         vendor_sell_menu_display(stash_limit)
     else:
-        print('')
-        print('You have nothing to sell\n')
-    print('R. Go Back\n')
+        vendor_sell_menu_empty()
+    print('R. Go Back')
 
 def vendor_sell_menu_option():
     """
