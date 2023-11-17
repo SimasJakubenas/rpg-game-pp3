@@ -44,17 +44,29 @@ class Location:
         Hides corresponding options if player is next to the edge of the map
         """
         if self.x > 0:
-            print(f'1. Go North to {self.enemy_zone[self.x-1][self.y]}')
+            print(# Selects location name based on coordinates and paces text in fixed position
+                f'1. Go North to {self.enemy_zone[self.x-1][self.y]}',
+                ' ' * (30 -len(f'{self.enemy_zone[self.x-1][self.y]}')),
+                'Q. Open Menu')
+        else:
+            print('                                               Q. Open Menu')
         if self.y < len(self.enemy_zone[self.x]) - 1:
-            print(f'2. Go East to {self.enemy_zone[self.x][self.y+1]}')
+            print(# Selects location name based on coordinates and paces text in fixed position
+                f'2. Go East to {self.enemy_zone[self.x][self.y+1]}',
+                ' ' * (31 -len(f'{self.enemy_zone[self.x][self.y+1]}')),
+                'W. Character Info')
+        else:
+            print('                                               W. Character Info')    
         if self.x < len(self.enemy_zone) - 1:
-            print(f'3. Go South to {self.enemy_zone[self.x+1][self.y]}')
+            print(# Selects location name based on coordinates and paces text in fixed position
+                f'3. Go South to {self.enemy_zone[self.x+1][self.y]}',
+                ' ' * (30 -len(f'{self.enemy_zone[self.x+1][self.y]}')),
+                'E. Open stash')
+        else:
+            print('                                               E. Open stash')
         if self.y > 0:
             print(f'4. Go West to {self.enemy_zone[self.x][self.y-1]}')
         print('')
-        print('Q. Open Menu')
-        print('W. Character Info')
-        print('E. Open stash')
 
 class Character:
     """
