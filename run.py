@@ -3,7 +3,8 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
-from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main, ingame_menu
+from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
+from modules.menus import vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main, ingame_menu, stash_menu_display
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -565,18 +566,7 @@ def stash_menu():
     """
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
     stash_limit = stash_sheet[2:9]
-    print(' ' * 29, f'Equipped:    {stash_sheet[1][0]}\n')
-    print('         φäðœ‰~-                                                -~‰œðäφ    ')
-    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
-    print(' ' * 22 + 'Item' + ' ' * 12 + '+ Attack' + ' '* 5 + '+ Max Heath\n')
-    if len(stash_sheet) <= 2:
-        print(' ' * 25, 'You have no items to equip')
-    for number, item in enumerate(stash_limit, 1):
-        # Enumerates all items in stash and ensures correct positioning of the display
-        print(' ' * 18, str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
-              item[1],' ' * (10 - len(item[2]) + 2), item[2])
-    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
-    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
+    stash_menu_display(stash_sheet, stash_limit)
     if len(stash_sheet) > 2:
         print(' ' * 20, 'Select a number to equip the weapon\n')
     print('E. Go back')

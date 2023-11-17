@@ -82,3 +82,16 @@ def ingame_menu():
     print('                                                  E. Open Stash')
     print('                                                  R. Visit Vendor\n')
     
+def stash_menu_display(stash_sheet, stash_limit):
+    print(' ' * 29, f'Equipped:    {stash_sheet[1][0]}\n')
+    print('         φäðœ‰~-                                                -~‰œðäφ    ')
+    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
+    print(' ' * 22 + 'Item' + ' ' * 12 + '+ Attack' + ' '* 5 + '+ Max Heath\n')
+    if len(stash_sheet) <= 2:
+        print(' ' * 25, 'You have no items to equip')
+    for number, item in enumerate(stash_limit, 1):
+        # Enumerates all items in stash and ensures correct positioning of the display
+        print(' ' * 18, str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
+              item[1],' ' * (10 - len(item[2]) + 2), item[2])
+    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
