@@ -741,21 +741,7 @@ def vendor_sell_input(sell):
         if 0 < int(sell) < len(stash_sheet):
             vendor_sell_menu()
             print(f'Would you like to sell {stash_sheet[int(sell)+1][0]}?')
-            sale_confirm = input('Y/N\n')
-            if sale_confirm.lower() == 'y':
-                hero_stats.gold += int(stash_sheet[int(sell)+1][4])
-                remove_first = stash_sheet.pop(int(sell)+1)
-                SHEET.worksheet(worksheets.stash).clear()
-                for row in stash_sheet:
-                    SHEET.worksheet(worksheets.stash).append_row(row)
-                clear()
-                vendor_sell_menu()
-            elif sale_confirm.lower() == 'n':
-                clear()
-                vendor_sell_menu()
-            else:
-                vendor_sell_menu()
-                print('Type "Y" to confirm the sale or "N" to cancel')
+            vendor_sell_select(sell, stash_sheet)
         else:
             vendor_sell_menu()
             print(f'Type number to sell item or "R" to go back')
@@ -765,6 +751,29 @@ def vendor_sell_input(sell):
     else:
         vendor_sell_menu()
         print(f'Type numbe to sell item or "R" to go backward')
+
+def vendor_sell_select(sell, stash_sheet):
+    """
+    """
+    while True:
+        sale_confirm = input('Y/N\n')
+        if sale_confirm.lower() == 'y':
+            hero_stats.gold += int(stash_sheet[int(sell)+1][4])
+            remove_first = stash_sheet.pop(int(sell)+1)
+            SHEET.worksheet(worksheets.stash).clear()
+            for row in stash_sheet:
+                SHEET.worksheet(worksheets.stash).append_row(row)
+            clear()
+            vendor_sell_menu()
+            vendor_sell_menu_option()
+        elif sale_confirm.lower() == 'n':
+            clear()
+            vendor_sell_menu()
+            vendor_sell_menu_option()
+        else:
+            clear()
+            vendor_sell_menu()
+            print('Type "Y" to confirm the sale or "N" to cancel')
 
 def vendor_gossip():
     """
