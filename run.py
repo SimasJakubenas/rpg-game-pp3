@@ -57,21 +57,9 @@ def game_menu_select():
         menu_item = input('\n')
         clear()
         game_menu_display()
+        # Starts game
         if menu_item == '1':
-            menu_item = 'start'
-            if initial_state.alive == False:
-                if initial_state.hero_created == False:
-                    menu_option(menu_item)
-                else:
-                    town_zone()
-            else:
-                clear()
-                location_art()
-                if location.current_location == 'Lut Gholein':
-                    ingame_menu()
-                else:
-                    zone_navigation_menu()
-                return False
+        start_game()
         # Game save
         elif menu_item == '2':
             if initial_state.alive == False:
@@ -86,7 +74,7 @@ def game_menu_select():
             menu_item = 'load'
             initial_state.hero_created = True
             menu_option(menu_item)
-            
+        # Game rules   
         elif menu_item == '4':
             game_rules()
             game_rules_back()
@@ -97,6 +85,26 @@ def game_menu_select():
         else:
             print('')
             print('Select Menu Option by entering a number 1-5')
+
+def start_game():
+    """
+    Starts gane when player select 'New Game' option in menu
+    This imput serves as 'Continue' logic checks if the game been started already
+    """
+    menu_item = 'start'
+    if initial_state.alive == False:
+        if initial_state.hero_created == False:
+            menu_option(menu_item)
+        else:
+            town_zone()
+    else:
+        clear()
+        location_art()
+        if location.current_location == 'Lut Gholein':
+            ingame_menu()
+        else:
+            zone_navigation_menu()
+        return False
 
 def menu_option(menu_item):
     """
