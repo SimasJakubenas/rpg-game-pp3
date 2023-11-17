@@ -1,7 +1,7 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
-from modules.ascii_art import title_and_greeting, game_win_logo
+from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
 from modules.menus import game_menu_display_top, game_menu_display_bottom
 
@@ -376,7 +376,7 @@ def battle():
         hero_stats.health -= enemy_stats.attack
 
         if hero_stats.health <= 0:
-            print('GAME OVER')
+            game_loso_logo()
             initial_state.alive = False
             input('\n')
             clear()
