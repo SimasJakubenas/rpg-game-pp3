@@ -60,6 +60,9 @@ def vendor_buy_menu_art():
     print('')
 
 def vendor_menu_main():
+    """
+    Display main vendor menu
+    """
     print('\n')
     print('                   φäðœ‰~-                             -~‰œðäφ   ')
     print('                   ‘%  ╔════════════════════════════════╗  %‘    ')
@@ -69,3 +72,13 @@ def vendor_menu_main():
     print('                   ‘%  ╚════════════════════════════════╝  %‘    ')
     print('                 ‘φäðœ‰~-                              -~‰œðäφ‘\n')
     print('R. Go Back')
+
+def ingame_menu():
+    """
+    In game menu selection
+    """
+    print('             1. Go to Sewers                      Q. Open Menu')
+    print('             2. Go to Dessert                     W. Character Info')
+    print('                                                  E. Open Stash')
+    print('                                                  R. Visit Vendor\n')
+    

@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
-from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main()
+from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main, ingame_menu
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -609,23 +609,10 @@ def location_art():
     """
     ASCII art to improve game looks
     """
-    
     print(' ' * 22, '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
     print(' ' * 28, f'>>►► {location.current_location} ◄◄<<     ')
     print(' ' * 22, '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-\n')
 
-def ingame_menu():
-    """
-    In game menu selection
-    """
-    print('1. Go to Sewers')
-    print('2. Go to Dessert')
-    print('')
-    print('Q. Open Menu')
-    print('W. Character Info')
-    print('E. Open Stash')
-    print('R. Visit Vendor\n')
-    
 def vendor():
     """
     Display items on sale and requests user input to purchase
