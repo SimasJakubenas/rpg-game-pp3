@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
 # Sets initial boolean values in the Game_flow_bool class
-initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False, False)
+initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False, False, False)
 
 class Worksheets:
     """
@@ -369,9 +369,8 @@ def battle():
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_enemy_health, first_attack
+    global current_enemy_health
 
-    first_attack = False
     if hero_stats.health > hero_stats.max_health:
         hero_stats.health = hero_stats.max_health
     if initial_state.sewers == True:
@@ -423,7 +422,7 @@ def battle_options(enemy, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, first_attack
+    global current_enemy_health
 
     while True:
         battle_option = input('\n')
@@ -431,7 +430,7 @@ def battle_options(enemy, enemy_stats):
         location_art() 
         # Option to attack
         if battle_option == '1':
-            first_attack = True
+            initial_state.first_attack = True
             current_enemy_health -= hero_stats.attack
             print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
             if current_enemy_health <= 0:
@@ -464,7 +463,7 @@ def battle_options(enemy, enemy_stats):
                 battle_menu(hero_stats, enemy_stats)
                 print('You have no health pots')
         else:
-            if first_attack == False:
+            if initial_state.first_attack == False:
                 print(f'You have been attacked by {enemy[0]}')
             else:
                 print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')

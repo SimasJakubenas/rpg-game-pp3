@@ -2,7 +2,7 @@ class Game_flow_bool:
     """
     Class that holds boolean logic to control flow of the game
     """
-    def __init__(self, fight, hero_created, alive, key, store_health_pots, treasure_chest, replace, sewers, dessert, loaded_game):
+    def __init__(self, fight, hero_created, alive, key, store_health_pots, treasure_chest, replace, sewers, dessert, loaded_game, first_attack):
         self.fight = fight
         self.hero_created = hero_created
         self.alive = alive
@@ -13,6 +13,7 @@ class Game_flow_bool:
         self.sewers = sewers
         self.dessert = dessert
         self.loaded_game = loaded_game
+        self.first_attack = first_attack
 
 class Location:
     """
