@@ -348,16 +348,18 @@ def battle():
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
+    # Caps heros health at max_health when potion is used
     if hero_stats.health > hero_stats.max_health:
         hero_stats.health = hero_stats.max_health
+    # Selects enemies from a list based on location
     if initial_state.sewers == True:
         enemy_list = slice(2, 7)
     if initial_state.dessert == True:
         enemy_list = slice(7, 19)
     while initial_state.fight: 
         enemy = tuple(random.choice(character_list[enemy_list]))
-            
         if enemy[4] == location.current_location:
+            # Once 'Radement' is killed stepping on his tile will create random enemy
             if (enemy[0] == 'Radement' and initial_state.key == True) \
                 or (location.current_location == 'Sewers Hideout' and initial_state.treasure_chest == False):
                 enemy_list = slice(2, 5)
@@ -365,6 +367,7 @@ def battle():
             enemy_stats = Enemy(*enemy)
             initial_state.fight = False
             print(f'You have been attacked by {enemy[0]}')
+    # Loops the fight until either player's or enemy's health reaches 0
     while enemy_stats.health > 0:
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
         hero_stats.health -= enemy_stats.attack
