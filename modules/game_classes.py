@@ -34,7 +34,7 @@ class Character:
         self.health = stats[1]
         self.max_health = stats[1]
         self.attack = stats[2]
-        self.gold = stats[3]
+        self.gold = int(stats[3])
 
 class Hero(Character):
     """

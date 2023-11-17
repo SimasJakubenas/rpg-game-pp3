@@ -233,11 +233,10 @@ def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_gold, hero_stats, hero, hero_max_health, hero_attack
+    global hero_stats, hero, hero_max_health, hero_attack
 
     hero = tuple(worksheets.character_list[1])
     hero_stats = Hero(*hero)
-    hero_gold = int(hero_stats.gold)
     hero_attack = int(hero_stats.attack)
     hero_max_health = int(hero_stats.max_health)
 
@@ -293,7 +292,7 @@ def enemy_zone_navigation(hero_stats):
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    global health_potion, hero_gold
+    global health_potion
 
     if initial_state.sewers == True:
         location.enemy_zone = worksheets.sewers_map.get_all_values()
@@ -315,7 +314,7 @@ def enemy_zone_navigation(hero_stats):
                     zone_navigation_menu()
                     print('')
                     print('You found 200 gold!')
-                    hero_gold += int(worksheets.character_list[5][3])
+                    hero_stats.gold += int(worksheets.character_list[5][3])
                     initial_state.treasure_chest = False
                     initial_state.fight = False
                 else:
@@ -441,7 +440,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health, current_health, health_potion, hero_gold , first_attack, hero_attack
+    global current_enemy_health, current_health, health_potion, first_attack, hero_attack
 
     while True:
         battle_option = input('\n')
@@ -457,7 +456,7 @@ def battle_options(enemy, hero_dmg, hero_stats, enemy_stats):
                 item_drop()
                 print('')
                 zone_navigation_menu()
-                hero_gold += int(enemy[3])
+                hero_stats.gold += int(enemy[3])
                 print('')
                 if enemy[0] == 'Radement':
                     initial_state.key = True
@@ -685,10 +684,10 @@ def vendor_buy_menu():
     """
     Display vendors menu options
     """
-    global health_potion, hero_gold
+    global health_potion
 
     location_art()
-    print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}')
+    print('Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}')
     print('Health_potion:' + ' ' * (4 - len(str(health_potion))) + f'{health_potion}\n')
     print('1. Buy Health Potion        100 gold')
     print('\n')
@@ -699,7 +698,7 @@ def vendor_buy_menu_option():
     """
     Takes player input to navigate vendors buy menu
     """
-    global health_potion, hero_gold
+    global health_potion
 
     while True:
         buy = input('\n')
@@ -709,8 +708,8 @@ def vendor_buy_menu_option():
             print('Would you like to buy Health Potion?')
             purchase_confirm = input('Y/N\n')
             if purchase_confirm.lower() == 'y':
-                if hero_gold >= 100:
-                    hero_gold -= 100
+                if hero_stats.gold >= 100:
+                    hero_stats.gold -= 100
                     health_potion += 1
                     clear()
                     vendor_buy_menu()
@@ -732,10 +731,10 @@ def vendor_sell_menu():
     """
     Display vendors sell menu options
     """
-    global hero_gold, stash_limit, num
+    global stash_limit, num
 
     location_art()
-    print('Your gold:' + ' ' * (7 - len(str(hero_gold)) + 1) + f'{hero_gold}\n')
+    print('Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}\n')
     stash_sheet = worksheets.stash.get_all_values()
     stash_limit = stash_sheet[2:]
     if len(stash_limit) > 0:
@@ -753,7 +752,7 @@ def vendor_sell_menu_option():
     """
     Takes player input to navigate vendors sell menu
     """
-    global health_potion, hero_gold, num
+    global health_potion, num
 
     while True:
         sell = input('\n')
@@ -765,7 +764,7 @@ def vendor_sell_input(sell):
     """
     Handles player input for vendor sell menu
     """
-    global hero_gold, num
+    global num
 
     if sell == '1' or sell == '2' or sell == '3' or sell == '4' or sell == '5' or sell == '6' or sell == '7':
         stash_sheet = worksheets.stash.get_all_values()
@@ -774,7 +773,7 @@ def vendor_sell_input(sell):
             print(f'Would you like to sell {stash_sheet[int(sell)+1][0]}?')
             sale_confirm = input('Y/N\n')
             if sale_confirm.lower() == 'y':
-                hero_gold += int(stash_sheet[int(sell)+1][4])
+                hero_stats.gold += int(stash_sheet[int(sell)+1][4])
                 remove_first = stash_sheet.pop(int(sell)+1)
                 worksheets.stash.clear()
                 for row in stash_sheet:
@@ -837,7 +836,7 @@ def character_info():
     """
     Display character info
     """
-    global hero_stats, hero_gold
+    global hero_stats
 
     location_art()
     stats()
@@ -864,7 +863,7 @@ def stats():
     print(f'Health:    {hero_max_health}')
     print(f'Attack:    {hero_attack}')
     print(f'Potions    {health_potion}')
-    print(f'Gold:      {hero_gold}\n')
+    print(f'Gold:      {hero_stats.gold}\n')
     print('W. Go Back\n')
 
 main()
