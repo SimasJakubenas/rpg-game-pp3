@@ -565,18 +565,21 @@ def stash_menu():
     """
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
     stash_limit = stash_sheet[2:9]
-    print(f'Equipped:    {stash_sheet[1][0]}\n')
-    print(' ' * 5 + 'Item' + ' ' * 12 + 'Attack' + ' '* 5 + '+Max Heath\n')
+    print(' ' * 29, f'Equipped:    {stash_sheet[1][0]}\n')
+    print('         φäðœ‰~-                                                -~‰œðäφ    ')
+    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
+    print(' ' * 22 + 'Item' + ' ' * 12 + '+ Attack' + ' '* 5 + '+ Max Heath\n')
+    if len(stash_sheet) <= 2:
+        print(' ' * 25, 'You have no items to equip')
     for number, item in enumerate(stash_limit, 1):
         # Enumerates all items in stash and ensures correct positioning of the display
-        print(str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
+        print(' ' * 18, str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
               item[1],' ' * (10 - len(item[2]) + 2), item[2])
-    print('')
+    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
     if len(stash_sheet) > 2:
-        print('Select a number to equip the weapon\n')
-    else:
-        print('You have no items to equip\n')
-    print('E. Go back\n')
+        print(' ' * 20, 'Select a number to equip the weapon\n')
+    print('E. Go back')
 
 def return_to_town():
     zone_navigation_menu()

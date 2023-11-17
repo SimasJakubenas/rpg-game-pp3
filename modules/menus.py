@@ -36,7 +36,7 @@ def vendor_sell_menu_display(stash_limit):
             # Enumerates all items in stash and ensures correct positioning of the display
             print(' ' * 22, str(number) + '.', item[0].title() + ' ' * (25 - len(item[0])), item[4])
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
-    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   ')
     print('                         Enter a number to sell item                       \n')
 
 def vendor_sell_menu_empty():
