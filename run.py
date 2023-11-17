@@ -192,7 +192,7 @@ def load_game():
     Loads the game by pulling character stats from save worksheet
     Transfers save items to a relevant worksheet
     """
-    global hero_stats, hero_gold, health_potion, hero, hero_max_health, hero_attack, current_health
+    global hero_gold, health_potion, hero, hero_max_health, hero_attack, current_health
 
     save_file = worksheets.save.get_all_values()
     while True:
@@ -233,7 +233,7 @@ def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_stats, hero
+    global hero
 
     hero = tuple(worksheets.character_list[1])
     hero_stats = Hero(*hero)
@@ -242,7 +242,7 @@ def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
     """
-    global current_health, hero_stats
+    global current_health
 
     location.current_location = 'Lut Gholein'
     current_health = int(hero_stats.health)
@@ -260,7 +260,7 @@ def town_zone():
         clear()
         if navigate_town == '1':
             initial_state.sewers = True
-            enemy_zone_navigation(hero_stats)
+            enemy_zone_navigation()
         elif navigate_town == '2':
             if initial_state.key:
                 initial_state.dessert = True
@@ -285,7 +285,7 @@ def town_zone():
             ingame_menu()
             print('Enter a number 1-4 to select your destination')
 
-def enemy_zone_navigation(hero_stats):
+def enemy_zone_navigation():
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
@@ -313,10 +313,10 @@ def enemy_zone_navigation(hero_stats):
                     initial_state.treasure_chest = False
                     initial_state.fight = False
                 else:
-                    battle(hero_stats)
+                    battle()
             if initial_state.fight:
                 location_art()
-                battle(hero_stats)
+                battle()
                 hero_stats.health_potion += 1
                 initial_state.fight = False
         else:
@@ -374,7 +374,7 @@ def zone_navigation_menu():
         print(f'You left your loot behind')
     initial_state.replace = False
 
-def battle(hero_stats):
+def battle():
     """
     Battle function determines an enemy encounter depending on map area
     Loops through a fight until either player or enemy dies
@@ -412,11 +412,11 @@ def battle(hero_stats):
             input('\n')
             clear()
             main()
-        battle_menu(hero_stats, enemy_stats)
+        battle_menu(enemy_stats)
 
-        battle_options(enemy, hero_stats, enemy_stats)
+        battle_options(enemy, enemy_stats)
 
-def battle_menu(hero_stats, enemy_stats):
+def battle_menu(enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
     """
@@ -430,7 +430,7 @@ def battle_menu(hero_stats, enemy_stats):
     print('2. Use Potion')
     print('')
 
-def battle_options(enemy, hero_stats, enemy_stats):
+def battle_options(enemy, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
@@ -824,8 +824,6 @@ def character_info():
     """
     Display character info
     """
-    global hero_stats
-
     location_art()
     stats()
     
