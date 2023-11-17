@@ -671,27 +671,38 @@ def vendor_buy_menu_option():
         clear()
         vendor_buy_menu()
         if buy == '1':
-            print('Would you like to buy Health Potion?')
-            purchase_confirm = input('Y/N\n')
-            if purchase_confirm.lower() == 'y':
-                if hero_stats.gold >= 100:
-                    hero_stats.gold -= 100
-                    hero_stats.health_potion += 1
-                    clear()
-                    vendor_buy_menu()
-                else:
-                    clear()
-                    vendor_buy_menu()
-            elif purchase_confirm.lower() == 'n':
-                clear()
-                vendor_buy_menu()
-            else:
-                vendor_buy_menu()
+            vendor_buy_select()
         elif buy.lower() == 'r':
             clear()
             return False
         else:
             print('Press "1" to buy item or "R" to go back')
+
+def vendor_buy_select():
+    """
+    """
+    print('Would you like to buy Health Potion?')
+    while True:
+        purchase_confirm = input('Y/N\n')
+        clear()
+        if purchase_confirm.lower() == 'y':
+            if hero_stats.gold >= 100:
+                hero_stats.gold -= 100
+                hero_stats.health_potion += 1
+                clear()
+                vendor_buy_menu()
+                vendor_buy_menu_option()
+            else:
+                clear()
+                vendor_buy_menu()
+                print('Not enough gold')
+                vendor_buy_menu_option()
+        elif purchase_confirm.lower() == 'n':
+            vendor_buy_menu()
+            vendor_buy_menu_option()
+        else:
+            vendor_buy_menu()
+            print('Type "Y" to confirm or "N" no cansel purchase')
 
 def vendor_sell_menu():
     """
