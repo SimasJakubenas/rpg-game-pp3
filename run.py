@@ -792,6 +792,9 @@ def vendor_gossip_back():
             print('Type "4" to go back to menu')
 
 def game_win():
+    """
+    Request and control user input to continue the game when game is won
+    """
     while True:
         continue_game = input('\n')
         clear()
