@@ -160,19 +160,16 @@ def load_game():
     Loads the game by pulling character stats from save worksheet
     Transfers save items to a relevant worksheet
     """
-    global hero_gold, health_potion, hero, hero_max_health, hero_attack, current_health
-
     save_file = SHEET.worksheet(worksheets.save).get_all_values()
     while True:
         if len(save_file) > 1:
             print('Game loading please wait....')
             last_save = save_file[-1]
-            hero_gold = int(last_save[4])
-            health_potion = int(last_save[5])
-            hero_max_health = int(last_save[2])
-            current_health = int(last_save[2])
-            hero_attack = int(last_save[3])
-            hero_stats = Hero(hero[0], hero_max_health, hero_attack, hero_gold, health_potion)
+            hero_stats.health = int(last_save[2])
+            hero_stats.max_health = int(last_save[2])
+            hero_stats.attack = int(last_save[3])
+            hero_stats.gold = int(last_save[4])
+            hero_stats.health_potion = int(last_save[5])
 
             load_items_list = SHEET.worksheet(worksheets.stash_save).get_all_values()
             SHEET.worksheet(worksheets.stash).clear()
@@ -220,7 +217,7 @@ def town_zone():
         elif navigate_town == '2':
             if initial_state.key:
                 initial_state.dessert = True
-                enemy_zone_navigation(hero_stats)
+                enemy_zone_navigation()
             else:
                 location_art()
                 ingame_menu()
@@ -427,7 +424,7 @@ def battle_options(enemy_stats):
             else:
                 print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
             print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
-            battle_menu(hero_stats, enemy_stats)
+            battle_menu(enemy_stats)
             print('Type a number 1-n to select battle option')
 
 def item_drop():
