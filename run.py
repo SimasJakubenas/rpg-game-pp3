@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
-from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
+from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_buy_menu
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -670,9 +670,13 @@ def vendor_buy_menu():
     Display vendors menu options
     """
     location_art()
-    print('Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}')
-    print('Health_potion:' + ' ' * (4 - len(str(hero_stats.health_potion))) + f'{hero_stats.health_potion}\n')
-    print('1. Buy Health Potion        100 gold')
+    print(' ' * 30, 'Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}')
+    print(' ' * 30, 'Health_potion:' + ' ' * (4 - len(str(hero_stats.health_potion))) + f'{hero_stats.health_potion}\n')
+    print('         φäðœ‰~-                                                -~‰œðäφ    ')
+    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
+    print('                      1. Buy Health Potion        100 gold                 ')
+    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
     print('\n')
     print('R. Go Back')
     print('')
@@ -724,7 +728,7 @@ def vendor_sell_menu():
     Display vendors sell menu options
     """
     location_art()
-    print('Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}\n')
+    print(' ' * 30, 'Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}\n')
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
     stash_limit = stash_sheet[2:]
     if len(stash_limit) > 0:
