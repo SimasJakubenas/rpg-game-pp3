@@ -30,7 +30,6 @@ def vendor_gossip():
     """
     Prints text that gives a hint to player
     """
-    location_art()
     print('Someone stole the key for the main gate last night.')
     print('That bloody Radement must have send a goblin over.')
     print('Radement is imprisoned deep inside the sewers.')

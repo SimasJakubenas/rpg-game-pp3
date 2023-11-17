@@ -631,6 +631,7 @@ def vendor():
             clear()
             vendor_menu()
         elif vendor_menu_select == '3':
+            location_art()
             vendor_gossip()
             vendor_gossip_back()
         elif vendor_menu_select.lower() == 'r':
@@ -786,6 +787,7 @@ def vendor_gossip_back():
         if back_to_menu == 'r':
             vendor()
         else:
+            location_art()
             vendor_gossip()
             print('Type "4" to go back to menu')
 
