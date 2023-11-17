@@ -400,7 +400,7 @@ def battle_menu(enemy_stats):
         f'{current_health_bar * full_life}{lost_life_bar * empty_life}║',
         ' ' * (3 - len(str(hero_stats.health))),
         f'{hero_stats.health}/{hero_stats.max_health}',
-        ' ' * (5 - len(str(enemy_stats.health))),
+        ' ' * (13 - len(str(enemy_stats.health))),
         f'{enemy_stats.health}/{enemy_stats.max_health} ║'
         f'{lost_life_bar_enemy * empty_life}{current_health_bar_enemy * full_life}\n')
     print('1. Attack')
@@ -608,10 +608,9 @@ def location_art():
     ASCII art to improve game looks
     """
     
-    print('-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
-    print(f'      >>►► {location.current_location} ◄◄<<     ')
-    print('-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
-    print('')
+    print(' ' * 22, '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
+    print(' ' * 28, f'>>►► {location.current_location} ◄◄<<     ')
+    print(' ' * 22, '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-\n')
 
 def ingame_menu():
     """
