@@ -270,22 +270,7 @@ def enemy_zone_navigation():
     while True:
         location.current_location = location.enemy_zone[location.x][location.y]
         if (location.current_location != 'Dungeon Gate') and (location.current_location != 'Town Gate'):
-            if location.current_location == 'Sewers Hideout':
-                if initial_state.treasure_chest:
-                    location_art()
-                    zone_navigation_menu()
-                    print('')
-                    print('You found 200 gold!')
-                    hero_stats.gold += int(character_list[5][3])
-                    initial_state.treasure_chest = False
-                    initial_state.fight = False
-                else:
-                    battle()
-            if initial_state.fight:
-                location_art()
-                battle()
-                hero_stats.health_potion += 1
-                initial_state.fight = False
+            not_town_portal()
         else:
             if initial_state.fight:
                 initial_state.fight = False
@@ -318,6 +303,27 @@ def enemy_zone_navigation():
             zone_navigation_menu()
             print('')
             print('Use numers 1-4 to navigate the map')
+
+def not_town_portal():
+    """
+    Checks if a tile the players is on is a town portal
+    """
+    if location.current_location == 'Sewers Hideout':
+        if initial_state.treasure_chest:
+            location_art()
+            zone_navigation_menu()
+            print('')
+            print('You found 200 gold!')
+            hero_stats.gold += int(character_list[5][3])
+            initial_state.treasure_chest = False
+            initial_state.fight = False
+        else:
+            battle()
+    if initial_state.fight:
+        location_art()
+        battle()
+        hero_stats.health_potion += 1
+        initial_state.fight = False
 
 def zone_navigation_menu():
     """
