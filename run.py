@@ -218,6 +218,7 @@ def town_zone():
     initial_state.dessert = False
     location_art()
     ingame_menu()
+    # Loaded_game boolen used only to control positioning of the text bellow
     if initial_state.loaded_game == True:
         print('The game was loaded...')
     initial_state.loaded_game = False
