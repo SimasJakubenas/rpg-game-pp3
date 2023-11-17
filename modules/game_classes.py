@@ -76,6 +76,16 @@ class Hero(Character):
         super().__init__(*stats)
         self.health_potion = int(stats[4])
 
+    def stats(self):
+        """
+        Character stats
+        """
+        print(f'Health:    {self.max_health}')
+        print(f'Attack:    {self.attack}')
+        print(f'Potions    {self.health_potion}')
+        print(f'Gold:      {self.gold}\n')
+        print('W. Go Back\n')
+
 class Enemy(Character):
     """
     Encounterable enemies subclass

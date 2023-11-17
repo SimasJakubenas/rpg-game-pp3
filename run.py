@@ -808,13 +808,13 @@ def character_info():
     Display character info
     """
     location_art()
-    stats()
+    hero_stats.stats()
     
     while True:
         go_back = input('\n')
         clear()
         location_art()
-        stats()
+        hero_stats.stats()
         if go_back.lower() == 'w':
             clear()
             if location.current_location == 'Lut Gholein':
@@ -825,14 +825,5 @@ def character_info():
                 return False
         else:
             print('Press "W" to go back')
-def stats():
-    """
-    Character stats
-    """
-    print(f'Health:    {hero_stats.max_health}')
-    print(f'Attack:    {hero_stats.attack}')
-    print(f'Potions    {hero_stats.health_potion}')
-    print(f'Gold:      {hero_stats.gold}\n')
-    print('W. Go Back\n')
 
 main()
