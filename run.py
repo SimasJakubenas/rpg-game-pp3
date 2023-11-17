@@ -754,6 +754,7 @@ def vendor_sell_input(sell):
 
 def vendor_sell_select(sell, stash_sheet):
     """
+    Verifies user input to sell an item
     """
     while True:
         sale_confirm = input('Y/N\n')
