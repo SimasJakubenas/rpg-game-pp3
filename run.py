@@ -369,8 +369,6 @@ def battle():
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    global current_enemy_health
-
     if hero_stats.health > hero_stats.max_health:
         hero_stats.health = hero_stats.max_health
     if initial_state.sewers == True:
@@ -387,10 +385,9 @@ def battle():
                 enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
             mob_dmg = int(enemy_stats.attack)
-            current_enemy_health = int(enemy_stats.health)
             initial_state.fight = False
             print(f'You have been attacked by {enemy[0]}')
-    while current_enemy_health > 0:
+    while enemy_stats.health > 0:
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
         hero_stats.health -= mob_dmg
 
@@ -408,12 +405,10 @@ def battle_menu(enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
     """
-    global current_enemy_health
-
     print('Your Life')
     print(f'{hero_stats.health}/{hero_stats.max_health}')
     print(f'{enemy_stats.name} Life')
-    print(f'{current_enemy_health}/{int(enemy_stats.health)}')
+    print(f'{enemy_stats.health}/{enemy_stats.max_health}')
     print('1. Attack')
     print('2. Use Potion')
     print('')
@@ -422,8 +417,6 @@ def battle_options(enemy, enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
-    global current_enemy_health
-
     while True:
         battle_option = input('\n')
         clear()
@@ -431,9 +424,9 @@ def battle_options(enemy, enemy_stats):
         # Option to attack
         if battle_option == '1':
             initial_state.first_attack = True
-            current_enemy_health -= hero_stats.attack
+            enemy_stats.health -= hero_stats.attack
             print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
-            if current_enemy_health <= 0:
+            if enemy_stats.health <= 0:
                 print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
                 item_drop()
                 print('')
@@ -449,7 +442,7 @@ def battle_options(enemy, enemy_stats):
                     game_win_logo()
                     game_win()
                 
-            return current_enemy_health
+            return enemy_stats.health
         # Option to heal
         elif battle_option == '2':
             if hero_stats.health_potion > 0:
