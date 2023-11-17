@@ -1,6 +1,6 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
-from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location
+from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo
 from modules.game_text import game_lore, game_rules
 
@@ -17,21 +17,6 @@ SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
 # Sets initial boolean values in the Game_flow_bool class
 initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False, False, False)
-
-class Worksheets:
-    """
-    Class that hold all the worksheets used in the game
-    """
-    def __init__(self, sewers_map, dessert_map, characters, items, shop, stash, save, stash_save):
-        self.sewers_map = sewers_map
-        self.dessert_map = dessert_map
-        self.characters = characters
-        self.items = items
-        self.vendor = shop
-        self.stash = stash
-        self.save = save
-        self.stash_save = stash_save
-
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 # Location class inital values

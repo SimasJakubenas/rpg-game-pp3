@@ -15,6 +15,20 @@ class Game_flow_bool:
         self.loaded_game = loaded_game
         self.first_attack = first_attack
 
+class Worksheets:
+    """
+    Class that hold all the worksheets used in the game
+    """
+    def __init__(self, sewers_map, dessert_map, characters, items, shop, stash, save, stash_save):
+        self.sewers_map = sewers_map
+        self.dessert_map = dessert_map
+        self.characters = characters
+        self.items = items
+        self.vendor = shop
+        self.stash = stash
+        self.save = save
+        self.stash_save = stash_save
+
 class Location:
     """
     Hold variable that are used to control movement
