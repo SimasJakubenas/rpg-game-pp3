@@ -27,6 +27,9 @@ character_list = SHEET.worksheet('chars').get_all_values()
 hero = tuple(character_list[1])
 hero_stats = Hero(*hero)
 item_list = SHEET.worksheet('items').get_all_values()
+# Symbols used in health bars
+full_life = '█'
+empty_life = '_'
 
 def main():
     """
@@ -385,11 +388,21 @@ def battle():
 def battle_menu(enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
+    Health bars were made following and altering to fit project https://www.youtube.com/watch?v=0e2DexQlDYk tutorial
+    How to break up print method was taken from 'noddy' answer in https://stackoverflow.com/questions/45965007/multiline-f-string-in-python
     """
-    print('Your Life')
-    print(f'{hero_stats.health}/{hero_stats.max_health}')
-    print(f'{enemy_stats.name} Life')
-    print(f'{enemy_stats.health}/{enemy_stats.max_health}')
+    current_health_bar = round((hero_stats.health / hero_stats.max_health) *100) // 4
+    current_health_bar_enemy = round((enemy_stats.health / enemy_stats.max_health) *100) // 4
+    lost_life_bar = 25 - current_health_bar
+    lost_life_bar_enemy = 25 - current_health_bar_enemy
+    print(' Your Life', ' ' * (52 - len(enemy_stats.name)), f"{enemy_stats.name}'s life")
+    print(
+        f'{current_health_bar * full_life}{lost_life_bar * empty_life}║',
+        ' ' * (3 - len(str(hero_stats.health))),
+        f'{hero_stats.health}/{hero_stats.max_health}',
+        ' ' * (5 - len(str(enemy_stats.health))),
+        f'{enemy_stats.health}/{enemy_stats.max_health} ║'
+        f'{lost_life_bar_enemy * empty_life}{current_health_bar_enemy * full_life}\n')
     print('1. Attack')
     print('2. Use Potion')
     print('')
