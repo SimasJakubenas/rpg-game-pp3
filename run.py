@@ -17,7 +17,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
 # Sets initial boolean values in the Game_flow_bool class
-initial_state = Game_flow_bool(False, False, False, False, False, True, False, False, False, False, False)
+initial_state = Game_flow_bool(False, False, False, False, True, False, False, False, False, False)
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 # Location class inital values
@@ -216,8 +216,6 @@ def town_zone():
     location.current_location = 'Lut Gholein'
     initial_state.sewers = False
     initial_state.dessert = False
-    if initial_state.store_health_pots == False:
-        initial_state.store_health_pots = True
     location_art()
     ingame_menu()
     if initial_state.loaded_game == True:

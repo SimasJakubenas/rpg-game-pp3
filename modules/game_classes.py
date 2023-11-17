@@ -2,12 +2,11 @@ class Game_flow_bool:
     """
     Class that holds boolean logic to control flow of the game
     """
-    def __init__(self, fight, hero_created, alive, key, store_health_pots, treasure_chest, replace, sewers, dessert, loaded_game, first_attack):
+    def __init__(self, fight, hero_created, alive, key, treasure_chest, replace, sewers, dessert, loaded_game, first_attack):
         self.fight = fight
         self.hero_created = hero_created
         self.alive = alive
         self.key = key
-        self.store_health_pots = store_health_pots
         self.treasure_chest = treasure_chest
         self.replace = replace
         self.sewers = sewers
