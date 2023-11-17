@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
-from modules.menus import game_menu_display_top, game_menu_display_bottom
+from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -728,12 +728,9 @@ def vendor_sell_menu():
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
     stash_limit = stash_sheet[2:]
     if len(stash_limit) > 0:
-        for number, item in enumerate(stash_limit, 1):
-            # Enumerates all items in stash and ensures correct positioning of the display
-            print(str(number) + '.', item[0].title() + ' ' * (15 - len(item[0])), item[4])
-        print('')
-        print(f'Enter number from 1 to {number} to sell\n')
+        vendor_sell_menu_display(stash_limit)
     else:
+        print('')
         print('You have nothing to sell\n')
     print('R. Go Back\n')
 
