@@ -233,11 +233,10 @@ def hero_selection():
     """
     Creates hero character by pulling values from a spreadsheet
     """
-    global hero_stats, hero, hero_max_health
+    global hero_stats, hero
 
     hero = tuple(worksheets.character_list[1])
     hero_stats = Hero(*hero)
-    hero_max_health = int(hero_stats.max_health)
 
 def town_zone():
     """
@@ -384,8 +383,8 @@ def battle(hero_stats):
     global current_health, current_enemy_health, first_attack
 
     first_attack = False
-    if current_health > hero_max_health:
-        current_health = hero_max_health
+    if current_health > hero_stats.max_health:
+        current_health = hero_stats.max_health
     if initial_state.sewers == True:
         enemy_list = slice(2, 7)
     if initial_state.dessert == True:
@@ -421,10 +420,10 @@ def battle_menu(hero_stats, enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
     """
-    global current_enemy_health, current_health, hero_max_health
+    global current_enemy_health, current_health
 
     print('Your Life')
-    print(f'{current_health}/{hero_max_health}')
+    print(f'{current_health}/{hero_stats.max_health}')
     print(f'{enemy_stats.name} Life')
     print(f'{current_enemy_health}/{int(enemy_stats.health)}')
     print('1. Attack')
@@ -467,8 +466,8 @@ def battle_options(enemy, hero_stats, enemy_stats):
         elif battle_option == '2':
             if hero_stats.health_potion > 0:
                 current_health += 50
-                if current_health > hero_max_health:
-                    current_health = hero_max_health
+                if current_health > hero_stats.max_health:
+                    current_health = hero_stats.max_health
                 hero_stats.health_potion -= 1
                 print('You gained 50 life!')
                 return current_health
@@ -521,8 +520,6 @@ def stash_open():
     Display aquired items
     Pull and display relevant data from 'stash' spreadsheet
     """
-    global  hero_max_health
-
     location_art()
     stash_menu()
     while True:
@@ -540,7 +537,7 @@ def stash_open():
                     equipped_weapon = stash_limit.pop(int(equip))
                     SHEET.values_clear("stash!A2:F10000")
                     hero_stats.attack = int(hero[2]) + int(equipped_weapon[1])
-                    hero_max_health = int(hero[1]) + int(equipped_weapon[2])
+                    hero_stats.max_health = int(hero[1]) + int(equipped_weapon[2])
                     worksheets.stash.append_row(equipped_weapon)
                     for row in stash_limit:
                         worksheets.stash.append_row(row)
@@ -851,7 +848,7 @@ def stats():
     """
     Character stats
     """
-    print(f'Health:    {hero_max_health}')
+    print(f'Health:    {hero_stats.max_health}')
     print(f'Attack:    {hero_stats.attack}')
     print(f'Potions    {hero_stats.health_potion}')
     print(f'Gold:      {hero_stats.gold}\n')
