@@ -384,12 +384,11 @@ def battle():
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(worksheets.character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
-            mob_dmg = int(enemy_stats.attack)
             initial_state.fight = False
             print(f'You have been attacked by {enemy[0]}')
     while enemy_stats.health > 0:
         print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
-        hero_stats.health -= mob_dmg
+        hero_stats.health -= enemy_stats.attack
 
         if hero_stats.health <= 0:
             print('GAME OVER')
