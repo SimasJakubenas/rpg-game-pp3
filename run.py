@@ -398,7 +398,7 @@ def battle():
             main()
         battle_menu(enemy_stats)
 
-        battle_options(enemy, enemy_stats)
+        battle_options(enemy_stats)
 
 def battle_menu(enemy_stats):
     """
@@ -412,7 +412,7 @@ def battle_menu(enemy_stats):
     print('2. Use Potion')
     print('')
 
-def battle_options(enemy, enemy_stats):
+def battle_options(enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
     """
@@ -426,18 +426,18 @@ def battle_options(enemy, enemy_stats):
             enemy_stats.health -= hero_stats.attack
             print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
             if enemy_stats.health <= 0:
-                print(f'{enemy_stats.name} has fallen and dropped {enemy[3]} gold')
+                print(f'{enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
                 item_drop()
                 print('')
                 zone_navigation_menu()
-                hero_stats.gold += int(enemy[3])
+                hero_stats.gold += enemy_stats.gold
                 print('')
-                if enemy[0] == 'Radement':
+                if enemy_stats.name == 'Radement':
                     initial_state.key = True
                     clear()
                     location_art()
                     return_to_town()
-                if enemy[0] == 'Duriel':
+                if enemy_stats.name == 'Duriel':
                     game_win_logo()
                     game_win()
                 
@@ -452,7 +452,7 @@ def battle_options(enemy, enemy_stats):
                 print('You gained 50 life!')
                 return hero_stats.health
             else:
-                battle_menu(hero_stats, enemy_stats)
+                battle_menu(enemy_stats)
                 print('You have no health pots')
         else:
             if initial_state.first_attack == False:
