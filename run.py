@@ -404,25 +404,7 @@ def battle_options(enemy_stats):
         location_art() 
         # Option to attack
         if battle_option == '1':
-            initial_state.first_attack = True
-            enemy_stats.health -= hero_stats.attack
-            print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
-            if enemy_stats.health <= 0:
-                print(f'{enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
-                item_drop()
-                print('')
-                zone_navigation_menu()
-                hero_stats.gold += enemy_stats.gold
-                print('')
-                if enemy_stats.name == 'Radement':
-                    initial_state.key = True
-                    clear()
-                    location_art()
-                    return_to_town()
-                if enemy_stats.name == 'Duriel':
-                    game_win_logo()
-                    game_win()
-                
+            battle_option_attack(enemy_stats)
             return enemy_stats.health
         # Option to heal
         elif battle_option == '2':
@@ -444,6 +426,30 @@ def battle_options(enemy_stats):
             print(f'{enemy_stats.name} has done {enemy_stats.attack} damage to you')
             battle_menu(enemy_stats)
             print('Type a number 1-n to select battle option')
+
+def battle_option_attack(enemy_stats):
+    """
+    Deals damage to enemy health
+    Checks for game bosses and runs corresponding methods
+    """
+    initial_state.first_attack = True
+    enemy_stats.health -= hero_stats.attack
+    print(f'You have done {hero_stats.attack} damage to {enemy_stats.name}')
+    if enemy_stats.health <= 0:
+        print(f'{enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
+        item_drop()
+        print('')
+        zone_navigation_menu()
+        hero_stats.gold += enemy_stats.gold
+        print('')
+        if enemy_stats.name == 'Radement':
+            initial_state.key = True
+            clear()
+            location_art()
+            return_to_town()
+        if enemy_stats.name == 'Duriel':
+            game_win_logo()
+            game_win()
 
 def item_drop():
     """
