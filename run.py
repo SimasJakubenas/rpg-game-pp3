@@ -348,7 +348,7 @@ def battle():
     Loops through a fight until either player or enemy dies
     Provide player with battle options
     """
-    # Caps heros health at max_health when potion is used
+    # Caps heros health at max_health if weapon is swpped with a one that has less max_health
     if hero_stats.health > hero_stats.max_health:
         hero_stats.health = hero_stats.max_health
     # Selects enemies from a list based on location
