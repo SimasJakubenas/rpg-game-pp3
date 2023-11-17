@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
 from modules.game_text import game_lore, game_rules, vendor_gossip
-from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_buy_menu
+from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display, vendor_sell_menu_empty, vendor_buy_menu_art
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -664,22 +664,14 @@ def vendor_menu():
     print('3. Gossip\n')
     print('R. Go Back\n')
 
-
 def vendor_buy_menu():
     """
-    Display vendors menu options
+    Display hero's gold, health potions and available items on sale
     """
     location_art()
     print(' ' * 30, 'Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}')
     print(' ' * 30, 'Health_potion:' + ' ' * (4 - len(str(hero_stats.health_potion))) + f'{hero_stats.health_potion}\n')
-    print('         φäðœ‰~-                                                -~‰œðäφ    ')
-    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
-    print('                      1. Buy Health Potion        100 gold                 ')
-    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
-    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
-    print('\n')
-    print('R. Go Back')
-    print('')
+    vendor_buy_menu_art()
 
 def vendor_buy_menu_option():
     """

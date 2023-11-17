@@ -46,3 +46,16 @@ def vendor_sell_menu_empty():
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
     print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
 
+def vendor_buy_menu_art():
+    """
+    Display vendors menu options
+    """
+    print('         φäðœ‰~-                                                -~‰œðäφ    ')
+    print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
+    print('                      1. Buy Health Potion        100 gold                 ')
+    print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
+    print('\n')
+    print('R. Go Back')
+    print('')
+
