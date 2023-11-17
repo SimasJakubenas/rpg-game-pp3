@@ -145,11 +145,8 @@ def save_game():
     Saves heros stats by pushing hero stats to a google spreadsheet
     Saves aquired items to a google spreadsheet
     """
-    global hero, hero_gold, health_potion, hero_attack, hero_max_health
-
     print('Game saving please wait....')
-    hero_stats_pull = Hero(hero[0], hero_max_health, hero_attack, hero_gold, health_potion)
-    hero_stats_dict = vars(hero_stats_pull)
+    hero_stats_dict = vars(hero_stats)
     hero_stats_list = list(hero_stats_dict.values())
     SHEET.worksheet(worksheets.save).append_row(hero_stats_list)
 
