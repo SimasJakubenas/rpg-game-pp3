@@ -2,7 +2,7 @@ import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
 from modules.ascii_art import title_and_greeting, game_win_logo
-from modules.game_text import game_lore, game_rules
+from modules.game_text import game_lore, game_rules, vendor_gossip
 from modules.menus import game_menu_display_top, game_menu_display_bottom
 
 SCOPE = [
@@ -775,17 +775,6 @@ def vendor_sell_select(sell, stash_sheet):
             clear()
             vendor_sell_menu()
             print('Type "Y" to confirm the sale or "N" to cancel')
-
-def vendor_gossip():
-    """
-    Prints text that gives a hint to player
-    """
-    location_art()
-    print('Someone stole the key for the main gate last night.')
-    print('That bloody Radement must have send a goblin over.')
-    print('Radement is imprisoned deep inside the sewers.')
-    print('Only if there was anyone brave enough to confront him.\n')
-    print('R. Go back\n')
 
 def vendor_gossip_back():
     """
