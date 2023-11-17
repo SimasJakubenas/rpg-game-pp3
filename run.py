@@ -333,21 +333,10 @@ def zone_navigation_menu_input():
 
 def zone_navigation_menu():
     """
-    Displays navigation options depending on a current position of the map
-    Hides corresponding options if player is next to the edge of the map
+    Calls enemy_zone_menu methot from Location class
+    Shows message if players stash is full and they decide to not replace an old item with the new one
     """
-    if location.x > 0:
-        print(f'1. Go North to {location.enemy_zone[location.x-1][location.y]}')
-    if location.y < len(location.enemy_zone[location.x]) - 1:
-        print(f'2. Go East to {location.enemy_zone[location.x][location.y+1]}')
-    if location.x < len(location.enemy_zone) - 1:
-        print(f'3. Go South to {location.enemy_zone[location.x+1][location.y]}')
-    if location.y > 0:
-        print(f'4. Go West to {location.enemy_zone[location.x][location.y-1]}')
-    print('')
-    print('Q. Open Menu')
-    print('W. Character Info')
-    print('E. Open stash')
+    location.enemy_zone_menu()
     
     if initial_state.replace:
         print(f'You left your loot behind')

@@ -38,6 +38,24 @@ class Location:
         self.x = x
         self.y = y
 
+    def enemy_zone_menu(self):
+        """
+        Displays navigation options depending on a current position of the map
+        Hides corresponding options if player is next to the edge of the map
+        """
+        if self.x > 0:
+            print(f'1. Go North to {self.enemy_zone[self.x-1][self.y]}')
+        if self.y < len(self.enemy_zone[self.x]) - 1:
+            print(f'2. Go East to {self.enemy_zone[self.x][self.y+1]}')
+        if self.x < len(self.enemy_zone) - 1:
+            print(f'3. Go South to {self.enemy_zone[self.x+1][self.y]}')
+        if self.y > 0:
+            print(f'4. Go West to {self.enemy_zone[self.x][self.y-1]}')
+        print('')
+        print('Q. Open Menu')
+        print('W. Character Info')
+        print('E. Open stash')
+
 class Character:
     """
     Superclass for all playeable characters and enemies in the game
