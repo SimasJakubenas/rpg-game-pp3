@@ -97,4 +97,4 @@ def stash_menu_display(stash_sheet, stash_limit):
         print(' ' * 18, str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
               item[1],' ' * (10 - len(item[2]) + 2), item[2])
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
-    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
+    print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   ')

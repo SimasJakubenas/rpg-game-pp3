@@ -478,7 +478,7 @@ def item_drop():
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
             print('')
-            print(f'                            You found {weapon[0]}\n')
+            print(f'                                You found {weapon[0]}\n')
             weapon_select.weapon_art(weapon)
             input('                                  Press ENTER')
             clear()
@@ -534,7 +534,7 @@ def stash_open():
                 return False
         else:
             stash_menu()
-            print('                Type number to equip item or "R" to go backward')
+            print('                Type number to equip item or "R" to go back')
 
 def equip_weapon(equip, stash_sheet):
     """
@@ -542,7 +542,7 @@ def equip_weapon(equip, stash_sheet):
     if weapon is equiped the stash worksheet is appended appropreately
     """
     stash_menu()
-    print(f'                       Would you like to equip {stash_sheet[int(equip)+1][0]}Y/N?')
+    print(f'                       Would you like to equip {stash_sheet[int(equip)+1][0]} Y/N?')
     while True:
         equip_confirm = input('')
         if equip_confirm.lower() == 'y':
@@ -564,7 +564,7 @@ def equip_weapon(equip, stash_sheet):
             clear()
             location_art()
             stash_menu()
-            print('                  Type "Y" to confirm to equip or "N" to cancel')
+            print(f'               Type "Y" to confirm to equip {stash_sheet[int(equip)+1][0]} or "N" to cancel')
 
 def stash_menu():
     """
@@ -740,8 +740,9 @@ def vendor_sell_input(sell):
     else:
         clear()
         vendor_sell_menu()
+        print(f'                  Type number to sell item or "R" to go back')
         vendor_sell_menu_option()
-        print(                'Type number to sell item or "R" to go back')
+        
 
 def vendor_sell_select(sell, stash_sheet):
     """
@@ -765,7 +766,7 @@ def vendor_sell_select(sell, stash_sheet):
         else:
             clear()
             vendor_sell_menu()
-            print('                 Type "Y" to confirm the sale or "N" to cancel')
+            print(f'              Type "Y" to confirm the sale of {stash_sheet[int(sell)+1][0]} "N" to cancel')
 
 def vendor_gossip_back():
     """
