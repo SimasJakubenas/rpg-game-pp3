@@ -328,3 +328,23 @@ Gspread
 - [W3Schools](https://www.w3schools.com/) - for variaus python functionality querries
 - [CI Python Linter](https://pep8ci.herokuapp.com/) - to validate python code
 - [Heroku](https://dashboard.heroku.com/) - to deploy the project
+
+## Deployment & Local Development
+
+The site is deployed using Heroku Pages. Visit the deployed site [here](https://tal-rasha-rpg-6583f66e1480.herokuapp.com/).
+
+### To deploy using Heroku
+
+1 - On the Heroku website, navigate to dashboard and then click on the new button in the top right corner choosing: create new app.
+
+2 - Type in a name for your app (this name will need to be unique) and choose a region for where you are located. Click create app.
+
+3 - Your app has been created, now click on the settings tab.
+
+4 - Click reveal config vars to add any keys the application will need. The api credentials for a spreadsheet access was used in this project.
+
+5 - Click add buildpack to install interdependecies that are needed for the project. Like 'python' and 'nodejs'.
+
+6 - Click on deploy tab. Select deploy method, in this case Git Hub. Fint the right repository and then connecting to it.
+
+7 - To manually deploy project click 'Deploy Branch' in the deployment section. Once built click the view button to view the deployed page making a note of it's url.
