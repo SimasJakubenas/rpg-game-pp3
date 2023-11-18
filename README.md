@@ -305,3 +305,26 @@ These area the features I decided to introduce in the near future:
 * introduction of game difficulty levels(16)
 * add music(19) and sound effects(20) to the game
 * add ASCIi art to display encountered enemies
+
+## Technologies Used
+
+### Languages Used 
+
+Python and it's libraries:
+Random
+Os
+Gspread
+
+### Frameworks, Libraries & Programs Used
+
+- [Codeanywhere](https://dashboard.codeanywhere.com/) - used to write code at the start of developement
+- [Gitpod](https://www.gitpod.io/) - used to write code later on 
+- [Git](https://git-scm.com/) - for version control.
+- [Lucid](https://www.lucidchart.com/) - used to create flowcharts
+- [Git](https://git-scm.com/) - for version control.
+- [GitHub](https://github.com/) - to save and store the files for the website
+- [ASCII art generator](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=) - to create game title, win game and game over messages
+- [README editor](https://readme.so/editor) - to help in readme writting
+- [W3Schools](https://www.w3schools.com/) - for variaus python functionality querries
+- [CI Python Linter](https://pep8ci.herokuapp.com/) - to validate python code
+- [Heroku](https://dashboard.heroku.com/) - to deploy the project
