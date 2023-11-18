@@ -105,7 +105,7 @@ In the table bellow i tried to extract requirements for the site from user and d
 | | Add game sounds | 3 |
 | | Add ASCII art to improve the visuals of the game | 3 |
 
-### Structure Plane
+### The Structure Plane
 
 This game has standart features and game flow of a classic RPG genre game. The game is controlled via user imputs.
 Uppon launching the game player is presented with a 
@@ -121,3 +121,14 @@ When game is started the player is in the starting zone or 'The town' where they
 * check player info
 * travel to one of the enemy zones (one of which is only accessible after killing a mini boss from the first zone)
 Killing the boss in the second zone wins the game
+
+### The Skeleton Plane
+
+Initial flowchart of the game
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/d89979b9-3c61-4cc8-9441-85322313c891)
+
+For the most part I stuck with the initial chart. There is a couple noticible changes though:
+* the stash is accessible from enemy zones also
+* the addition to mini boss in the first zone
+
+A google spreadsheet was used to store all the data (map tiles, items, hero and enemy stats etx...) on separate worksheets. This allows for the introduction of API's to the project while simultaneously providing a way to expand game content with very minimal code adjusments. A win win situation!
