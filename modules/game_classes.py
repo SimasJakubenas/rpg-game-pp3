@@ -109,3 +109,29 @@ class Enemy(Character):
     def __init__(self, *stats):
         super().__init__(*stats)
         self.spawn_area = stats[4]
+
+class Items:
+    """
+    Game items
+    """
+    def __init__(self, *weapons):
+        self.dagger = weapons[0]
+        self.sword = weapons[1]
+        self.mace = weapons[2]
+        self.flail = weapons[3]
+        self.hammer = weapons[4]
+
+        def dagger_art():
+            print('dagger')
+        
+        def sword_art():
+            print('sword')
+        
+        def mace_art():
+            print('mace')
+
+        def flail_art():
+            print('flail')
+
+        def hammer_art():
+            print('hammer')

@@ -1,6 +1,6 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
-from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
+from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets, Items
 from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo, dungeon_image, dessert_image
 from modules.game_text import game_lore, game_rules, vendor_gossip
 from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
@@ -27,7 +27,11 @@ location = Location('', '', 0, 0 )
 character_list = SHEET.worksheet('chars').get_all_values()
 hero = tuple(character_list[1])
 hero_stats = Hero(*hero)
+# Pulls the game weapons from a worksheet and pass the values over to Items class
 item_list = SHEET.worksheet('items').get_all_values()
+weapon_list = item_list[3:]
+weapons = tuple(weapon_list)
+weapon_select = Items(*weapons)
 # Symbols used in health bars
 full_life = '█'
 empty_life = '_'
@@ -452,7 +456,6 @@ def battle_option_attack(enemy_stats):
     if enemy_stats.health <= 0:
         print(f'                      {enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
         item_drop()
-        print('')
         zone_navigation_menu()
         hero_stats.gold += enemy_stats.gold
         print('')
@@ -471,10 +474,12 @@ def item_drop():
     If stash is over max capacity prompts user to replace first item in the stash with a new one
     """
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
-    weapon_list = item_list[3:]
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
             print(f'                            You found {weapon[0]}\n')
+            input('')
+            clear()
+            location_art()
             SHEET.worksheet(worksheets.stash).append_row(weapon)
             stash_sheet.append(weapon)
         # When stash over max capacity prompts user to replace first item in the stash with a new one
@@ -733,7 +738,7 @@ def vendor_sell_input(sell):
         clear()
         vendor_sell_menu()
         vendor_sell_menu_option()
-        print(                'Type number to sell item or "R" to go backward')
+        print(                'Type number to sell item or "R" to go back')
 
 def vendor_sell_select(sell, stash_sheet):
     """
