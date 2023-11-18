@@ -64,7 +64,7 @@ def game_menu_select():
         # Starts game
         if menu_item == '1':
             start_game()
-            return False
+            return menu_item
         # Game save
         elif menu_item == '2':
             if initial_state.alive == False:
