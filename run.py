@@ -294,7 +294,6 @@ def not_town_portal():
         if initial_state.treasure_chest:
             location_art()
             zone_navigation_menu()
-            print('')
             print('                             You found 200 gold!')
             hero_stats.gold += int(character_list[5][3])
             initial_state.treasure_chest = False
@@ -311,7 +310,7 @@ def zone_navigation_menu_input():
     """
     Takes user input to navigate enemy zone
     """
-    zone_controls = input('\n')
+    zone_controls = input('')
     clear()
     # 'And' operators prevents game from crashing if player tries to move out of map
     if zone_controls == '1' and location.x > 0:
@@ -336,7 +335,6 @@ def zone_navigation_menu_input():
     else:
         location_art()
         zone_navigation_menu()
-        print('')
         print('                      Use numers 1-4 to navigate the map')
 
 def zone_navigation_menu():
@@ -576,10 +574,9 @@ def stash_menu():
 
 def return_to_town():
     zone_navigation_menu()
-    print('')
     print('                       Would you like to return to town?')
     while True:
-        town_portal = input('Y/N:\n')
+        town_portal = input('')
         clear()
         if town_portal.lower() == 'y':
             town_zone()
@@ -591,7 +588,6 @@ def return_to_town():
         else:
             location_art()
             zone_navigation_menu()
-            print('')
             print('                 Type in "y" to go back to town or "N" to stay')
 
 def clear():

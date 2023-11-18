@@ -49,24 +49,23 @@ class Location:
                 ' ' * (30 -len(f'{self.enemy_zone[self.x-1][self.y]}')),
                 'Q. Open Menu')
         else:
-            print('                                               Q. Open Menu')
+            print(' ' * 55, 'Q. Open Menu')
         if self.y < len(self.enemy_zone[self.x]) - 1:
             print(# Selects location name based on coordinates and paces text in fixed position
                 ' ' * 8, f'2. Go East to {self.enemy_zone[self.x][self.y+1]}',
                 ' ' * (31 -len(f'{self.enemy_zone[self.x][self.y+1]}')),
                 'W. Character Info')
         else:
-            print('                                               W. Character Info')    
+            print(' ' * 55, 'W. Character Info')    
         if self.x < len(self.enemy_zone) - 1:
             print(# Selects location name based on coordinates and paces text in fixed position
                 ' ' * 8, f'3. Go South to {self.enemy_zone[self.x+1][self.y]}',
                 ' ' * (30 -len(f'{self.enemy_zone[self.x+1][self.y]}')),
                 'E. Open stash')
         else:
-            print('                                               E. Open stash')
+            print(' ' * 55, 'E. Open stash')
         if self.y > 0:
             print(' ' * 8, f'4. Go West to {self.enemy_zone[self.x][self.y-1]}')
-        print('')
 
 class Character:
     """
