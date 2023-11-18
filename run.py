@@ -78,7 +78,6 @@ def game_menu_select():
         # Game load
         elif menu_item == '3':
             menu_item = 'load'
-            initial_state.hero_created = True
             menu_option(menu_item)
         # Game rules   
         elif menu_item == '4':
