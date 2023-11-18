@@ -384,6 +384,7 @@ def battle():
 
         if hero_stats.health <= 0:
             game_loso_logo()
+            initial_state.hero_created = False
             initial_state.alive = False
             input('\n')
             clear()
