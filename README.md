@@ -156,3 +156,118 @@ Vendor, Stash and Character Info, game rules and game lore menus I styled myself
 I used a youtube tutorial to create 'health bars' for battle (credited in README)
 
 ![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/9c809e1d-ef3f-419f-b5ce-4bc4419f7c99)
+
+## Features
+
+All featured have numbers assigned to them which are linked to the requirement table in the scope plane above.
+
+### Current Features
+
+#### Game Title and Greeting
+13, 14
+
+Game title is is presented in a bold image to attract atention and the player is also greeted with a message that describes the game.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/3fb40ad3-0ea0-45e9-ab63-bb17de3c2a8f)
+
+#### Main Menu
+9, 10, 11, 12, 17
+
+Gives options to:
+* Start Game(9). As stated it starts a new game (Note that this option is replaced with 'Continue' when the game has been started already)
+* Save Game(12). Saves the game by storing current character stats and aquired items on worksheets(17). Only available if the game has been started already. Currently the 'save file' is common for anyone playing the game however in the future I'm planning to take players name as input at the launch of the game and create separate worksheets using that input
+* Load Game(12). Loads the game by pulling character info and stash data from corresponding worksheets(17). Only available if game has been saved already.
+* Rules(11). Displays rules of the game
+* Quit Game(10). Terminates the game
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/91d111f2-d25f-466b-a345-581ffde347bc)
+
+#### Game Lore
+14
+
+Introduces the player to the game further by giving them some background information
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/f9c47b9d-295e-4c83-b5bb-95d378c764ac)
+
+#### Starting Town
+1, 2, 3, 4
+
+Main game area that grants access to enemy zones(4), vendor(2), stash(4) and character info
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/39750134-ad88-4c2d-8ef1-1f2cf39c529d)
+
+#### Vendor
+2
+
+Game Vendor(2) options to buy, sell and listen to gossip
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/043956f1-4bcf-4f2f-8e49-10fa72e73a94)
+
+Buy window is limited to health potions only as I ran out of time to introduce items being sold. Buying health potion reduces the amount of gold player has by a specified amount and increases health potion count by 1.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/7d60a241-05e3-4f6a-9173-49f9c9c34929)
+
+Selling window reveals all the items currently in the stash. item is sold by selecting the number beside it. Once item is sold it is removed from the list and heros gold is increased by the amount specified.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/1eae20aa-7a3d-44c2-8277-432468462945)
+
+Gossip window gives player a hint how to advance to dessert zone
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/6b645acd-1f32-42e5-b096-1abccf3be1e7)
+
+#### Stash
+3
+
+Displays all the items the player currently has. Also displays the equipped weapon. Player can change the equipped weapon by selecting it's number. Some things to note:
+* equipped weapon doesn't appear in vendors sell menu
+* re-equiping weapons privides the player a means to organise the stash as the un-equipped item is places in the first slot of the stash(3). This comes in handy when maximum capacity of stash is reached (which is 6)
+With any new item obtained the player will be presented with a choice tothrow out the first item.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/fc28da16-d788-4b42-b53e-2e6314a0e461)
+
+#### Character Info
+
+Displays character stats. Most notably health potion count which currently is not displayed anywhere else.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/bf66a702-fb80-4fa3-8998-235cfabb3280)
+
+#### Enemy Zone Navigation
+4
+
+Player is presented with options to go to 4 cardinal directions(4). Player moves through the map by selecting a number from 1 to 4. Once the map 'edge' is reached the option to go to that direction is hidden.
+Player can also access game menu, character info and stash while navigating.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/f269cfa5-dcd8-412b-aa3b-647c242d1a7e)
+
+#### Enemy Encounter and Battle Sequence
+5, 6
+
+While player navigates the map they encounter(5) enemies on every tile. Diffent map tiles contains different enemies. Players movement triggers a battle(6). Enemy hits a player which in turn reduces playes health bar. Player has two options:
+* attack - reduces enemies health by the current attack strenght of the player
+* use potion - increases players health bar by 50 points and reduces healing potion count by 1
+Battle continues until either player or enemie dies.
+Once the enemy is killed player will gain fixed amout og gold and 1 health potion.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/aba70387-aab1-4299-b88b-01ab53f67478)
+
+#### Item drop
+7
+
+After battle the player has a small chance to aquire(7) a weapon.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/0a798594-006e-4908-b496-bc12df1d4e8a)
+
+#### Boss Fight
+8
+
+When the boss(8) is located and defeated game winning title is displayed and player is prompted with a choice to quit or continue playing.
+
+### Future Features
+15, 16, 19, 20, 21
+
+There's many ways in which the game content can be expanded. Game enemy and item list can be increased by updating the worksheets. Same is true for the map size.
+These area the features I decided to introduce in the near future:
+* playable character selection(15)
+* introduction of game difficulty levels(16)
+* add music(19) and sound effects(20) to the game
+* add ASCIi art to display encountered enemies
