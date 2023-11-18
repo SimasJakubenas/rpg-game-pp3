@@ -374,6 +374,29 @@ To clone the repository:
 4. Change the current working directory in the terminal of your code editor to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
+## Testing
+
+Please refer to [TESTING.md](TESTING.md) for all testing carried out.
+
+### Solved Bugs
+
+| No | Bug | How I solved the issue |
+| :--- | :--- | :--- |
+| 1 | Couldn't get 'Game was loaded' to appear on the bottom of the screen by the conventional means | Used boolean logic to determin wheather the game was loaded and if it's tru the text would be displayed |
+| 2 | After game over when starting new game it goes right into battle | changed class instance variable 'hero_created' to false after death |
+| 3 | Issues with returning values to variables declared in the methods | I used the 'Global' declaration for variables to fix that, but after a conversation with my mentor I moved all the global variables to to appropriate class instances |
+| 4 | When using a health potion with 0 health potions left hero would sustain damage from enemy | I used 'return' declaration to break the battle loop where this scenario would enfold |
+| 5 | Uppon loading the game heros stats wouldn't update | Had to re=declare all hero class instance values individualy |
+| 6 | After losing the gane when starting a new  game hero's health would stay at 0 | Fixed by declaring hero's health = hero's max_health |
+
+### Known Bugs
+
+| No | Bug | How I solved the issue |
+| :--- | :--- | :--- |
+| 1 | In the deployed version the tol row gets printed out above the screen and is visible by scrolling up | I suspect is due to poor clear() methor rendering in the deployed environment. This is not the case in my local IDE |
+
+No other bugs observed
+
 ## Credits
 
 ### Code used 
