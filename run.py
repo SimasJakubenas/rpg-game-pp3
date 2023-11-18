@@ -64,6 +64,7 @@ def game_menu_select():
         # Starts game
         if menu_item == '1':
             start_game()
+            return False
         # Game save
         elif menu_item == '2':
             if initial_state.alive == False:
@@ -102,7 +103,7 @@ def start_game():
         if initial_state.hero_created == False:
             menu_option(menu_item)
         else:
-            town_zone()
+            return False
     else:
         clear()
         location_art()
@@ -110,7 +111,6 @@ def start_game():
             ingame_menu()
         else:
             zone_navigation_menu()
-        return False
 
 def menu_option(menu_item):
     """
