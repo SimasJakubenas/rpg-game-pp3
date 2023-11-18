@@ -150,7 +150,19 @@ def claimore_art():
 
 
 def axe_art():
-    print('axe')
+    """
+    Image of town from https://ascii.co.uk/art artist mrf
+    """
+    print('')
+    print('\n')
+    print('                          _________________.---.______')
+    print('                         (_(______________(_o o_(____()')
+    print('                                      .___.`. .`.___.')
+    print('                                     \ o    Y    o /')
+    print('                                      \ \__   __/ /')
+    print('                                       `.__`-`__.`')
+    print('                                            `')
+
 
 def sword_art():
     print('sword')
