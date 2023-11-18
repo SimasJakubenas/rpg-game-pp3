@@ -148,7 +148,6 @@ def claimore_art():
     print('                         //')
     print('                       /__x')
 
-
 def axe_art():
     """
     Image of town from https://ascii.co.uk/art artist mrf
@@ -163,6 +162,19 @@ def axe_art():
     print('                                       `.__`-`__.`')
     print('                                            `')
 
-
 def sword_art():
-    print('sword')
+    """
+    Image of town from https://ascii.co.uk/art artist mjp
+    """
+    print('')
+    print('                             ___')
+    print('                            ( ((')
+    print('                             ) ))')
+    print('    .::.                    / /(')
+    print('   `M .-;-.-.-.-.-.-.-.-.-/| ((::::::::::::::::::::::::::::::::::::::::::.._')
+    print('  (J ( ( ( ( ( ( ( ( ( ( ( |  ))   -================================-      _.>')
+    print('   `P `-;-`-`-`-`-`-`-`-`-\| ((::::::::::::::::::::::::::::::::::::::::::''')
+    print('    `::`                    \ \(')
+    print('                             ) ))')
+    print('                            (_((')
+
