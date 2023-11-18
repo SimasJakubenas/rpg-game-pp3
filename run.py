@@ -1,7 +1,7 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets, Items
-from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo, dungeon_image, dessert_image
+from modules.ascii_art import title_and_greeting, game_win_logo, game_lose_logo, dungeon_image, dessert_image
 from modules.game_text import game_lore, game_rules, vendor_gossip
 from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
 from modules.menus import vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main, ingame_menu, stash_menu_display
@@ -383,7 +383,7 @@ def battle():
         hero_stats.health -= enemy_stats.attack
 
         if hero_stats.health <= 0:
-            game_loso_logo()
+            game_lose_logo()
             initial_state.hero_created = False
             initial_state.alive = False
             input('\n')

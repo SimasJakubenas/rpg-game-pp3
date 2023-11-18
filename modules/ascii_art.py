@@ -34,7 +34,7 @@ def game_win_logo():
     print('             ░ ░                                                              \n')
     print('                 Would you like to continue the game?Y/N\n')
 
-def game_loso_logo():
+def game_lose_logo():
     """
     Display winning screen
     """
