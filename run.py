@@ -207,13 +207,14 @@ def game_rules_back():
     """
     while True:
         back_to_menu = input('\n')
-        if back_to_menu == '4':
+        if back_to_menu.lower() == 'r':
+            clear()
             game_menu_display()
             game_menu_select()
         else:
             clear()
             game_rules()
-            print('                         Type "4" to go back to menu')
+            print('                         Type "R" to go back to menu')
 
 def town_zone():
     """
