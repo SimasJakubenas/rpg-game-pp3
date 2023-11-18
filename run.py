@@ -383,14 +383,15 @@ def battle():
         hero_stats.health -= enemy_stats.attack
 
         if hero_stats.health <= 0:
+            clear()
             game_lose_logo()
             initial_state.hero_created = False
             initial_state.alive = False
-            input('\n')
+            hero_stats.health = hero_stats.max_health
+            input('                        Press ENter to start over\n')
             clear()
             main()
         battle_menu(enemy_stats)
-
         battle_options(enemy_stats)
 
 def battle_menu(enemy_stats):
