@@ -1,3 +1,14 @@
+#Tal Rasha
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/8ddb2b0e-50f0-408b-93a6-fc78b4818721)
+
+Developer: Simas Jakubenas
+
+Tal Rasha is a RPG style game that is inspired by a classic Diablo II game. The players quest is to navigate the map, find Duriel and destroy him once and for all!
+
+A link to deployed game
+https://tal-rasha-rpg-6583f66e1480.herokuapp.com/
+
 ## Contents
 [UX Design](#ux-design)
 * [The Strategy Plane](#the-strategy-plane)
