@@ -104,3 +104,14 @@ In the table bellow i tried to extract requirements for the site from user and d
 | Adding game sounds/ASCII art (FTU_07) | Add game music | 3 |
 | | Add game sounds | 3 |
 | | Add ASCII art to improve the visuals of the game | 3 |
+
+### Structure Plane
+
+This game has standart features and game flow of a classic RPG genre game. The game is controlled via user imputs.
+Uppon launching the game player is presented with a main menu with ouptions to start the game, save the game, load the game, read game rules and quit. menu is accessible at any point in the game (accept for when a player is in a balttle).
+When game is started the player is in the starting zone or 'The town' where they have an option to :
+* visit vendor (to buy and sell items)
+* visit to open stash which has all the aquired items on display (you aslo can swap your current weapon here)
+* check player info
+* travel to one of the enemy zones (one of which is only accessible after killing a mini boss from the first zone)
+Killing the boss in the second zone wins the game
