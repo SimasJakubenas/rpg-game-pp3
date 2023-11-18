@@ -144,6 +144,18 @@ For the most part I stuck with the initial chart. There is a couple noticible ch
 
 A google spreadsheet was used to store all the data (map tiles, items, hero and enemy stats etx...) on separate worksheets. This allows for the introduction of API's to the project while simultaneously providing a way to expand game content with very minimal code adjusments. A win win situation!
 
+![Characters PDF](documentation/chars.pdf)
+
+![Dessert Map PDF](documentation/dessert.pdf)
+
+![Sewers Map PDF](documentation/sewers.pdf)
+
+![Items PDF](documentation/items.pdf)
+
+![Save game PDF](documentation/save.pdf)
+
+![Save stash PDF](documentation/stash_save.pdf)
+
 Great deal of effort was dedicated towards handling user inputs. All incorect inputs should return a message to the player (unless I missed something) with the exception of a handful of empty inputs (like the one when the game is launched) that are just there to stop loops and do not require the player to enter anything specific other than to hit 'enter' key.
 
 Another pain of mine was the positioning of all text. It's rather unnatural for the terminal to display the text in the order I wanted so it took alot of tweaking and even utilising boolean logic in some cases. Although it brought me to the brink of insanity I'm happy with the end result.
