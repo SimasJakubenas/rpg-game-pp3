@@ -1,3 +1,5 @@
+from modules.ascii_art import dagger_art, katana_art, claimore_art, axe_art, sword_art
+
 class Game_flow_bool:
     """
     Class that holds boolean logic to control flow of the game
@@ -121,17 +123,14 @@ class Items:
         self.flail = weapons[3]
         self.hammer = weapons[4]
 
-        def dagger_art():
-            print('dagger')
-        
-        def sword_art():
-            print('sword')
-        
-        def mace_art():
-            print('mace')
-
-        def flail_art():
-            print('flail')
-
-        def hammer_art():
-            print('hammer')
+    def weapon_art(self, weapon):
+        if weapon[0] == 'Dagger':
+            dagger_art()
+        if weapon[0] == 'Katana':
+            katana_art()
+        if weapon[0] == 'Claimore':
+            claimore_art()
+        if weapon[0] == 'Axe':
+            axe_art()
+        if weapon[0] == 'Sword':
+            sword_art()

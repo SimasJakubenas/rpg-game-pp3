@@ -476,8 +476,10 @@ def item_drop():
     stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
+            print('')
             print(f'                            You found {weapon[0]}\n')
-            input('')
+            weapon_select.weapon_art(weapon)
+            input('                                  Press ENTER')
             clear()
             location_art()
             SHEET.worksheet(worksheets.stash).append_row(weapon)
