@@ -243,8 +243,6 @@ def town_zone():
                 location_art()
                 ingame_menu()
                 print('                             Town Gate is locked!')
-        elif navigate_town == '3':
-            pass
         elif navigate_town.lower() == 'q':
             game_menu_display()
             game_menu_select()
