@@ -108,7 +108,13 @@ In the table bellow i tried to extract requirements for the site from user and d
 ### Structure Plane
 
 This game has standart features and game flow of a classic RPG genre game. The game is controlled via user imputs.
-Uppon launching the game player is presented with a main menu with ouptions to start the game, save the game, load the game, read game rules and quit. menu is accessible at any point in the game (accept for when a player is in a balttle).
+Uppon launching the game player is presented with a 
+ASCII art generated image of the name of the game and 
+a lore of the game to introduce the player to the game.
+
+#### Game Architecture
+
+Player is shown main menu with ouptions to start the game, save the game, load the game, read game rules and quit. menu is accessible at any point in the game (accept for when a player is in a balttle).
 When game is started the player is in the starting zone or 'The town' where they have an option to :
 * visit vendor (to buy and sell items)
 * visit to open stash which has all the aquired items on display (you aslo can swap your current weapon here)
