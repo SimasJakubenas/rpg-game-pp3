@@ -660,7 +660,7 @@ def vendor_buy_menu_option():
             vendor_buy_select()
         elif buy.lower() == 'r':
             clear()
-            return False
+            vendor()
         else:
             print('                    Press "1" to buy item or "R" to go back')
 
@@ -688,7 +688,7 @@ def vendor_buy_select():
             vendor_buy_menu_option()
         else:
             vendor_buy_menu()
-            print('                 Type "Y" to confirm or "N" no cansel purchase')
+            print('                 Type "Y" to confirm or "N" no cancel purchase')
 
 def vendor_sell_menu():
     """
@@ -709,7 +709,7 @@ def vendor_sell_menu_option():
     Takes player input to navigate vendors sell menu
     """
     while True:
-        sell = input('first')
+        sell = input('')
         clear()
         vendor_sell_input(sell)
         return False
@@ -729,7 +729,7 @@ def vendor_sell_input(sell):
             print(f'                  Type number to sell item or "R" to go back')
     elif sell.lower() == 'r':
         clear()
-        venndor()
+        vendor()
     else:
         clear()
         vendor_sell_menu()
