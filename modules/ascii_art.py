@@ -91,6 +91,7 @@ def dungeon_image():
 
 def dessert_image():
     """
+    Image of town from https://ascii.co.uk/art unknown artist
     """
     print('      `888888888888888888888888888888888888888888888888888888888888888888"   ')
     print('   _   "8888888888888888888888888888888888888888888888888888888888888""      ')
@@ -106,7 +107,18 @@ def dessert_image():
     print('                    _.¨        ;<<<<<<¨  :<<.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.')
 
 def dagger_art():
-    print('dagger')
+    """
+    Image of town from https://ascii.co.uk/art unknown artist
+    """
+    print('')
+    print('\n')
+    print('                        ()')
+    print('                        ||')
+    print('             (||--------||<><><><><><><><><><><><><><><><><><><>x' )
+    print('             (||////////||<>                            <><><><><>')
+    print('             (||--------||<><><><><><><><><><><><><><><><><><><>/' )
+    print('                        ||')
+    print('                        ()')
 
 def katana_art():
     print('katana')
