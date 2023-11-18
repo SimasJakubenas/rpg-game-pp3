@@ -1,6 +1,6 @@
 from modules.ascii_art import dagger_art, katana_art, claimore_art, axe_art, sword_art
 
-class Game_flow_bool:
+class GameFlowBool:
     """
     Class that holds boolean logic to control flow of the game
     """
