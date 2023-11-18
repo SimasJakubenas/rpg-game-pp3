@@ -104,3 +104,18 @@ def dessert_image():
     print('               ``..     |  `.,¨  |          |     _.-¨        ..''  `.       ')
     print('                       .¨    ¨:::::::::;¨¨¨'':::-¨           /       ¨.      ')
     print('                    _.¨        ;<<<<<<¨  :<<.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.')
+
+def dagger_art():
+    print('dagger')
+
+def katana_art():
+    print('katana')
+
+def claimore_art():
+    print('claimore')
+
+def axe_art():
+    print('axe')
+
+def sword_art():
+    print('sword')
