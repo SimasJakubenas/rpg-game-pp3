@@ -1,6 +1,6 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
-from modules.game_classes import Hero, Enemy, GameFlowBool, Location, Worksheets, Items
+from game.classes import Hero, Enemy, GameFlowBool, Location, Worksheets, Items
 from modules.ascii_art import title_and_greeting, game_win_logo, game_lose_logo, dungeon_image, dessert_image
 from modules.game_text import game_lore, game_rules, vendor_gossip
 from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
