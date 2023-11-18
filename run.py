@@ -229,7 +229,7 @@ def town_zone():
         print('                            The game was loaded...')
     initial_state.loaded_game = False
     while True:
-        navigate_town = input('\n')
+        navigate_town = input('')
         clear()
         if navigate_town == '1':
             initial_state.sewers = True
@@ -256,7 +256,7 @@ def town_zone():
         else:
             location_art()
             ingame_menu()
-            print('                 Enter a number 1-4 to select your destination')
+            print('                     Enter a number to select your destination')
 
 def enemy_zone_navigation():
     """

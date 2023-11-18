@@ -1,3 +1,5 @@
+from modules.ascii_art import town_image
+
 def game_menu_display_top():
     """
     Displays top half of the main menu
@@ -80,7 +82,8 @@ def ingame_menu():
     print('             1. Go to Sewers                      Q. Open Menu')
     print('             2. Go to Dessert                     W. Character Info')
     print('                                                  E. Open Stash')
-    print('                                                  R. Visit Vendor\n')
+    print('                                                  R. Visit Vendorh')
+    town_image()
     
 def stash_menu_display(stash_sheet, stash_limit):
     print(' ' * 29, f'Equipped:    {stash_sheet[1][0]}\n')
