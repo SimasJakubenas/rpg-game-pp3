@@ -1,7 +1,7 @@
 import gspread, random, os
 from google.oauth2.service_account import Credentials
 from modules.game_classes import Character, Hero, Enemy, Game_flow_bool, Location, Worksheets
-from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo
+from modules.ascii_art import title_and_greeting, game_win_logo, game_loso_logo, dungeon_image
 from modules.game_text import game_lore, game_rules, vendor_gossip
 from modules.menus import game_menu_display_top, game_menu_display_bottom, vendor_sell_menu_display
 from modules.menus import vendor_sell_menu_empty, vendor_buy_menu_art, vendor_menu_main, ingame_menu, stash_menu_display
@@ -343,7 +343,8 @@ def zone_navigation_menu():
     Shows message if players stash is full and they decide to not replace an old item with the new one
     """
     location.enemy_zone_menu()
-    
+    if initial_state.sewers == True:
+        dungeon_image()
     if initial_state.replace:
         print(f'                         You left your loot behind')
     initial_state.replace = False
