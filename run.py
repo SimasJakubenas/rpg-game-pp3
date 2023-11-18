@@ -214,7 +214,7 @@ def game_rules_back():
         if back_to_menu.lower() == 'r':
             clear()
             game_menu_display()
-            game_menu_select()
+            return False
         else:
             clear()
             game_rules()
