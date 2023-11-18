@@ -68,7 +68,8 @@ def game_menu_select():
         elif menu_item == '2':
             if initial_state.alive == False:
                 menu_item = 'start'
-                print('Start the game first')
+                print('')
+                print('                             Start the game first')
                 menu_option(menu_item)
             else:
                 menu_item = 'save'
