@@ -133,7 +133,21 @@ def katana_art():
     print('              \/')
 
 def claimore_art():
-    print('claimore')
+    """
+    Image of town from https://ascii.co.uk/art unknown artist
+    """
+    print('')
+    print('                         __')
+    print('                        \  /')
+    print('                         \\')
+    print('                          \\')
+    print('        ___________________||/\_')
+    print('       (___________________()| _||||||||||||||||||||||||||||||||||||||||||>')
+    print('                           ||\/')
+    print('                          //')
+    print('                         //')
+    print('                       /__x')
+
 
 def axe_art():
     print('axe')
