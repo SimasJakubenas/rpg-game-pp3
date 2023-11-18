@@ -373,3 +373,29 @@ To clone the repository:
 
 4. Change the current working directory in the terminal of your code editor to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
+
+## Credits
+
+### Code used 
+
+All code was written by the developer with exception of:
+* creating 'health bars' which were done following [this](https://www.youtube.com/watch?v=0e2DexQlDYk) youtube tutorial. [W3Schools](https://www.w3schools.com/) were querried for variaus python functionality questions.
+* code used in clear() method was taken from [StackOverflow](https://stackoverflow.com/questions/2084508/clear-terminal-in-python) "poke's" answer
+
+### Content 
+
+ASCII art was taken from [ASCII](https://ascii.co.uk/art). Where applicable authors credited in the methods description above art piece.
+
+* This project was made using the following [template](https://github.com/Code-Institute-Org/p3-template) by Code Institute. This template enables project running in a console on a webpage.
+
+* i was following The Love Sandwiches walkthrough by Code Institute to activate API credentials to be able to connect to API and import google spreadsheet.
+
+### Acknowledgments
+
+I would like to acknowledge the following people:
+
+* My family and friends for being understanding while I was absent from their lives whilst I was working on this project.
+
+* My mentor Medale Oluwafemi for giving me constructive criticism and continuing to push me so I can rach my full potential as a ull stack software developer. i'm forever grateful Femi.
+
+* Code Institute for providing me with an amazing platform to learn and grow.
