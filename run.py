@@ -438,10 +438,10 @@ def battle_options(enemy_stats):
                 print('                            You have no health pots')
         else:
             if initial_state.first_attack == False:
-                print(f'                      You have been attacked by {enemy[0]}')
+                print(f'                      You have been attacked by {enemy_stats.name}')
             else:
-                print(f'                   You have done {hero_stats.attack} damage to {enemy_stats.name}')
-            print(f'               {enemy_stats.name} has done {enemy_stats.attack} damage to you')
+                print(f'                     You have done {hero_stats.attack} damage to {enemy_stats.name}')
+            print(f'                      {enemy_stats.name} has done {enemy_stats.attack} damage to you')
             battle_menu(enemy_stats)
             print('                   Type a number 1-n to select battle option')
 
