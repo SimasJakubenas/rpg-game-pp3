@@ -596,11 +596,12 @@ def clear():
 
 def location_art():
     """
-    ASCII art to improve game looks
+    ASCII art to improve game location looks
+    Maths used to center the text
     """
-    print(' ' * 22, '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
-    print(' ' * 28, f'>>►► {location.current_location} ◄◄<<     ')
-    print(' ' * 22, '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-\n')
+    print(' ' * (28 - round(len(location.current_location)/2)), '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
+    print(' ' * (34 - round(len(location.current_location)/2)), f'>>►► {location.current_location} ◄◄<<     ')
+    print(' ' * (28 - round(len(location.current_location)/2)), '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-\n')
 
 def vendor():
     """
