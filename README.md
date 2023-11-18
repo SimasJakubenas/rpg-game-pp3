@@ -348,3 +348,28 @@ The site is deployed using Heroku Pages. Visit the deployed site [here](https://
 6 - Click on deploy tab. Select deploy method, in this case Git Hub. Fint the right repository and then connecting to it.
 
 7 - To manually deploy project click 'Deploy Branch' in the deployment section. Once built click the view button to view the deployed page making a note of it's url.
+
+### Local Development
+
+#### How to Fork
+
+To fork the repository:
+
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, [Tal Rasha](https://github.com/SimasJakubenas/rpg-game-pp3).
+3. Click the Fork button in the top right corner.
+
+    ![image](https://github.com/SimasJakubenas/PersonalWebsite/assets/138577499/8e4648c7-3a45-4cc8-bb62-526f2fb599c3)
+
+#### How to Clone
+
+To clone the repository:
+
+1. Log in (or sign up) to GitHub.
+2. Go to the repository for this project, [Tal Rasha](https://github.com/SimasJakubenas/rpg-game-pp3).
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+
+    ![image](https://github.com/SimasJakubenas/blackjack-milestone-p2/assets/138577499/c767569a-52e9-4cb1-9a84-9ddf197bdb09)
+
+4. Change the current working directory in the terminal of your code editor to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
