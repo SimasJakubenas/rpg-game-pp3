@@ -117,7 +117,7 @@ def menu_option(menu_item):
     """
     print('')
     while True:
-        want_to_quit = input(f"                       Do you want to {menu_item} the game?Y/N\n")
+        want_to_quit = input(f"                       Do you want to {menu_item} the game?Y/N")
         clear()
 
         if want_to_quit.lower() == 'y':
@@ -536,9 +536,9 @@ def equip_weapon(equip, stash_sheet):
     if weapon is equiped the stash worksheet is appended appropreately
     """
     stash_menu()
-    print(f'                       Would you like to equip {stash_sheet[int(equip)+1][0]}?')
+    print(f'                       Would you like to equip {stash_sheet[int(equip)+1][0]}Y/N?')
     while True:
-        equip_confirm = input('Y/N\n')
+        equip_confirm = input('')
         if equip_confirm.lower() == 'y':
             stash_limit = stash_sheet[1:9]
             equipped_weapon = stash_limit.pop(int(equip))
@@ -573,7 +573,7 @@ def stash_menu():
 
 def return_to_town():
     zone_navigation_menu()
-    print('                       Would you like to return to town?')
+    print('                       Would you like to return to town?Y/N')
     while True:
         town_portal = input('')
         clear()
@@ -667,9 +667,9 @@ def vendor_buy_menu_option():
 def vendor_buy_select():
     """
     """
-    print('                     Would you like to buy Health Potion?')
+    print('                     Would you like to buy Health Potion?Y/N')
     while True:
-        purchase_confirm = input('Y/N\n')
+        purchase_confirm = input('')
         clear()
         if purchase_confirm.lower() == 'y':
             if hero_stats.gold >= 100:
@@ -702,14 +702,14 @@ def vendor_sell_menu():
         vendor_sell_menu_display(stash_limit)
     else:
         vendor_sell_menu_empty()
-    print('R. Go Back')
+    print('                                  R. Go Back')
 
 def vendor_sell_menu_option():
     """
     Takes player input to navigate vendors sell menu
     """
     while True:
-        sell = input('\n')
+        sell = input('')
         clear()
         vendor_sell_input(sell)
         return False
@@ -722,7 +722,7 @@ def vendor_sell_input(sell):
         stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
         if 0 < int(sell) < len(stash_sheet):
             vendor_sell_menu()
-            print(f'                       Would you like to sell {stash_sheet[int(sell)+1][0]}?')
+            print(f'                       Would you like to sell {stash_sheet[int(sell)+1][0]}?Y/N')
             vendor_sell_select(sell, stash_sheet)
         else:
             vendor_sell_menu()
@@ -732,14 +732,14 @@ def vendor_sell_input(sell):
         vendor_sell_menu()
     else:
         vendor_sell_menu()
-        print(                 'Type number to sell item or "R" to go backward')
+        print(                'Type number to sell item or "R" to go backward')
 
 def vendor_sell_select(sell, stash_sheet):
     """
     Verifies user input to sell an item
     """
     while True:
-        sale_confirm = input('Y/N\n')
+        sale_confirm = input('')
         if sale_confirm.lower() == 'y':
             hero_stats.gold += int(stash_sheet[int(sell)+1][4])
             remove_first = stash_sheet.pop(int(sell)+1)
