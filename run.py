@@ -457,6 +457,10 @@ def battle_option_attack(enemy_stats):
     if enemy_stats.health <= 0:
         print(f'                      {enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
         item_drop()
+        print('')
+        input('                                  Press ENTER')
+        clear()
+        location_art()
         zone_navigation_menu()
         hero_stats.gold += enemy_stats.gold
         print('')
@@ -480,9 +484,6 @@ def item_drop():
             print('')
             print(f'                                You found {weapon[0]}\n')
             weapon_select.weapon_art(weapon)
-            input('                                  Press ENTER')
-            clear()
-            location_art()
             SHEET.worksheet(worksheets.stash).append_row(weapon)
             stash_sheet.append(weapon)
         # When stash over max capacity prompts user to replace first item in the stash with a new one
