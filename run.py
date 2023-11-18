@@ -709,7 +709,7 @@ def vendor_sell_menu_option():
     Takes player input to navigate vendors sell menu
     """
     while True:
-        sell = input('')
+        sell = input('first')
         clear()
         vendor_sell_input(sell)
         return False
@@ -729,9 +729,11 @@ def vendor_sell_input(sell):
             print(f'                  Type number to sell item or "R" to go back')
     elif sell.lower() == 'r':
         clear()
-        vendor_sell_menu()
+        venndor()
     else:
+        clear()
         vendor_sell_menu()
+        vendor_sell_menu_option()
         print(                'Type number to sell item or "R" to go backward')
 
 def vendor_sell_select(sell, stash_sheet):
