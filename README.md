@@ -132,3 +132,23 @@ For the most part I stuck with the initial chart. There is a couple noticible ch
 * the addition to mini boss in the first zone
 
 A google spreadsheet was used to store all the data (map tiles, items, hero and enemy stats etx...) on separate worksheets. This allows for the introduction of API's to the project while simultaneously providing a way to expand game content with very minimal code adjusments. A win win situation!
+
+### The Surface Plane
+
+As this is a terminal game it's very limited in terms of visual appearance, however I tried to utilize the use of 'ASCII' arc to make the game more appealing to the player and break up the monotony of text.
+
+Game Name, You Win and Game Over 'images' created with ASCII text generator (link in credits section of this README)
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/22f6246a-12c0-402d-9168-e6574a979d08)
+
+Also 'ASCII' art was used for images in town and enemy zones and of items that are aquired during battle.
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/95e8e83a-1e61-4730-9e22-c9cac86b27ee)
+
+Vendor, Stash and Character Info, game rules and game lore menus I styled myself
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/decafc3d-e3b5-4a8b-8ae8-13545846152e)
+
+I used a youtube tutorial to create 'health bars' for battle (credited in README)
+
+![image](https://github.com/SimasJakubenas/rpg-game-pp3/assets/138577499/9c809e1d-ef3f-419f-b5ce-4bc4419f7c99)
