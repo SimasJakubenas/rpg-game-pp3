@@ -27,6 +27,9 @@ location = Location('', '', 0, 0 )
 character_list = SHEET.worksheet('chars').get_all_values()
 hero = tuple(character_list[1])
 hero_stats = Hero(*hero)
+enemy_list = slice(2, 5)
+enemy = tuple(random.choice(character_list[enemy_list]))
+enemy_stats = Enemy(*enemy)
 # Pulls the game weapons from a worksheet and pass the values over to Items class
 item_list = SHEET.worksheet('items').get_all_values()
 weapon_list = item_list[3:]
@@ -299,8 +302,6 @@ def not_town_portal():
             hero_stats.gold += int(character_list[5][3])
             initial_state.treasure_chest = False
             initial_state.fight = False
-        else:
-            battle()
     if initial_state.fight:
         location_art()
         battle()
@@ -388,7 +389,7 @@ def battle():
             initial_state.hero_created = False
             initial_state.alive = False
             hero_stats.health = hero_stats.max_health
-            input('                        Press ENter to start over\n')
+            input('                        Press ENter to start\n')
             clear()
             main()
         battle_menu(enemy_stats)
