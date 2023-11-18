@@ -121,7 +121,16 @@ def dagger_art():
     print('                        ()')
 
 def katana_art():
-    print('katana')
+    """
+    Image of town from https://ascii.co.uk/art unknown artist
+    """
+    print('')
+    print('\n')
+    print('\n')
+    print('              /\                               ______,....----,')
+    print('/VVVVVVVVVVVVVV|===================""""""""""""       ___,..-¨')
+    print('`^^^^^^^^^^^^^^|======================----------""""""')
+    print('              \/')
 
 def claimore_art():
     print('claimore')
