@@ -300,7 +300,7 @@ def not_town_portal():
         if initial_state.treasure_chest:
             location_art()
             zone_navigation_menu()
-            print('                             You found 200 gold!')
+            print('                              You found 200 gold!')
             hero_stats.gold += int(character_list[5][3])
             initial_state.treasure_chest = False
             initial_state.fight = False
@@ -459,7 +459,6 @@ def battle_option_attack(enemy_stats):
         print(f'                      {enemy_stats.name} has fallen and dropped {enemy_stats.gold} gold')
         item_drop()
         print('')
-        input('                                  Press ENTER')
         clear()
         location_art()
         zone_navigation_menu()
@@ -488,12 +487,16 @@ def item_drop():
     for weapon in weapon_list:
         if float(weapon[-1]) >= random.random():
             print('')
-            print(f'                                You found {weapon[0]}\n')
+            print(f'                                   You found {weapon[0]}\n')
             weapon_select.weapon_art(weapon)
+            input('                                  Press ENTER')
+            clear()
+            location_art()
             SHEET.worksheet(worksheets.stash).append_row(weapon)
             stash_sheet.append(weapon)
         # When stash over max capacity prompts user to replace first item in the stash with a new one
         while len(stash_sheet) > 8:
+            weapon_select.weapon_art(weapon)
             remove_item = input(f'         Not enough space in stash would you like to remove {stash_sheet[2][0]}?Y/N\n')
             clear()
             if remove_item.lower() == 'y':
@@ -512,8 +515,8 @@ def item_drop():
                 print(f'                           You left your {weapon[0]} behind')
             else:
                 location_art()
-                print(f'                            You found {weapon[0]}\n')
-                print(f'           Press "Y" to replace {stash_sheet[1][0]} or "N" to pass on this item')
+                print(f'                               You found {weapon[0]}\n')
+                print(f'           Press "Y" to replace {stash_sheet[2][0]} or "N" to pass on this item')
 
 def stash_open():
     """
