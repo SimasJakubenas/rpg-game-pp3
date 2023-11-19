@@ -560,10 +560,14 @@ def equip_weapon(equip, stash_sheet):
                 SHEET.worksheet(worksheets.stash).append_row(row)
             stash_sheet = SHEET.worksheet(worksheets.stash).get_all_values()
             clear()
-            stash_open()
+            location_art()
+            stash_menu()
+            return False
         elif equip_confirm.lower() == 'n':
             clear()
-            stash_open()
+            location_art()
+            stash_menu()
+            return False
         else:
             clear()
             location_art()
