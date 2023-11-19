@@ -17,6 +17,7 @@ def title_and_greeting():
     print('                    Welcome to a Diablo II themed RPG game')
     input('                             Press ENTER to play\n')
 
+
 def game_win_logo():
     """
     Display winning screen
@@ -34,6 +35,7 @@ def game_win_logo():
     print('             ░ ░                                                              \n')
     print('                 Would you like to continue the game?Y/N\n')
 
+
 def game_lose_logo():
     """
     Display winning screen
@@ -50,6 +52,7 @@ def game_lose_logo():
     print('   ░ ░   ░   ░   ▒   ░      ░      ░      ░ ░ ░ ▒       ░░     ░     ░░   ░   ')
     print('         ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░       ')
     print('                                                        ░                     ')
+
 
 def town_image():
     """
@@ -70,6 +73,7 @@ def town_image():
     print('                    /_______________________________________X   ')
     print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
 
+
 def dungeon_image():
     """
     Image of town from https://ascii.co.uk/art unknown artist
@@ -89,6 +93,7 @@ def dungeon_image():
     print("          |  | /        __-- _   |   _- _ -  | /        __--_    |  | ")
     print("          |__|/__________________|___________|/__________________|__| ")
 
+
 def dessert_image():
     """
     Image of town from https://ascii.co.uk/art unknown artist
@@ -106,6 +111,7 @@ def dessert_image():
     print('                       .¨    ¨:::::::::;¨¨¨'':::-¨           /       ¨.      ')
     print('                    _.¨        ;<<<<<<¨  :<<.:.~.:.~.:.~.:.~.:.~.:.~.:.~.:.~.')
 
+
 def dagger_art():
     """
     Image of town from https://ascii.co.uk/art unknown artist
@@ -114,12 +120,13 @@ def dagger_art():
     print('\n')
     print('                        ()')
     print('                        ||')
-    print('             (||--------||<><><><><><><><><><><><><><><><><><><>x' )
+    print('             (||--------||<><><><><><><><><><><><><><><><><><><>x')
     print('             (||////////||<>                            <><><><><>')
-    print('             (||--------||<><><><><><><><><><><><><><><><><><><>/' )
+    print('             (||--------||<><><><><><><><><><><><><><><><><><><>/')
     print('                        ||')
     print('                        ()')
     print('')
+
 
 def katana_art():
     """
@@ -133,6 +140,7 @@ def katana_art():
     print('        `^^^^^^^^^^^^^^|======================----------""""""')
     print('                      x/')
     print('')
+
 
 def claimore_art():
     """
@@ -151,6 +159,7 @@ def claimore_art():
     print('                       /__x')
     print('')
 
+
 def axe_art():
     """
     Image of town from https://ascii.co.uk/art artist mrf
@@ -165,6 +174,7 @@ def axe_art():
     print('                                       `.__`-`__.`')
     print('                                            `')
     print('')
+
 
 def sword_art():
     """
@@ -182,4 +192,3 @@ def sword_art():
     print('                             ) ))')
     print('                            (_((')
     print('')
-
