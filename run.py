@@ -288,6 +288,7 @@ def enemy_zone_navigation():
             if initial_state.fight:
                 initial_state.fight = False
                 location_art()
+                zone_navigation_menu()
                 return_to_town()
         zone_navigation_menu_input()
 
@@ -468,6 +469,11 @@ def battle_option_attack(enemy_stats):
             initial_state.key = True
             clear()
             location_art()
+            print('                      You have foud the key for Town Gate!')
+            input('                                 Press ENTER')
+            clear()
+            location_art()
+            zone_navigation_menu()
             return_to_town()
         if enemy_stats.name == 'Duriel':
             game_win_logo()
@@ -584,7 +590,6 @@ def stash_menu():
     print('                                 E. Go back')
 
 def return_to_town():
-    zone_navigation_menu()
     print('                       Would you like to return to town?Y/N')
     while True:
         town_portal = input('')
