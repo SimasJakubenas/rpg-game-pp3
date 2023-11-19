@@ -160,6 +160,7 @@ def confirmed_menu_selection(menu_item):
         return False
     if menu_item == 'load':
         initial_state.alive = True
+        initial_state.hero_created = True
         initial_state.loaded_game = True
         load_game()
         clear()
@@ -537,7 +538,7 @@ def stash_open():
                 return False
         else:
             stash_menu()
-            print('                Type number to equip item or "R" to go back')
+            print('                Type number to equip item or "E" to go back')
 
 def equip_weapon(equip, stash_sheet):
     """
