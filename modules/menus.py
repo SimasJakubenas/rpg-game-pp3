@@ -1,5 +1,6 @@
 from modules.ascii_art import town_image
 
+
 def game_menu_display_top():
     """
     Displays top half of the main menu
@@ -12,6 +13,7 @@ def game_menu_display_top():
     print('                         .-@+.,-----------------,.+@=. ')
     print('                        .-@:  |    GAME MENU    |  .@+.')
     print('                        -@+@@@|                 |...:@-')
+
 
 def game_menu_display_bottom():
     """
@@ -28,6 +30,7 @@ def game_menu_display_bottom():
     print('                             .+@@=....   ....=@@*.     ')
     print('                               ..-*@@@@@@@@@*-..       ')
 
+
 def vendor_sell_menu_display(stash_limit):
     """
     Displays sell menu at vendor
@@ -35,11 +38,12 @@ def vendor_sell_menu_display(stash_limit):
     print('         φäðœ‰~-                                                -~‰œðäφ    ')
     print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
     for number, item in enumerate(stash_limit, 1):
-            # Enumerates all items in stash and ensures correct positioning of the display
-            print(' ' * 22, str(number) + '.', item[0].title() + ' ' * (25 - len(item[0])), item[4])
+        # Enumerates all items in stash and ensures correct positioning of the display
+        print(' ' * 22, str(number) + '.', item[0].title() + ' ' * (25 - len(item[0])), item[4])
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
     print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   ')
     print('                         Enter a number to sell item                       \n')
+
 
 def vendor_sell_menu_empty():
     print('         φäðœ‰~-                                                -~‰œðäφ    ')
@@ -47,6 +51,7 @@ def vendor_sell_menu_empty():
     print('                           You have nothing to sell                        ')
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
     print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   \n')
+
 
 def vendor_buy_menu_art():
     """
@@ -60,6 +65,7 @@ def vendor_buy_menu_art():
     print('\n')
     print('                                 R. Go Back')
     print('')
+
 
 def vendor_menu_main():
     """
@@ -75,6 +81,7 @@ def vendor_menu_main():
     print('                 ‘φäðœ‰~-                              -~‰œðäφ‘\n')
     print('                                 R. Go Back')
 
+
 def ingame_menu():
     """
     In game menu selection
@@ -84,17 +91,18 @@ def ingame_menu():
     print('                                                  E. Open Stash')
     print('                                                  R. Visit Vendorh')
     town_image()
-    
+
+
 def stash_menu_display(stash_sheet, stash_limit):
     print(' ' * 29, f'Equipped:    {stash_sheet[1][0]}\n')
     print('         φäðœ‰~-                                                -~‰œðäφ    ')
     print('         ‘%  ╔════════════════════════════════════════════════════╗  %‘    ')
-    print(' ' * 22 + 'Item' + ' ' * 12 + '+ Attack' + ' '* 5 + '+ Max Heath\n')
+    print(' ' * 22 + 'Item' + ' ' * 12 + '+ Attack' + ' ' * 5 + '+ Max Heath\n')
     if len(stash_sheet) <= 2:
         print(' ' * 25, 'You have no items to equip')
     for number, item in enumerate(stash_limit, 1):
         # Enumerates all items in stash and ensures correct positioning of the display
-        print(' ' * 18, str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1), 
-              item[1],' ' * (10 - len(item[2]) + 2), item[2])
+        print(' ' * 18, str(number) + '.', item[0].title() + ' ' * (20 - len(item[0]) - len(item[1]) + 1),
+              item[1], ' ' * (10 - len(item[2]) + 2), item[2])
     print('         ‘%  ╚════════════════════════════════════════════════════╝  %‘    ')
     print('        ‘φäðœ‰~-                                                -~‰œðäφ‘   ')
