@@ -16,9 +16,11 @@ https://tal-rasha-rpg-6583f66e1480.herokuapp.com/
 * [The Structure Plane](#the-structure-plane)
 * [The Skeleton Plane](#the-skeleton-plane)
 * [The Surface Plane](#the-surface-plane)
+
 [Features](#features)
 * [Current Features](#current-features)
 * [future Features](#future-features)
+
 [Technologies Used](#technologies-used)
 * [Languages used](#languages-used)
 * [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used)
@@ -27,9 +29,11 @@ https://tal-rasha-rpg-6583f66e1480.herokuapp.com/
 * [Local Development](#local-development)
   * [How to Fork](#how-to-fork)
   * [How to Clone](#how-to-clone)
+
 [Testing](#testing)
 * [Solved Bugs](#solved-bugs)
 * [Known Bugs](#known-bugs)
+
 [Credits](#credits)
 * [Code used](#code-used)
 * [Content](#content)
