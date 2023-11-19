@@ -18,7 +18,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Tal-Rasha')
 
 # Sets initial boolean values in the GameFlowBool class
-initial_state = GameFlowBool(False, False, False, False, True, False, False, False, False, False)
+initial_state = GameFlowBool(False, False, False, False, True, False, False, False, False)
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 # Location class inital values
@@ -350,9 +350,6 @@ def zone_navigation_menu():
         dungeon_image()
     if initial_state.dessert == True:
         dessert_image()
-    if initial_state.replace:
-        print(f'                         You left your loot behind')
-    initial_state.replace = False
 
 def battle():
     """
@@ -491,21 +488,22 @@ def item_drop():
             stash_sheet.append(weapon)
         # When stash over max capacity prompts user to replace first item in the stash with a new one
         while len(stash_sheet) > 8:
-            remove_item = input(f'         Not enough space in stash would you like to remove {stash_sheet[1][0]}?Y/N\n')
+            remove_item = input(f'         Not enough space in stash would you like to remove {stash_sheet[2][0]}?Y/N\n')
             clear()
             if remove_item.lower() == 'y':
-                remove_first = stash_sheet.pop(1)
+                remove_first = stash_sheet.pop(2)
                 SHEET.worksheet(worksheets.stash).clear()
                 for row in stash_sheet:
                     SHEET.worksheet(worksheets.stash).append_row(row)
                 location_art()
+                print(f'                         You replaced  {remove_first[0]} with {weapon[0]}')
             elif remove_item.lower() == 'n':
                 del stash_sheet[-1]
                 SHEET.worksheet(worksheets.stash).clear()
                 for row in stash_sheet:
                     SHEET.worksheet(worksheets.stash).append_row(row)
-                initial_state.replace = True
                 location_art()
+                print(f'                           You left your {weapon[0]} behind')
             else:
                 location_art()
                 print(f'                            You found {weapon[0]}\n')
