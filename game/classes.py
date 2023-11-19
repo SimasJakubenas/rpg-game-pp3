@@ -1,5 +1,6 @@
 from modules.ascii_art import dagger_art, katana_art, claimore_art, axe_art, sword_art
 
+
 class GameFlowBool:
     """
     Class that holds boolean logic to control flow of the game
@@ -15,6 +16,7 @@ class GameFlowBool:
         self.loaded_game = loaded_game
         self.first_attack = first_attack
 
+
 class Worksheets:
     """
     Class that hold all the worksheets used in the game
@@ -28,6 +30,7 @@ class Worksheets:
         self.stash = stash
         self.save = save
         self.stash_save = stash_save
+
 
 class Location:
     """
@@ -45,28 +48,29 @@ class Location:
         Hides corresponding options if player is next to the edge of the map
         """
         if self.x > 0:
-            print(# Selects location name based on coordinates and paces text in fixed position
+            print(  # Selects location name based on coordinates and paces text in fixed position
                 ' ' * 8, f'1. Go North to {self.enemy_zone[self.x-1][self.y]}',
-                ' ' * (30 -len(f'{self.enemy_zone[self.x-1][self.y]}')),
+                ' ' * (30 - len(f'{self.enemy_zone[self.x-1][self.y]}')),
                 'Q. Open Menu')
         else:
             print(' ' * 55, 'Q. Open Menu')
         if self.y < len(self.enemy_zone[self.x]) - 1:
-            print(# Selects location name based on coordinates and paces text in fixed position
+            print(  # Selects location name based on coordinates and paces text in fixed position
                 ' ' * 8, f'2. Go East to {self.enemy_zone[self.x][self.y+1]}',
-                ' ' * (31 -len(f'{self.enemy_zone[self.x][self.y+1]}')),
+                ' ' * (31 - len(f'{self.enemy_zone[self.x][self.y+1]}')),
                 'W. Character Info')
         else:
-            print(' ' * 55, 'W. Character Info')    
+            print(' ' * 55, 'W. Character Info')
         if self.x < len(self.enemy_zone) - 1:
-            print(# Selects location name based on coordinates and paces text in fixed position
+            print(  # Selects location name based on coordinates and paces text in fixed position
                 ' ' * 8, f'3. Go South to {self.enemy_zone[self.x+1][self.y]}',
-                ' ' * (30 -len(f'{self.enemy_zone[self.x+1][self.y]}')),
+                ' ' * (30 - len(f'{self.enemy_zone[self.x+1][self.y]}')),
                 'E. Open stash')
         else:
             print(' ' * 55, 'E. Open stash')
         if self.y > 0:
             print(' ' * 8, f'4. Go West to {self.enemy_zone[self.x][self.y-1]}')
+
 
 class Character:
     """
@@ -79,6 +83,7 @@ class Character:
         self.max_health = int(stats[1])
         self.attack = int(stats[2])
         self.gold = int(stats[3])
+
 
 class Hero(Character):
     """
@@ -95,13 +100,14 @@ class Hero(Character):
         print('\n')
         print('   ≥φäðœ‰~-                                                          -~‰œðäφ≥   ')
         print('   ‘æ%  ╔══                                                          ══╗  %æ‘   ')
-        print('     δ  ║           Health:', ' ' * 20, f'{self.max_health}', ' '  * (20 - len(str(self.max_health))), '║  δ')
-        print('     :              Attack:', ' ' * 20, f'{self.attack}', ' '  * (20 - len(str(self.attack))), '   :')
-        print('     :              Potions:', ' ' * 19, f'{self.health_potion}', ' '  * (20 - len(str(self.health_potion))), '   :')
-        print('     δ  ║           Gold:', ' ' * 22, f'{self.gold}', ' '  * (20 - len(str(self.gold))), '║  δ')
+        print('     δ  ║           Health:', ' ' * 20, f'{self.max_health}', ' ' * (20 - len(str(self.max_health))), '║  δ')
+        print('     :              Attack:', ' ' * 20, f'{self.attack}', ' ' * (20 - len(str(self.attack))), '   :')
+        print('     :              Potions:', ' ' * 19, f'{self.health_potion}', ' ' * (20 - len(str(self.health_potion))), '   :')
+        print('     δ  ║           Gold:', ' ' * 22, f'{self.gold}', ' ' * (20 - len(str(self.gold))), '║  δ')
         print('   ‘æ%  ╚══                                                          ══╝  %æ‘   ')
         print('  ‘≥φäðœ‰~-                                                          -~‰œðäφ≥‘  \n')
         print('W. Go Back\n')
+
 
 class Enemy(Character):
     """
@@ -110,6 +116,7 @@ class Enemy(Character):
     def __init__(self, *stats):
         super().__init__(*stats)
         self.spawn_area = stats[4]
+
 
 class Items:
     """
@@ -133,3 +140,4 @@ class Items:
             axe_art()
         if weapon[0] == 'Sword':
             sword_art()
+            
