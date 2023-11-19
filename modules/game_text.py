@@ -1,6 +1,6 @@
 def game_lore():
     """
-    Lore of the game 
+    Lore of the game
     """
     print('\n')
     print('{|,,,,---~~-----------------~~~----,---------~~~~------,.-------------~~--,,,,|)')
@@ -14,7 +14,7 @@ def game_lore():
     print('{|,,,,-´--~~~--.,------------~~~~------------.,.----------~~~-----------´-,,,,|}')
     print('{|""""--"----------------~~------""------------------~~~------------""----""""|}\n')
     input('                         Press ENTER to continue')
-    
+
 
 def game_rules():
     """
@@ -40,6 +40,7 @@ def game_rules():
     print('{|""""--"----------------~~------""------------------~~~------------""----""""|}\n')
     print('R. Back to menu')
 
+
 def vendor_gossip():
     """
     Prints text that gives a hint to player
@@ -53,3 +54,4 @@ def vendor_gossip():
     print('   ‘æ%  ╚══                                                          ══╝  %æ‘   ')
     print('  ‘≥φäðœ‰~-                                                          -~‰œðäφ≥‘  \n')
     print('R. Go back\n')
+    
