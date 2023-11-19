@@ -131,7 +131,7 @@ def menu_option(menu_item):
             confirmed_menu_selection(menu_item)
         elif want_to_quit.lower() == 'n':
             game_menu_display()
-            return False
+            game_menu_select()
         else:
             game_menu_display()
             print('')
