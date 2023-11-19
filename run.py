@@ -1,4 +1,6 @@
-import gspread, random, os
+import gspread
+import random
+import os
 from google.oauth2.service_account import Credentials
 from game.classes import Hero, Enemy, GameFlowBool, Location, Worksheets, Items
 from modules.ascii_art import title_and_greeting, game_win_logo, game_lose_logo, dungeon_image, dessert_image
@@ -22,7 +24,7 @@ initial_state = GameFlowBool(False, False, False, False, True, False, False, Fal
 # Assigns worksheets from a spreadsheet to Worksheet class
 worksheets = Worksheets('sewers', 'dessert', 'chars', 'items', 'shop', 'stash', 'save', 'stash_save')
 # Location class inital values
-location = Location('', '', 0, 0 )
+location = Location('', '', 0, 0)
 # Initial hero stats
 character_list = SHEET.worksheet('chars').get_all_values()
 hero = tuple(character_list[1])
@@ -39,6 +41,7 @@ weapon_select = Items(*weapons)
 full_life = '█'
 empty_life = '_'
 
+
 def main():
     """
     Main game function
@@ -48,17 +51,19 @@ def main():
     game_menu_display()
     game_menu_select()
 
+
 def game_menu_display():
     """
     Calls for game menu and requires user input to select menu item
     ASCII art was created with https://www.asciiart.eu/image-to-ascii
     """
     game_menu_display_top()
-    if initial_state.hero_created == False:
+    if initial_state.hero_created is False:
         print('                        #%..:@|   1. New Game   |@@@+%%')
     else:
         print('                        #%..:@|   1. Continue   |@@@+%%')
     game_menu_display_bottom()
+
 
 def game_menu_select():
     """
@@ -74,7 +79,7 @@ def game_menu_select():
             return menu_item
         # Game save
         elif menu_item == '2':
-            if initial_state.alive == False:
+            if initial_state.alive is False:
                 menu_item = 'start'
                 print('')
                 print('                             Start the game first')
@@ -86,7 +91,7 @@ def game_menu_select():
         elif menu_item == '3':
             menu_item = 'load'
             menu_option(menu_item)
-        # Game rules   
+        # Game rules
         elif menu_item == '4':
             clear()
             game_rules()
@@ -99,14 +104,15 @@ def game_menu_select():
             print('')
             print('                  Select Menu Option by entering a number 1-5')
 
+
 def start_game():
     """
     Starts gane when player select 'New Game' option in menu
     This imput serves as 'Continue' logic checks if the game been started already
     """
     menu_item = 'start'
-    if initial_state.alive == False:
-        if initial_state.hero_created == False:
+    if initial_state.alive is False:
+        if initial_state.hero_created is False:
             menu_option(menu_item)
         else:
             return False
@@ -118,9 +124,10 @@ def start_game():
         else:
             zone_navigation_menu()
 
+
 def menu_option(menu_item):
     """
-    Calls appropriate functions that corresponds with players input 
+    Calls appropriate functions that corresponds with players input
     """
     print('')
     while True:
@@ -136,6 +143,7 @@ def menu_option(menu_item):
             game_menu_display()
             print('')
             print('                 Type in "y" to save or "N" to go back to menu')
+
 
 def confirmed_menu_selection(menu_item):
     """
@@ -168,6 +176,7 @@ def confirmed_menu_selection(menu_item):
     if menu_item == 'quit':
         quit()
 
+
 def save_game():
     """
     Saves heros stats by pushing hero stats to a google spreadsheet
@@ -177,11 +186,11 @@ def save_game():
     hero_stats_dict = vars(hero_stats)
     hero_stats_list = list(hero_stats_dict.values())
     SHEET.worksheet(worksheets.save).append_row(hero_stats_list)
-
     get_items = SHEET.worksheet(worksheets.stash).get_all_values()
     SHEET.worksheet(worksheets.stash_save).clear()
     for item in get_items:
         SHEET.worksheet(worksheets.stash_save).append_row(item)
+
 
 def load_game():
     """
@@ -209,6 +218,7 @@ def load_game():
             print('                       You need to save the game first!')
             game_menu_select()
 
+
 def game_rules_back():
     """
     Game rules navigation
@@ -224,6 +234,7 @@ def game_rules_back():
             game_rules()
             print('                         Type "R" to go back to menu')
 
+
 def town_zone():
     """
     Starting game zone with that prompts the player to navigate the game
@@ -234,7 +245,7 @@ def town_zone():
     location_art()
     ingame_menu()
     # Loaded_game boolen used only to control positioning of the text bellow
-    if initial_state.loaded_game == True:
+    if initial_state.loaded_game is True:
         print('                            The game was loaded...')
     initial_state.loaded_game = False
     while True:
@@ -265,15 +276,16 @@ def town_zone():
             ingame_menu()
             print('                     Enter a number to select your destination')
 
+
 def enemy_zone_navigation():
     """
     Pulls sewers map from the spreadsheet and defines movement
     """
-    if initial_state.sewers == True:
+    if initial_state.sewers is True:
         location.enemy_zone = SHEET.worksheet(worksheets.sewers_map).get_all_values()
         location.x = 2
         location.y = 2
-    if initial_state.dessert == True:
+    if initial_state.dessert is True:
         location.enemy_zone = SHEET.worksheet(worksheets.dessert_map).get_all_values()
         location.x = 1
         location.y = 1
@@ -292,6 +304,7 @@ def enemy_zone_navigation():
                 return_to_town()
         zone_navigation_menu_input()
 
+
 def not_town_portal():
     """
     Checks if a tile the players is on is a town portal
@@ -309,6 +322,7 @@ def not_town_portal():
         battle()
         hero_stats.health_potion += 1
         initial_state.fight = False
+
 
 def zone_navigation_menu_input():
     """
@@ -341,16 +355,18 @@ def zone_navigation_menu_input():
         zone_navigation_menu()
         print('                      Use numers 1-4 to navigate the map')
 
+
 def zone_navigation_menu():
     """
     Calls enemy_zone_menu methot from Location class
     Shows message if players stash is full and they decide to not replace an old item with the new one
     """
     location.enemy_zone_menu()
-    if initial_state.sewers == True:
+    if initial_state.sewers is True:
         dungeon_image()
-    if initial_state.dessert == True:
+    if initial_state.dessert is True:
         dessert_image()
+
 
 def battle():
     """
@@ -362,16 +378,16 @@ def battle():
     if hero_stats.health > hero_stats.max_health:
         hero_stats.health = hero_stats.max_health
     # Selects enemies from a list based on location
-    if initial_state.sewers == True:
+    if initial_state.sewers is True:
         enemy_list = slice(2, 7)
-    if initial_state.dessert == True:
+    if initial_state.dessert is True:
         enemy_list = slice(7, 19)
-    while initial_state.fight: 
+    while initial_state.fight:
         enemy = tuple(random.choice(character_list[enemy_list]))
         if enemy[4] == location.current_location:
             # Once 'Radement' is killed stepping on his tile will create random enemy
-            if (enemy[0] == 'Radement' and initial_state.key == True) \
-                or (location.current_location == 'Sewers Hideout' and initial_state.treasure_chest == False):
+            if (enemy[0] == 'Radement' and initial_state.key is True) \
+                or (location.current_location == 'Sewers Hideout' and initial_state.treasure_chest is False):
                 enemy_list = slice(2, 5)
                 enemy = tuple(random.choice(character_list[enemy_list]))
             enemy_stats = Enemy(*enemy)
@@ -394,14 +410,15 @@ def battle():
         battle_menu(enemy_stats)
         battle_options(enemy_stats)
 
+
 def battle_menu(enemy_stats):
     """
     Display health of player and enemy and display menu options in battle
     Health bars were made following and altering to fit project https://www.youtube.com/watch?v=0e2DexQlDYk tutorial
     How to break up print method was taken from 'noddy' answer in https://stackoverflow.com/questions/45965007/multiline-f-string-in-python
     """
-    current_health_bar = round((hero_stats.health / hero_stats.max_health) *100) // 4
-    current_health_bar_enemy = round((enemy_stats.health / enemy_stats.max_health) *100) // 4
+    current_health_bar = round((hero_stats.health / hero_stats.max_health) * 100) // 4
+    current_health_bar_enemy = round((enemy_stats.health / enemy_stats.max_health) * 100) // 4
     lost_life_bar = 25 - current_health_bar
     lost_life_bar_enemy = 25 - current_health_bar_enemy
     print(' Your Life', ' ' * (60 - len(enemy_stats.name)), f"{enemy_stats.name}'s life")
@@ -414,6 +431,7 @@ def battle_menu(enemy_stats):
         f'{lost_life_bar_enemy * empty_life}{current_health_bar_enemy * full_life}\n')
     print('                       1. Attack                 2. Use Potion\n')
 
+
 def battle_options(enemy_stats):
     """
     Takes user input of a battle option and runs corresponding action
@@ -421,7 +439,7 @@ def battle_options(enemy_stats):
     while True:
         battle_option = input('\n')
         clear()
-        location_art() 
+        location_art()
         # Option to attack
         if battle_option == '1':
             battle_option_attack(enemy_stats)
@@ -439,13 +457,14 @@ def battle_options(enemy_stats):
                 battle_menu(enemy_stats)
                 print('                            You have no health pots')
         else:
-            if initial_state.first_attack == False:
+            if initial_state.first_attack is False:
                 print(f'                      You have been attacked by {enemy_stats.name}')
             else:
                 print(f'                     You have done {hero_stats.attack} damage to {enemy_stats.name}')
             print(f'                      {enemy_stats.name} has done {enemy_stats.attack} damage to you')
             battle_menu(enemy_stats)
             print('                   Type a number 1-n to select battle option')
+
 
 def battle_option_attack(enemy_stats):
     """
@@ -477,6 +496,7 @@ def battle_option_attack(enemy_stats):
         if enemy_stats.name == 'Duriel':
             game_win_logo()
             game_win()
+
 
 def item_drop():
     """
@@ -518,6 +538,7 @@ def item_drop():
                 print(f'                               You found {weapon[0]}\n')
                 print(f'           Press "Y" to replace {stash_sheet[2][0]} or "N" to pass on this item')
 
+
 def stash_open():
     """
     Display aquired items
@@ -546,6 +567,7 @@ def stash_open():
         else:
             stash_menu()
             print('                Type number to equip item or "E" to go back')
+
 
 def equip_weapon(equip, stash_sheet):
     """
@@ -581,6 +603,7 @@ def equip_weapon(equip, stash_sheet):
             stash_menu()
             print(f'               Type "Y" to confirm to equip {stash_sheet[int(equip)+1][0]} or "N" to cancel')
 
+
 def stash_menu():
     """
     Display stash menu
@@ -592,6 +615,7 @@ def stash_menu():
         print(' ' * 20, 'Select a number to equip the weapon\n')
     print('                                 E. Go back')
 
+
 def return_to_town():
     print('                       Would you like to return to town?Y/N')
     while True:
@@ -599,7 +623,6 @@ def return_to_town():
         clear()
         if town_portal.lower() == 'y':
             town_zone()
-            
         elif town_portal.lower() == 'n':
             location_art()
             zone_navigation_menu()
@@ -609,12 +632,14 @@ def return_to_town():
             zone_navigation_menu()
             print('                 Type in "y" to go back to town or "N" to stay')
 
+
 def clear():
     """
     Clears the screen on user input
     Taken from https://stackoverflow.com/questions/2084508/clear-terminal-in-python answer by 'poke'
     """
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def location_art():
     """
@@ -624,6 +649,7 @@ def location_art():
     print(' ' * (28 - round(len(location.current_location)/2)), '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-')
     print(' ' * (34 - round(len(location.current_location)/2)), f'>>►► {location.current_location} ◄◄<<     ')
     print(' ' * (28 - round(len(location.current_location)/2)), '-.;:~■-■---' + '~' * len(location.current_location) + '---■-■~:;.-\n')
+
 
 def vendor():
     """
@@ -652,13 +678,15 @@ def vendor():
         else:
             vendor_menu()
             print('                       Type 1-3 to select a menu option')
-            
+
+
 def vendor_menu():
     """
     Display vendors menu options
     """
     location_art()
     vendor_menu_main()
+
 
 def vendor_buy_menu():
     """
@@ -668,6 +696,7 @@ def vendor_buy_menu():
     print(' ' * 30, 'Your gold:' + ' ' * (7 - len(str(hero_stats.gold)) + 1) + f'{hero_stats.gold}')
     print(' ' * 30, 'Health_potion:' + ' ' * (4 - len(str(hero_stats.health_potion))) + f'{hero_stats.health_potion}\n')
     vendor_buy_menu_art()
+
 
 def vendor_buy_menu_option():
     """
@@ -684,6 +713,7 @@ def vendor_buy_menu_option():
             vendor()
         else:
             print('                    Press "1" to buy item or "R" to go back')
+
 
 def vendor_buy_select():
     """
@@ -711,6 +741,7 @@ def vendor_buy_select():
             vendor_buy_menu()
             print('                 Type "Y" to confirm or "N" no cancel purchase')
 
+
 def vendor_sell_menu():
     """
     Display vendors sell menu options
@@ -725,6 +756,7 @@ def vendor_sell_menu():
         vendor_sell_menu_empty()
     print('                                  R. Go Back')
 
+
 def vendor_sell_menu_option():
     """
     Takes player input to navigate vendors sell menu
@@ -734,6 +766,7 @@ def vendor_sell_menu_option():
         clear()
         vendor_sell_input(sell)
         return False
+
 
 def vendor_sell_input(sell):
     """
@@ -756,7 +789,7 @@ def vendor_sell_input(sell):
         vendor_sell_menu()
         print(f'                  Type number to sell item or "R" to go back')
         vendor_sell_menu_option()
-        
+
 
 def vendor_sell_select(sell, stash_sheet):
     """
@@ -782,6 +815,7 @@ def vendor_sell_select(sell, stash_sheet):
             vendor_sell_menu()
             print(f'              Type "Y" to confirm the sale of {stash_sheet[int(sell)+1][0]} "N" to cancel')
 
+
 def vendor_gossip_back():
     """
     Vendor gossip navigation
@@ -795,6 +829,7 @@ def vendor_gossip_back():
             location_art()
             vendor_gossip()
             print('                          Type "R" to go back to menu')
+
 
 def game_win():
     """
@@ -811,13 +846,13 @@ def game_win():
             game_win_logo()
             print('                 Type "Y" to continue the game and "N" to quit')
 
+
 def character_info():
     """
     Display character info
     """
     location_art()
     hero_stats.stats()
-    
     while True:
         go_back = input('\n')
         clear()
@@ -833,5 +868,6 @@ def character_info():
                 return False
         else:
             print('                             Press "W" to go back')
+
 
 main()
